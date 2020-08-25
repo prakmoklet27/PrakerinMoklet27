@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="frankynew_academy_menu_root" name="Academy" sequence="20"/>
+
+    <menuitem id="frankynew_academy_master_menu_categ" name="Data Master" parents="frankynew_academy_menu_root" sequence="20"/>
+</odoo>

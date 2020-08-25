@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="frankynew_course_action" model="ir.actions.act_window">
+      <field name="name">frankynew.course.action</field>
+      <field name="type">ir.action.action_window</field>
+      <field name="res_model">frankynew_course</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_type">form</field>
+      <field name="help" type="html">
+      </field>
+      </record>
+
+      <menuitem
+        id="frankynew_course_menu_act"
+        name="Course"
+        parent="frankynew_academy_master_menu_categ"
+        action="frankynew_course_action"
+        sequence="10"/>
+</odoo>
