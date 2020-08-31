@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Create top menu -->
+  <menuitem id="custom_top_menu" name="Top Menu"/>
+  <!-- Create sub child menu -->
+  <menuitem id="custom_sub_menu" name="Sub Child Menu" parent="custom_top_menu"/>
+  <!-- Define custom_action -->
+  <record id="custom_action" model="ir.actions.act_window">
+    <field name="name">Child Menu</field>
+    <field name="res_model">custom.model</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create new item!
+        </p>
+    </field>
+  </record>
+  <!-- Create child menu/Action menu-->
+  <menuitem id="custom_child_menu" name="Child Menu" parent="custom_sub_menu" action="custom_action"/>
+</odoo>
