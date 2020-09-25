@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 	<data>
-		<template id="asset_frontend" inherit_id="website.assets_frontend" name="Theme Hub Frontend">
+		<template id="asset_frontend" inherit_id="web.assets_frontend" name="Theme Hub Frontend">
 			<xpath expr="." position="inside">
 				<link href="https://fonts.googleapis.com/css2?family=Allerta&amp;display=swap" rel="stylesheet"/>
 				<link href="/erups_question/static/src/css/style.css" rel="stylesheet" />

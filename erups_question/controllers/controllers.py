@@ -17,7 +17,7 @@ ssl=True)
 
 class Erups(http.Controller):
 
-    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8'   )
     
     def __init__(self):
         self._model_erups = "erups"
@@ -35,26 +35,27 @@ class Erups(http.Controller):
         
     @http.route('''/home''',type='http', auth='public', website=True)
     def home(self, **params):
-        url = '/web/login'
+        url = ' '
         return http.request.redirect(url)
         
     @http.route('''/admin''',type='http', auth='public', website=True)
     def admin(self, **params):
         url = '/web/login'
         return http.request.redirect(url)
-
-    @http.route('''/register/''',type='http', auth='public', website=True)
-    def register(self, **params):
-        return request.render("erups_question.register", {})
-
-    @http.route('''/login/''',type='http',auth='public', website=True)
-    def login(self, **params):
-        return request.render("erups_question.login", {})
     
     @http.route('''/''',type='http', auth='public', website=True)
     def admin(self, **params):
         url = '/formpertanyaan'
         return http.request.redirect(url)
+
+    @http.route('''/register''',type='http', auth='public', website=True)
+    def register(self, **params):
+        return request.render("erups_question.register", {})
+
+    @http.route('''/thanks''',type='http', auth='public', website=True)
+    def thanks(self, **params):
+        request.env['erups_registrasi'].sudo().create(params)
+        return request.render("erups_question.thanks", {})
 
     @http.route(['''/formpertanyaan''', '''/formpertanyaan/<int:erups_id>'''], auth='public', website=True)
     def index(self, erups_id=None, **params):
@@ -154,7 +155,7 @@ class Erups(http.Controller):
                 rec_save = request.env[self._model_erups_question].sudo().create(data)
                 if rec_save:
                     #return http.request.render('erups_question.terimakasih')
-                    url = '/thankyou/'
+                    url = '/thankyou'
                     return http.request.redirect(url)
                 else:
                     values = {
@@ -184,7 +185,7 @@ class Erups(http.Controller):
             'base_url': 'terimakasih telah mengisi pertanyaan',
         }
         return http.request.render('erups_question.terimakasih', values)
-
+    
     @http.route('/viki', auth='public', methods=['GET'], website=True)
     def viki(self, **params):
 
@@ -267,3 +268,4 @@ class Erups(http.Controller):
 #         return http.request.render('erups_question.object', {
 #             'object': obj
 #         })
+

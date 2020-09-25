@@ -584,6 +584,39 @@
 							minlength: jQuery.validator.format("No.registrasi harus {0} digit."),
 						});
 					});
+					$("#register").validate({
+							rules: {
+								no_sid: {
+									"required" : true,
+									"minlength" : 13,
+									"maxlength" : 13,
+								},
+								email: {
+									"email" : true,
+								},
+								name: "required"
+							},
+							messages: {
+								no_sid: {
+									"required": "No. SID Harus Berisikan 13 Angka",
+									"minlenght": "",
+								},
+								email: {
+									email: "Silakan isi alamat email yang valid",
+								},
+								name: "Nama Pemegang Saham wajib diisi"
+							},
+							submitHandler: function (form) {
+								$("#Modalconfirm").modal('show');
+								$('#submitForm').click(function () {
+									form.submit();
+							});
+							}
+						});
+						jQuery.extend(jQuery.validator.messages, {
+							minlength: jQuery.validator.format("No.SID harus {0} digit."),
+						});
+					});
 				]]>
 				</script>
 			</t>
@@ -617,10 +650,67 @@
 			</t>
 		</template>
 
-<template id="register" name="register page">
+		<!-- <record id="menu_register">
+			<field name="name">Register</field>
+			<field name="url">/register</field>
+			<field name="parent_id" ref="website.main_menu"/>
+			<field name="sequence">55</field>
+		</record> -->
+
+		<!-- <template id="register" name="Registrasi">
 			<t t-call="website.layout">
 				<div class="container">
+					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
+						<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
+							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
+							<h2 class="font-weight-bold">Menu Registrasi</h2>
+						</div>
+					</div>	
+					<div class="row mx-1 d-flex align-items-center justify-content-center">
+							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
+								<div class="card-body">
+									<form action="/thanks" role="form" method="POST">
+										<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+										<div class="form-gorup">
+											<label for="no_sid" class="control-label">NO.SID</label>
+											<input type="number" name="no_sid" t-att-value="no_sid" id="no_sid"
+												   class="form-control" placeholder="Enter No.SID" required="required" />
+										</div>
+										<div class="form-gorup">
+											<label for="name" class="control-label">Nama Pemegang Saham</label>
+											<input type="text" name="name" t-att-value="name" id="name"
+												   class="form-control" placeholder="Enter Name" required="required" />
+										</div>
+										<div class="form-gorup">
+											<label for="email" class="control-label">Email</label>
+											<input type="text" name="email" t-att-value="email" id="email"
+												   class="form-control" placeholder="Enter Email" required="required" />
+										</div>
+										<div class="form-gorup">
+											<label for="kehadiran" class="control-label">Kehadiran</label>
+											<select class="form-control" name="" required="" style="width:100% !important">
+												<option style="width:100% !important" class="text-body">...</option>
+												<option style="width:100% !important" class="text-body">Secara Langsung</option>
+												<option style="width:100% !important" class="text-body">Online</option>	
+												<option style="width:100% !important" class="text-body">Perwakilan</option>	
+											</select>
+										</div>
+										<div class="clearfix oe_login_buttons">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+					</div>
+				</div>
+			</t>
+		</template> -->
 
+		<template id="register" name="Register">
+			<t t-call="website.layout">
+				<div class="container">
 					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
 						<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
 							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
@@ -630,6 +720,9 @@
 						</div>
 					</div>
 
+					<form id="registrasiForm" action="/thanks" method="post">
+						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+					
 					<div class="row mx-1 d-flex align-items-center justify-content-center">	
 							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
 								<div class="card-body">
@@ -641,13 +734,13 @@
 									<div class="row">	
 										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<div class="form-group">
-												<input type="text" class="form-control" name="registration_number" required="" minlength="13" maxlength="13"/>
+												<input type="number" class="form-control" name="no_sid" required=""/>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+					</div>
 
 						<div class="row mx-1 d-flex align-items-center justify-content-center">	
 							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
@@ -708,14 +801,14 @@
 										</div>
 									</div>
 								</div>
-							</div>
+						</div>
 
 							<div class="row mx-1 d-flex align-items-center justify-content-center">	
 								<div class="card mt-2 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
 									<div class="card-body">
 										<div class="row">
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-												<p class="font-weight-bold"><span class="float-left">Kehadiran</span> <span class="float-right"></span></p>
+												<p class="font-weight-bold"><span class="float-left">Pilihan Suara</span> <span class="float-right"></span></p>
 											</div>
 										</div>
 										<div class="row">
@@ -732,59 +825,40 @@
 											</div>
 										</div>
 										<div class="modal-footer">
-											<button type="submit" class="btn btn-primary" role="button">Kirim</button>
-											<a href="/register" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
+											<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
+											<a href="/web/login" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
 										</div>
 									</div>
 								</div>
 							</div>
-					</div>
+					</form>
+				</div>
 				</t>
 		</template>
 
-<template id="login" name="login_page">
+
+		<template id="thanks">
 			<t t-call="website.layout">
-				<div>
-					<div>
-							<h2 class="font-weight-bold" style="margin-left:400px;">Login</h2>
-						</div>
-					<form>
-						<div class="row mx-1 d-flex align-items-center justify-content-center">	
-							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-								<div class="card-body">
-								<div class="row">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Email *</span> <span class="float-right"></span></p>
-										</div>
-									</div>
-									<div class="row">	
-										<div class="col-xl-6 xol-lg-4 col-md-4 col-sm-8 col-8">
-											<div class="form-group">
-												<input type="text" class="form-control" name="" required="" id="Login"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Password *</span> <span class="float-right"></span></p>
-										</div>
-									</div>
-									<div class="row">	
-										<div class="col-xl-6 xol-lg-4 col-md-4 col-sm-8 col-8">
-											<div class="form-group">
-												<input type="text" class="form-control" name="" required="" id="Login"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<button type="submit" class="btn btn-primary" role="button">LOGIN</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
+			  <div class="container">
+				  <div class="row d-flex align-items-center justify-content-center mt-4">
+					  <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
+						  <div class="jumbotron text-center">
+							  <h1 class="text-center">Terimakasih</h1>
+							  <hr />
+							  <h4 class="text-center">Anda sudah terdaftar</h4>
+							  <hr />
+							  <div class="figure">
+								  <p class="lead">
+									  <a class="btn btn-primary btn-lg" href="/web/login" role="button"> Login </a>
+								  </p>
+								  <hr />
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
 			</t>
-		</template>
+	  </template>
+
 	</data>
 </odoo>
