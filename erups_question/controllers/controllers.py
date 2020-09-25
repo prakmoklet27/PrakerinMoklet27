@@ -33,10 +33,10 @@ class Erups(http.Controller):
     #     })
     #     return "message sent"
         
-    @http.route('''/''',type='http', auth='public', website=True)
-    def home(self, **params):
-        url = '/login/'
-        return http.request.redirect(url)
+    # @http.route('''/''',type='http', auth='public', website=True)
+    # def home(self, **params):
+    #     url = '/login'
+    #     return http.request.redirect(url)
         
     @http.route('''/admin''',type='http', auth='public', website=True)
     def admin(self, **params):

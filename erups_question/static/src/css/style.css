@@ -126,11 +126,6 @@ body.modal-open {
     color: hsl(231, 100%, 49%);
 }
 
-.oe_website_login_container {
-    margin-left: 600px;
-    margin-top: -100px;
-}
-
 
 
 
@@ -299,7 +294,7 @@ a:hover{
 	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
 	background-size: 200%;
 	font-size: 1.2rem;
-	color: #fff;
+	color: rgb(0, 0, 0);
 	font-family: 'Poppins', sans-serif;
 	text-transform: uppercase;
 	margin: 1rem 0;
