@@ -1,6 +1,6 @@
 body {
     font-family: 'Allerta', sans-serif;
-    background-color: aliceblue;
+    background-color: #f1f2f2;
 }
 
 .jumbotron {
@@ -125,13 +125,6 @@ body.modal-open {
     font-style: italic;
     color: hsl(231, 100%, 49%);
 }
-
-
-
-
-
-
-
 
 .wave{
 	position: fixed;
