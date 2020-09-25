@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.module.category" id="rups_category">
+      <field name="name">Telkom RUPS Role</field>
+      <field name="sequence">1</field>
+    </record>
+
+    <record id="group_erups_bae" model="res.groups">
+      <field name="name">BAE</field>
+      <field name="category_id" ref="erups_question.rups_category"/>
+    </record>
+
+    <record id="group_erups_consultant" model="res.groups">
+      <field name="name">Konsultan Hukum</field>
+      <field name="category_id" ref="erups_question.rups_category"/>
+    </record>
+
+    <record id="group_erups_speaker" model="res.groups">
+      <field name="name">Nara Sumber</field>
+      <field name="category_id" ref="erups_question.rups_category"/>
+    </record>
+
+    <record id="group_erups_notaris" model="res.groups">
+      <field name="name">Notaris</field>
+      <field name="category_id" ref="erups_question.rups_category"/>
+    </record>
+
+    <record id="group_erups_admin" model="res.groups">
+      <field name="name">Admin</field>
+      <field name="category_id" ref="erups_question.rups_category"/>
+    </record>
+
+
+<!--    <record id="group_ProjectName_manager" model="res.groups">-->
+<!--      <field name="name">Manager</field>-->
+<!--      <field name="category_id" ref="ProjectName.ProjectName_category"/>-->
+<!--      <field name="implied_ids" eval="[(4, ref('group_ProjectName_employee'))]"/>-->
+<!--      <field name="users" eval="[(4, ref('base.user_root'))]"/>-->
+<!--    </record>-->
+
+    
+  </data>
+</odoo>
