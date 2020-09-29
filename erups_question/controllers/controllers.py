@@ -59,7 +59,6 @@ class Erups(http.Controller):
 
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self, **params):
-        request.env['erups_registrasi'].sudo().create(params)
         return request.render("erups_question.thanks", {})
 
     @http.route('''/pertanyaan''',type='http', auth='public', website=True)
@@ -210,7 +209,7 @@ class Erups(http.Controller):
             "name" : post['name'],
             "email" : post['email'],
             "kehadiran" : post['kehadiran'],
-            'suara' : post['suara']
+            "pilihan_suara" : post['pilihan_suara']
         }
 
         # sql3 = "SELECT * FROM erups_registrasi WHERE kehadiran = 'perwakilan';"

@@ -721,7 +721,7 @@
 						</div>
 					</div>
 
-					<form id="registrasiForm" action="/thanks" method="post">
+					<form id="registrasiForm" action="/register/save" method="post">
 						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 					
 					<div class="row mx-1 d-flex align-items-center justify-content-center">	
