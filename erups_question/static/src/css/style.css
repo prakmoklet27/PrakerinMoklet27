@@ -263,6 +263,10 @@ body.modal-open {
 .input-div.pass{
 	margin-bottom: 4px;
 }
+.img-fluid {
+	width: 100px;
+	margin-left: 50px;
+}
 
 a{
 	display: block;
@@ -275,6 +279,9 @@ a{
 
 a:hover{
 	color: #38d39f;
+}
+.btn {
+	margin-left: 240px;
 }
 
 .btnSubmit{

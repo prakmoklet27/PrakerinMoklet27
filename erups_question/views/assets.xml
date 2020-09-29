@@ -8,6 +8,7 @@
 				<link href="/erups_question/static/src/css/bootstrap-select.min.css" rel="stylesheet" />
                 <script src="/erups_question/static/src/js/custom.js"/>
 				<script src="/erups_question/static/src/js/bootstrap-select.min.js"/>
+				<script src="/erups_question/static/src/js/kit.fontawesome.js"></script>
 			</xpath>
 		</template>
 

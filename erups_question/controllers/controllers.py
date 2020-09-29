@@ -4,6 +4,7 @@ from odoo import http, _,exceptions
 from odoo.http import request
 import time
 import locale
+import random
 
 from pusher import Pusher
 
@@ -38,15 +39,15 @@ class Erups(http.Controller):
     #     url = ' '
     #     return http.request.redirect(url)
 
-    # @http.route('''/''',type='http', auth='public', website=True)
-    # def admin(self, **params):
-    #     url = '/formpertanyaan'
-    #     return http.request.redirect(url)
-        
-    @http.route('''/admin''',type='http', auth='public', website=True)
-    def admin(self, **params):
-        url = '/web/login'
+    @http.route('''/''',type='http', auth='public', website=True)
+    def home(self, **params):
+        url = '/formpertanyaan'
         return http.request.redirect(url)
+        
+    # @http.route('''/admin''',type='http', auth='public', website=True)
+    # def admin(self, **params):
+    #     url = '/web/login'
+    #     return http.request.redirect(url)
 
     @http.route('''/register''',type='http', auth='public', website=True)
     def register(self, **params):
@@ -194,7 +195,55 @@ class Erups(http.Controller):
             'base_url': 'terimakasih telah mengisi pertanyaan',
         }
         return http.request.render('erups_question.terimakasih', values)
-    
+
+    @http.route('''/perwakilanForm''',type='http', auth='public', website=True)
+    def perwakilan(self, **params):
+        return request.render("erups_question.perwakilanForm", {})
+
+    @http.route('''/register/save''',type='http', auth='public',mothods=['POST'], website=True)
+    def reg_save(self, **post):
+             
+        # rups_id = post['rups_id']
+
+        data = {
+            "no_sid" : post['no_sid'],
+            "name" : post['name'],
+            "email" : post['email'],
+            "kehadiran" : post['kehadiran'],
+            'suara' : post['suara']
+        }
+
+        # sql3 = "SELECT * FROM erups_registrasi WHERE kehadiran = 'perwakilan';"
+        # request.env[self._model_erups_question].sudo()._cr.execute(sql3)
+        # kehadirancheck = request.cr.fetchall()
+
+        reg=request.env['erups_registrasi'].sudo().create(data)
+
+        if reg.kehadiran == 'perwakilan':
+            url='/perwakilanForm'
+            return http.request.redirect(url)
+        else:
+            url='/thanks'
+            return http.request.redirect(url)
+
+    @http.route('''/thanks''',type='http', auth='public', website=True)
+    def thanks(self,erups_id=None,**params):
+
+        # data = {
+        #     "no_sid": 'no_sid',
+        #     "name": 'name',
+        #     "email": 'email',
+        #     "kehadiran": 'kehadiran',
+        #     "pilihan_suara": 'pilihan_suara',
+        #     "nomor_registrasi": 'nomor_registrasi'],
+        # }
+
+        # nomor_registrasi = random.randint(1, 101)
+        # print(nomor_registrasi)
+
+        # request.env['erups_registrasi'].sudo().create(params)
+        return request.render("erups_question.thanks", {})
+
     @http.route('/viki', auth='public', methods=['GET'], website=True)
     def viki(self, **params):
 

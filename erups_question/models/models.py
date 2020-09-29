@@ -368,5 +368,7 @@ class Registrasi(models.Model):
 
     no_sid = fields.Char(string='No.Sid',required=True)
     name = fields.Char(string='Nama Pemegang Saham', required=True)
-    email = fields.Char()
+    email = fields.Char(string='Email', required=True)
     kehadiran = fields.Char() 
+    pilihan_suara = fields.Char() 
+    nomor_registrasi = fields.Char() 

@@ -3,8 +3,8 @@
 
 		<template id="header_footer_home_page" inherit_id="website.layout" name="Header Footer HomePage">
 			<xpath expr="//div[@id='wrapwrap']/header/nav" position="replace">
-				<header>
-
+				<header class="row mx-1 d-flex align-items-left justify-content-left my-4">
+					<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
 				</header>
 			</xpath>
 
@@ -97,12 +97,10 @@
 				<div class="container">
 
 					<div class="row my-4">
-						<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
+						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
 							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
-						</div>
-						<div class="col-xl-7 col-lg-7 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<h1 class="font-weight-bold">  </h1>
-						</div>
+						</div> -->
+						
 					</div>
 						
 					<div class="row">
@@ -135,6 +133,10 @@
 												</div>
 											</div>
 										</div>
+									</div>
+									<div class="modal-footer">
+										<h1 class="font-weight-bold">  </h1>
+										<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;					
 									</div>
 								</div>
 							</t>
@@ -196,9 +198,9 @@
 				<div class="container">
 
 					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
-						<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
+						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
 							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
-						</div>
+						</div> -->
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
 							<h2 class="font-weight-bold">FORM PERTANYAAN</h2>
 						</div>
@@ -589,7 +591,6 @@
 								no_sid: {
 									"required" : true,
 									"minlength" : 13,
-									"maxlength" : 13,
 								},
 								email: {
 									"email" : true,
@@ -708,15 +709,15 @@
 			</t>
 		</template> -->
 
-		<template id="register" name="Register">
+		<template id="register" name="Form Register">
 			<t t-call="website.layout">
 				<div class="container">
 					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
-						<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
+						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
 							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
-						</div>
+						</div> -->
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<h2 class="font-weight-bold">Menu Registrasi</h2>
+							<h2 class="font-weight-bold">Form Registrasi</h2>
 						</div>
 					</div>
 
@@ -790,11 +791,11 @@
 										<div class="row">
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 												<div class="form-group">
-												<select class="form-control" name="" required="" style="width:100% !important">
-												<option style="width:100% !important" class="text-body">...</option>
-												<option style="width:100% !important" class="text-body">Secara Langsung</option>
-												<option style="width:100% !important" class="text-body">Online</option>	
-												<option style="width:100% !important" class="text-body">Perwakilan</option>	
+												<select class="form-control link-style" name="kehadiran" required="" style="width:100% !important">
+													<option style="width:100% !important" class="text-body" value="0">...</option>
+													<option style="width:100% !important" class="text-body" value="langsung">Secara Langsung</option>
+													<option style="width:100% !important" class="text-body" value="online">Online</option>	
+													<option style="width:100% !important" class="text-body" value="perwakilan">Perwakilan</option>
 												</select>
 												</div>
 											</div>
@@ -814,12 +815,12 @@
 										<div class="row">
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 												<div class="form-group">
-												<select class="form-control" name="" required="" style="width:100% !important">
-												<option style="width:100% !important" class="text-body">...</option>
-												<option style="width:100% !important" class="text-body">Setuju</option>
-												<option style="width:100% !important" class="text-body">Tidak Setuju</option>	
-												<option style="width:100% !important" class="text-body">Abstain Per-Agenda</option>
-												<option style="width:100% !important" class="text-body">Mata Scara Rapat</option>
+												<select class="form-control" name="pilihan_suara" required="" style="width:100% !important">
+												<option style="width:100% !important" class="text-body" value="0">...</option>
+												<option style="width:100% !important" class="text-body" value="setuju">Setuju</option>
+												<option style="width:100% !important" class="text-body" value="tidak setuju">Tidak Setuju</option>	
+												<option style="width:100% !important" class="text-body" value="abstain">Abstain Per-Agenda</option>
+												<option style="width:100% !important" class="text-body" value="rapat">Mata Scara Rapat</option>
 												</select>
 												</div>
 											</div>
@@ -854,7 +855,7 @@
  			          		   </div>
  			          		   <div class="div">
   			         		   		<h5>Username</h5>
- 			          		   		<input type="text" class="input"/>
+ 			          		   		<input type="text" class="form-control"/>
   			         		   </div>
   			         		</div>
   			         		<div class="input-div pass">
@@ -863,7 +864,12 @@
   			         		   </div>
   			         		   <div class="div">
   			         		    	<h5>Password</h5>
-  			         		    	<input type="password" class="input"/>
+  			         		    	<input type="password" name="password" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
+                					<div class="input-group-append">
+                   						 <button class="btn btn-primary" type="button">
+                       					 <i class="fa fa-eye"></i>
+                    					</button>
+              						</div>
   			          	   </div>
   			          	</div>
   			          	<a href="/web/reset_password">Forgot Password?</a>
@@ -883,9 +889,9 @@
 				  <div class="row d-flex align-items-center justify-content-center mt-4">
 					  <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
 						  <div class="jumbotron text-center">
-							  <h1 class="text-center">Terimakasih</h1>
-							  <hr />
 							  <h4 class="text-center">Anda sudah terdaftar</h4>
+							  <hr />
+							  <h4 class="text-center">Nomor Registrasi anda adalah :</h4>
 							  <hr />
 							  <div class="figure">
 								  <p class="lead">
@@ -898,6 +904,29 @@
 				  </div>
 			  </div>
 			</t>
+	  </template>
+
+	  <template id="perwakilanForm" name="Form Perwakilan">
+		<t t-call="website.layout">
+			<div class="container">
+				<div class="row d-flex align-items-center justify-content-center mt-4">
+					<div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
+						<div class="jumbotron text-center">
+							<h1 class="text-center">Terimakasih</h1>
+							<hr />
+							<h4 class="text-center">Anda sudah terwakilkan</h4>
+							<hr />
+							<div class="figure">
+								<p class="lead">
+									<a class="btn btn-primary btn-lg" href="/login" role="button"> Login </a>
+								</p>
+								<hr />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		  </t>
 	  </template>
 
 	</data>
