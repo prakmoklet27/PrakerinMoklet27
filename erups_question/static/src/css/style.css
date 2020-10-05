@@ -142,6 +142,14 @@ body.modal-open {
     grid-gap :7rem;
     padding: 0 2rem;
 }
+.container_register{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap :7rem;
+    padding: 0 2rem;
+}
 
 .imgBG{
 	display: flex;
@@ -155,6 +163,14 @@ body.modal-open {
 	align-items: center;
 	text-align: center;
 }
+.register-content{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+	margin-left: 680px;
+    margin-bottom: auto;
+}
 
 .imgBG img{
 	width: 500px;
@@ -163,12 +179,21 @@ body.modal-open {
 .oe_login_form{
 	width: 360px;
 }
+.oe_register_form{
+	width: 360px;
+}
 
 .login-content img{
     height: 100px;
 }
 
 .login-content h2{
+	margin: 15px 0;
+	color: #333;
+	text-transform: uppercase;
+	font-size: 2.9rem;
+}
+.register-content h2{
 	margin: 15px 0;
 	color: #333;
 	text-transform: uppercase;
@@ -186,6 +211,19 @@ body.modal-open {
 
 .login-content .input-div.one{
 	margin-top: 0;
+}
+.div {
+	width: 300px;
+	margin-left: auto;
+    margin-right: 30px;
+    margin-top: 20px;
+}
+.div h5 {
+	color: black;
+}
+.title {
+	margin-left: auto;
+	margin-right: 30px;
 }
 
 .i{
@@ -280,7 +318,7 @@ a{
 a:hover{
 	color: #38d39f;
 }
-.btn {
+.btn.btn-2 {
 	margin-left: 240px;
 }
 
@@ -310,14 +348,24 @@ a:hover{
 	.container_login{
 		grid-gap: 5rem;
 	}
+	.container_register{
+		grid-gap: 5rem;
+	}
 }
 
 @media screen and (max-width: 1000px){
 	.oe_login_form{
 		width: 290px;
 	}
+	.oe_register_form{
+		width: 290px;
+	}
 
 	.login-content h2{
+        font-size: 2.4rem;
+        margin: 8px 0;
+	}
+	.register-content h2{
         font-size: 2.4rem;
         margin: 8px 0;
 	}
@@ -331,6 +379,9 @@ a:hover{
 	.container_login{
 		grid-template-columns: 1fr;
 	}
+	.container_register{
+		grid-template-columns: 1fr;
+	}
 
 	.imgBG{
 		display: none;
@@ -341,6 +392,9 @@ a:hover{
 	}
 
 	.login-content{
+		justify-content: center;
+	}
+	.register-content{
 		justify-content: center;
 	}
 }

@@ -24,6 +24,7 @@ class Erups(http.Controller):
         self._model_erups = "erups"
         self._model_erups_agenda = "erups_agenda"
         self._model_erups_question = "erups_question"
+        self._model_erups_registrasi = "erups_registrasi"
         
     # @http.route('/message',type='http', auth='public', methods=['GET'])
     # def message(self, **params):
@@ -60,6 +61,15 @@ class Erups(http.Controller):
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self, **params):
         return request.render("erups_question.thanks", {})
+
+
+    @http.route('''/thanks_langsung''',type='http', auth='public', website=True)
+    def thanks_langsung(self, **params):
+        return request.render("erups_question.thanks_langsung", {})
+
+    @http.route('''/thanks_online''',type='http', auth='public', website=True)
+    def thanks_online(self, **params):
+        return request.render("erups_question.thanks_online", {})
 
     @http.route('''/pertanyaan''',type='http', auth='public', website=True)
     def admin(self, **params):
@@ -199,10 +209,25 @@ class Erups(http.Controller):
     def perwakilan(self, **params):
         return request.render("erups_question.perwakilanForm", {})
 
+    @http.route('''/login_check''',type='http',auth='public',mothods=['POST'], website=True)
+    def login_check(self, **post):
+
+        data = {
+            "name" : post['name'],
+            "email" : post['email']
+        }
+
+        sql5 = "SELECT * FROM erups_registrasi WHERE name = '%s' AND email = '%s' ;"  % (data['name'],data['email'])
+        request.env[self._model_erups_registrasi].sudo()._cr.execute(sql5)
+        user = request.cr.fetchall()
+        
+        if len(user) > 0 :
+            return request.render("erups_question.register", {})
+        else:
+            return request.render("erups_question.login", {})
+
     @http.route('''/register/save''',type='http', auth='public',mothods=['POST'], website=True)
     def reg_save(self, **post):
-             
-        # rups_id = post['rups_id']
 
         data = {
             "no_sid" : post['no_sid'],
@@ -212,35 +237,35 @@ class Erups(http.Controller):
             "pilihan_suara" : post['pilihan_suara']
         }
 
-        # sql3 = "SELECT * FROM erups_registrasi WHERE kehadiran = 'perwakilan';"
-        # request.env[self._model_erups_question].sudo()._cr.execute(sql3)
-        # kehadirancheck = request.cr.fetchall()
-
-        reg=request.env['erups_registrasi'].sudo().create(data)
-
-        if reg.kehadiran == 'perwakilan':
-            url='/perwakilanForm'
-            return http.request.redirect(url)
+        if post['kehadiran'] == '0':
+            values = {
+                'message' : 'Pilih Kehadiran Anda'
+            }
+            return request.render("erups_question.register", values)
         else:
-            url='/thanks'
-            return http.request.redirect(url)
+            if post['pilihan_suara'] == '0':
+                values = {
+                'message' : 'Pilih Suara Anda'
+                }
+                return request.render("erups_question.register", values)
+            else:
+                if post['kehadiran'] == 'langsung':
+                    request.env['erups_registrasi'].sudo().create(data)
+                    url='/thanks_langsung'
+                    return http.request.redirect(url)
+                else:
+                    if post['kehadiran'] == 'online':
+                        request.env['erups_registrasi'].sudo().create(data)
+                        url='/thanks_online'
+                        return http.request.redirect(url)
+                    else:
+                        request.env['erups_registrasi'].sudo().create(data)
+                        url='/perwakilanForm'
+                        return http.request.redirect(url)
+                            
 
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self,erups_id=None,**params):
-
-        # data = {
-        #     "no_sid": 'no_sid',
-        #     "name": 'name',
-        #     "email": 'email',
-        #     "kehadiran": 'kehadiran',
-        #     "pilihan_suara": 'pilihan_suara',
-        #     "nomor_registrasi": 'nomor_registrasi'],
-        # }
-
-        # nomor_registrasi = random.randint(1, 101)
-        # print(nomor_registrasi)
-
-        # request.env['erups_registrasi'].sudo().create(params)
         return request.render("erups_question.thanks", {})
 
     @http.route('/viki', auth='public', methods=['GET'], website=True)

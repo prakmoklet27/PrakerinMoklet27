@@ -369,6 +369,10 @@ class Registrasi(models.Model):
     no_sid = fields.Char(string='No.Sid',required=True)
     name = fields.Char(string='Nama Pemegang Saham', required=True)
     email = fields.Char(string='Email', required=True)
-    kehadiran = fields.Char() 
-    pilihan_suara = fields.Char() 
+    kehadiran = fields.Selection([('0','...'),('langsung','Secara Langsung'),
+                                ('online','Online'),('perwakilan','Perwakilan')],
+                                string='Kehadiran', required=True) 
+    pilihan_suara = fields.Selection([('0','...'),('setuju','Setuju'),
+                                ('tidak_setuju','Tidak Setuju'),('abstain','Abstain Per-Agenda'),
+                                ('rapat','Mata Acara Rapat')],string='Kehadiran', required=True) 
     nomor_registrasi = fields.Char() 
