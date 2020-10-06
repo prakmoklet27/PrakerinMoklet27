@@ -5,6 +5,9 @@ from odoo.http import request
 import time
 import locale
 import random
+import smtplib
+import os
+from email.message import EmailMessage
 
 from pusher import Pusher
 
@@ -222,7 +225,7 @@ class Erups(http.Controller):
         user = request.cr.fetchall()
         
         if len(user) > 0 :
-            return request.render("erups_question.register", {})
+            return request.render("erups_question.formpertanyaan", {})
         else:
             return request.render("erups_question.login", {})
 
@@ -234,8 +237,10 @@ class Erups(http.Controller):
             "name" : post['name'],
             "email" : post['email'],
             "kehadiran" : post['kehadiran'],
-            "pilihan_suara" : post['pilihan_suara']
+            # "pilihan_suara" : post['pilihan_suara']
         }
+
+        
 
         if post['kehadiran'] == '0':
             values = {
@@ -243,15 +248,29 @@ class Erups(http.Controller):
             }
             return request.render("erups_question.register", values)
         else:
-            if post['pilihan_suara'] == '0':
-                values = {
-                'message' : 'Pilih Suara Anda'
-                }
-                return request.render("erups_question.register", values)
-            else:
+            # if post['pilihan_suara'] == '0':
+            #     values = {
+            #     'message' : 'Pilih Suara Anda'
+            #     }
+            #     return request.render("erups_question.register", values)
+            # else:
                 if post['kehadiran'] == 'langsung':
                     request.env['erups_registrasi'].sudo().create(data)
                     url='/thanks_langsung'
+
+                    # EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
+                    # EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+
+                    # msg = EmailMessage()
+                    # msg['Subject'] = 'Aa'
+                    # msg['From'] = EMAIL_ADDRESS
+                    # msg['To'] = post['email']
+                    # msg.set_content('aaaaaaa')
+
+                    # with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
+                    #     smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+                    #     smtp.send_message(msg)
                     return http.request.redirect(url)
                 else:
                     if post['kehadiran'] == 'online':

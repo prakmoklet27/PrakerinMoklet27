@@ -372,7 +372,8 @@ class Registrasi(models.Model):
     kehadiran = fields.Selection([('0','...'),('langsung','Secara Langsung'),
                                 ('online','Online'),('perwakilan','Perwakilan')],
                                 string='Kehadiran', required=True) 
-    pilihan_suara = fields.Selection([('0','...'),('setuju','Setuju'),
-                                ('tidak_setuju','Tidak Setuju'),('abstain','Abstain Per-Agenda'),
-                                ('rapat','Mata Acara Rapat')],string='Kehadiran', required=True) 
+    # pilihan_suara = fields.Selection([('0','...'),('setuju','Setuju'),
+    #                             ('tidak_setuju','Tidak Setuju'),('abstain','Abstain Per-Agenda'),
+    #                             ('rapat','Mata Acara Rapat')],string='Kehadiran', required=True) 
     nomor_registrasi = fields.Char() 
+    # role = fields.Selection([('user','User'),('admin','Admin')],string='Role', required=True)
