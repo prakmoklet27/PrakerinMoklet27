@@ -888,7 +888,7 @@
  			          			<div style="margin-top:0px;" class="input-div sid">
  			          		   <div class="div">
   			         		   		<h5>No.SID</h5>
- 			          		   		<input type="number" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
+ 			          		   		<input type="text" class="form-control" name="no_sid" id="no_sid" minlength="13" maxlength="13"/>
   			         		   </div>
   			         		</div>
 							<div style="margin-top:0px;" class="input-div saham">
@@ -1001,7 +1001,7 @@
 						  <div class="jumbotron text-center">
 							  <h4 class="text-center">Anda sudah terdaftar</h4>
 							  <hr />
-							  <h4 class="text-center">Nomor Registrasi anda adalah :</h4>
+							  <h4 class="text-center">Nomor Registrasi anda adalah : </h4>
 							  <hr />
 							  <div class="figure">
 								  <p class="lead">
@@ -1024,7 +1024,7 @@
 						  <div class="jumbotron text-center">
 							  <h4 class="text-center">Anda sudah terdaftar</h4>
 							  <hr />
-							  <h4 class="text-center">Nomor Registrasi anda adalah :</h4>
+							  <h4 class="text-center">Nomor Registrasi anda adalah : <t t-esc="message"></t></h4>
 							  <hr />
 							  <div class="figure">
 								  <p class="lead">
