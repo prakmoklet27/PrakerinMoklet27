@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-
+import random
+import string
 
 class Erups(models.Model):
     _name = 'erups'
@@ -366,7 +367,7 @@ class Question(models.Model):
 class Registrasi(models.Model):
     _name = "erups_registrasi"
 
-    no_sid = fields.Char(string='No.Sid',required=True)
+    no_sid = fields.Char(string='NO.SID',required=True)
     name = fields.Char(string='Nama Pemegang Saham', required=True)
     email = fields.Char(string='Email', required=True)
     kehadiran = fields.Selection([('0','...'),('langsung','Secara Langsung'),
@@ -375,5 +376,8 @@ class Registrasi(models.Model):
     # pilihan_suara = fields.Selection([('0','...'),('setuju','Setuju'),
     #                             ('tidak_setuju','Tidak Setuju'),('abstain','Abstain Per-Agenda'),
     #                             ('rapat','Mata Acara Rapat')],string='Kehadiran', required=True) 
+    pemegang_saham = fields.Char()
     nomor_registrasi = fields.Char() 
+    password = fields.Char(string='Password')
     # role = fields.Selection([('user','User'),('admin','Admin')],string='Role', required=True)
+

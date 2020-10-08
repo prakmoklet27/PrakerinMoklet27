@@ -6,8 +6,7 @@ import time
 import locale
 import random
 import smtplib
-import os
-from email.message import EmailMessage
+import string
 
 from pusher import Pusher
 
@@ -60,6 +59,15 @@ class Erups(http.Controller):
     @http.route('''/login''',type='http',auth='public', website=True)
     def login(self, **params):
         return request.render("erups_question.login", {})
+    
+    @http.route('''/user''',type='http',auth='public', website=True)
+    def user(self, **params):
+        return request.render("erups_question.user", {})
+
+    @http.route('''/pemegangsaham''',type='http',auth='public', website=True)
+    def pemegangsaham(self, **params):
+        return request.render("erups_question.pemegangsaham", {})
+
 
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self, **params):
@@ -216,37 +224,61 @@ class Erups(http.Controller):
     def login_check(self, **post):
 
         data = {
-            "name" : post['name'],
-            "email" : post['email']
+            "email" : post['email'],
+            "password" : post['password']
         }
 
-        sql5 = "SELECT * FROM erups_registrasi WHERE name = '%s' AND email = '%s' ;"  % (data['name'],data['email'])
+        sql5 = "SELECT * FROM erups_registrasi WHERE email = '%s' AND password = '%s' ;"  % (data['email'],data['password'])
         request.env[self._model_erups_registrasi].sudo()._cr.execute(sql5)
         user = request.cr.fetchall()
         
         if len(user) > 0 :
-            return request.render("erups_question.formpertanyaan", {})
+            return request.render("erups_question.user", {})
         else:
             return request.render("erups_question.login", {})
 
     @http.route('''/register/save''',type='http', auth='public',mothods=['POST'], website=True)
     def reg_save(self, **post):
 
+        noreg=[]
+        for i in range(5):
+            numbers=random.choice(string.digits)    
+            noreg.append(numbers)
+
+        y="".join(str(x)for x in noreg)
+
+        passs=[]
+        for i in range(3):
+            alpha=random.choice(string.ascii_letters)
+            numbers=random.choice(string.digits)
+            passs.append(alpha)
+            passs.append(numbers)
+
+        z="".join(str(x)for x in passs)
+
         data = {
             "no_sid" : post['no_sid'],
             "name" : post['name'],
             "email" : post['email'],
             "kehadiran" : post['kehadiran'],
-            # "pilihan_suara" : post['pilihan_suara']
+            "pemegang_saham" : post['pemegang_saham'],
+            "nomor_registrasi" : y,
+            "password" : z
         }
 
-        
+        sender_email = "prakmoklet27@gmail.com"
+        password = "moklet12345"
+        message = z
 
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.starttls()
+        server.login(sender_email, password)
+        
         if post['kehadiran'] == '0':
             values = {
                 'message' : 'Pilih Kehadiran Anda'
             }
-            return request.render("erups_question.register", values)
+            return request.render("erups_question.messagepage", values)
         else:
             # if post['pilihan_suara'] == '0':
             #     values = {
@@ -255,26 +287,16 @@ class Erups(http.Controller):
             #     return request.render("erups_question.register", values)
             # else:
                 if post['kehadiran'] == 'langsung':
+                    values = {
+                        'message' : y
+                    }
                     request.env['erups_registrasi'].sudo().create(data)
-                    url='/thanks_langsung'
-
-                    # EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
-                    # EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
-
-                    # msg = EmailMessage()
-                    # msg['Subject'] = 'Aa'
-                    # msg['From'] = EMAIL_ADDRESS
-                    # msg['To'] = post['email']
-                    # msg.set_content('aaaaaaa')
-
-                    # with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
-                    #     smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-
-                    #     smtp.send_message(msg)
-                    return http.request.redirect(url)
+                    server.sendmail(sender_email, post['email'], message)
+                    return request.render("erups_question.thanks_langsung", values)
                 else:
                     if post['kehadiran'] == 'online':
                         request.env['erups_registrasi'].sudo().create(data)
+                        server.sendmail(sender_email, post['email'], message)
                         url='/thanks_online'
                         return http.request.redirect(url)
                     else:
@@ -283,9 +305,9 @@ class Erups(http.Controller):
                         return http.request.redirect(url)
                             
 
-    @http.route('''/thanks''',type='http', auth='public', website=True)
-    def thanks(self,erups_id=None,**params):
-        return request.render("erups_question.thanks", {})
+    # @http.route('''/thanks''',type='http', auth='public', website=True)
+    # def thanks(self,erups_id=None,**params):
+    #     return request.render("erups_question.thanks", {})
 
     @http.route('/viki', auth='public', methods=['GET'], website=True)
     def viki(self, **params):

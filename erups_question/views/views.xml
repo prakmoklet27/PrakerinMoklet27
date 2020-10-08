@@ -544,8 +544,10 @@
                     <field name="name" string="Pemegang Saham"/>
                     <field name="email" string="Email"/>
                     <field name="kehadiran" string="Kehadiran"/>
-                    <field name="pilihan_suara" string="Pilihan Suara"/>
+                    <!-- <field name="pilihan_suara" string="Pilihan Suara"/> -->
                     <field name="nomor_registrasi" string="Nomor Registrasi"/>
+                    <field name="password" string="Password"/>
+                    <field name="pemegang_saham" string="Pemegang Saham"/>
                 </tree>
             </field>
         </record>

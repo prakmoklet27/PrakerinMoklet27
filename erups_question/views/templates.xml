@@ -660,7 +660,6 @@
 						jQuery.extend(jQuery.validator.messages, {
 							minlength: jQuery.validator.format("No.SID harus {0} digit."),
 						});
-					});
 				]]>
 				</script>
 			</t>
@@ -888,7 +887,7 @@
  			          			<div style="margin-top:0px;" class="input-div sid">
  			          		   <div class="div">
   			         		   		<h5>No.SID</h5>
- 			          		   		<input type="text" class="form-control" name="no_sid" id="no_sid" minlength="13" maxlength="13"/>
+ 			          		   		<input type="text" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
   			         		   </div>
   			         		</div>
 							<div style="margin-top:0px;" class="input-div saham">
@@ -902,7 +901,7 @@
   			         		   		<h5>Email</h5>
  			          		 		<input type="email" class="form-control" name="email" required=""/>
   			         		   </div>
-  			         		</div> 
+							</div>
 							<div style="margin-top:0px;" class="input-div kehadiran">
 								<div class="div">
 									<h5>Kehadiran</h5>
@@ -917,11 +916,14 @@
 							<div id="ifYes" style="display: none;margin-top:0px;" class="input-div kehadiran">
 								<div class="div">
     								<h5 for="car">Nama Pemberi Kuasa</h5>
-								 	<input type="text" id="car" name="car" class="form-control"/><br />
+								 	<input type="text" name="pemegang_saham" class="form-control"/><br />
 								</div>
 								<div class="div">
 									<label for="myfile" >Upload File:</label>
   									<input style="margin-top:20px;" type="file" id="myfile" name="myfile"/><br></br>
+								</div>
+								<div class="div">
+  									<a href="/erups_question/static/src/img/artikel.svg" download="My-logo" style="margin-right:180px;">Download Form</a>
 								</div>
 							</div>
 							<!-- <div style="margin-top:0px;" class="input-div suara">
@@ -936,7 +938,7 @@
 									</select>
   			         		   </div>
   			         		</div> -->
-  			          		<div style="margin-top:50px;" class="modal-footer">
+  			          		<div style="margin-top:0px;" class="modal-footer">
 								<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
 								<a href="/login" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
 							</div>
@@ -946,6 +948,7 @@
   			  <script type="text/javascript" src="/erups_question/static/src/js/login.js"></script>
 			</t>
 		</template>
+
 
 
 <template id="login" name="login_page">
@@ -966,7 +969,7 @@
  			          		   </div>
  			          		   <div class="div">
   			         		   		<h5>Username</h5>
- 			          		   		<input type="text" class="form-control" name="name"/>
+ 			          		   		<input type="text" class="form-control" name="email"/>
   			         		   </div>
   			         		</div>
   			         		<div class="input-div pass">
@@ -975,7 +978,7 @@
   			         		   </div>
   			         		   <div class="div">
   			         		    	<h5>Password</h5>
-  			         		    	<input type="password" name="email" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
+  			         		    	<input type="password" name="password" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
                 					<div class="input-group-append">
                    						 <button class="btn btn-2 btn-primary" type="button">
                        					 <i class="fa fa-eye"></i>
@@ -993,7 +996,23 @@
 			</t>
 		</template>
 
-		<template id="thanks" name="Terima Kasih">
+		<template id="user" name="user">
+			<t t-call="website.layout">
+				<div class="container">
+					<P>Welcome User</P>
+				</div>
+			</t>
+		</template>
+
+		<template id="pemegangsaham" name="Pemegang Saham">
+			<t t-call="website.layout">
+				<div class="container">
+					<P>Welcome Pemegang Saham</P>
+				</div>
+			</t>
+		</template>
+
+		<!-- <template id="thanks" name="Terima Kasih">
 			<t t-call="website.layout">
 			  <div class="container">
 				  <div class="row d-flex align-items-center justify-content-center mt-4">
@@ -1014,7 +1033,7 @@
 				  </div>
 			  </div>
 			</t>
-	  </template>
+	  </template> -->
 
 		<template id="thanks_langsung" name="Terima Kasih">
 			<t t-call="website.layout">
@@ -1024,7 +1043,7 @@
 						  <div class="jumbotron text-center">
 							  <h4 class="text-center">Anda sudah terdaftar</h4>
 							  <hr />
-							  <h4 class="text-center">Nomor Registrasi anda adalah : <t t-esc="message"></t></h4>
+							  <h4 class="text-center">Nomor Registrasi anda adalah : <t t-esc='message'></t></h4>
 							  <hr />
 							  <div class="figure">
 								  <p class="lead">
