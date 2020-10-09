@@ -59,6 +59,10 @@ class Erups(http.Controller):
     @http.route('''/login''',type='http',auth='public', website=True)
     def login(self, **params):
         return request.render("erups_question.login", {})
+
+    @http.route('''/resetpassword''',type='http',auth='public', website=True)
+    def resetpassword(self, **params):
+        return request.render("erups_question.resetpassword", {})
     
     @http.route('''/user''',type='http',auth='public', website=True)
     def user(self, **params):
@@ -68,11 +72,9 @@ class Erups(http.Controller):
     def pemegangsaham(self, **params):
         return request.render("erups_question.pemegangsaham", {})
 
-
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self, **params):
         return request.render("erups_question.thanks", {})
-
 
     @http.route('''/thanks_langsung''',type='http', auth='public', website=True)
     def thanks_langsung(self, **params):

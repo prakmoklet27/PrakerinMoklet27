@@ -143,6 +143,18 @@ body.modal-open {
 	padding: 0 2rem;
 }
 
+.container_reset {
+	width: 100vw;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 7rem;
+	padding: 0 2rem;
+	margin-left: 350px;
+	margin-top: -140px;
+	margin-bottom: -100px;
+}
+
 .container_register {
 	width: 100vw;
 	height: 100vh;
@@ -159,6 +171,13 @@ body.modal-open {
 }
 
 .login-content {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+}
+
+.reset-content {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -184,6 +203,12 @@ body.modal-open {
 
 .oe_register_form {
 	width: 360px;
+}
+
+.oe_reset_password_form {
+
+	width: 300px;
+
 }
 
 .login-content img {
