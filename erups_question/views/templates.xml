@@ -117,7 +117,7 @@
 													<p><span class="fa fa-map-marker"></span>&amp;nbsp; AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
-													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/formpertanyaan/#{(e.id)}">
+													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/perwakilanForm/#{(e.id)}">
 													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
 														<button type="button" class="btn btn-success">
 															Open
@@ -951,7 +951,7 @@
 
 
 
-<template id="login" name="login_page">
+		<template id="login" name="login_page">
 			<t t-call="website.layout">
 				<img class="wave" src="/erups_question/static/src/img/bgWave.gif"/>
 				<div class="container_login">
@@ -1009,40 +1009,6 @@
 				<div class="container">
 					<P>Welcome Pemegang Saham</P>
 				</div>
-			</t>
-		</template>
-
-		<template id="resetpassword" name="reset_password">
-			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWave.gif"/>
-				<div class="container_reset">
-					<div class="reset-content">
-						<div t-if="message">
-                    		<p class="alert alert-success" t-if="message" role="status">
-                        		<t t-esc="message"/>
-                    		</p>
-                    		<a href="/login" class="btn btn-link float-right" role="button">Back to Login</a>
-                		</div>
-						<form class="oe_reset_password_form" role="form" method="post" t-if="not message">
-                  				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        	<div class="form-group field-login">
-                       	     <label for="login" class="col-form-label">Email Anda</label>
-                        	    <input type="text" name="login" t-att-value="login" id="login" class="form-control" autofocus="autofocus" required="required" autocapitalize="off"/>
-                        	</div>
-                    			<input type="hidden" name="redirect" t-att-value="redirect"/>
-                    			<input type="hidden" name="token" t-att-value="token"/>
-                    		<div class="clearfix oe_login_buttons">
-                        		<button type="submit" class="btn btn-primary btn-block">Konfirmasi</button>
-                        		<div class="d-flex justify-content-between align-items-center small mt-2">
-                        	    	<a t-if="not token" t-attf-href="/login{{ keep_query() }}">Kembali Ke Login</a>
-                        	    	<a t-if="invalid_token" href="/login">Kembali Ke Login</a>
-                        		</div>
-                        		<div class="o_login_auth"/>
-							</div>
-                		</form>
-  			      </div>
- 			   </div>
-  			  <script type="text/javascript" src="/erups_question/static/src/js/login.js"></script>
 			</t>
 		</template>
 
@@ -1114,8 +1080,8 @@
 		  </div>
 		</t>
   	</template>
-
-	  <template id="perwakilanForm" name="Form Perwakilan">
+	  
+	  <!-- <template id="perwakilanForm" name="Form Perwakilan">
 		<t t-call="website.layout">
 			<div class="container">
 				<div class="row d-flex align-items-center justify-content-center mt-4">
@@ -1136,7 +1102,139 @@
 				</div>
 			</div>
 		  </t>
-	  </template>
+	  </template> -->
+
+	  <template id="resetpassword" name="reset_password">
+			<t t-call="website.layout">
+				<img class="wave" src="/erups_question/static/src/img/bgWave.gif"/>
+				<div class="container_reset">
+					<div class="reset-content">
+						<div t-if="message">
+                    		<p class="alert alert-success" t-if="message" role="status">
+                        		<t t-esc="message"/>
+                    		</p>
+                    		<a href="/login" class="btn btn-link float-right" role="button">Back to Login</a>
+                		</div>
+						<form class="oe_reset_password_form" role="form" method="post" t-if="not message">
+                  				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        	<div class="form-group field-login">
+                       	     <label for="login" class="col-form-label">Email Anda</label>
+                        	    <input type="text" name="login" t-att-value="login" id="login" class="form-control" autofocus="autofocus" required="required" autocapitalize="off"/>
+                        	</div>
+                    			<input type="hidden" name="redirect" t-att-value="redirect"/>
+                    			<input type="hidden" name="token" t-att-value="token"/>
+                    		<div class="clearfix oe_login_buttons">
+                        		<button type="submit" class="btn btn-primary btn-block">Konfirmasi</button>
+                        		<div class="d-flex justify-content-between align-items-center small mt-2">
+                        	    	<a t-if="not token" t-attf-href="/login{{ keep_query() }}">Kembali Ke Login</a>
+                        	    	<a t-if="invalid_token" href="/login">Kembali Ke Login</a>
+                        		</div>
+                        		<div class="o_login_auth"/>
+							</div>
+                		</form>
+  			      </div>
+ 			   </div>
+  			  <script type="text/javascript" src="/erups_question/static/src/js/login.js"></script>
+			</t>
+		</template>
+		
+		<template id="Evoting" name="E-voting">
+			<t t-call="website.layout">
+				<div class="container">
+
+					<div class="row my-4">
+						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
+							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
+						</div> -->
+						
+					</div>
+						
+					<div class="row">
+						<t t-if="Evoting">
+							<t t-foreach="Evoting" t-as="e">
+								<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-8">
+													<p><t t-esc="e.name"/></p>
+													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;Jum'at, 19 Juni 2020</p> -->
+													<p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p>
+													<p><span class="fa fa-map-marker"></span>&amp;nbsp; AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
+												</div>
+												<div class="col-4 d-flex align-items-center justify-content-center">
+													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/perwakilanForm/#{(e.id)}">
+													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
+														<button type="button" class="btn btn-success">
+															Open
+														</button>
+													</a>
+													<button t-if="e.status == 'close' or message == 0" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
+														Closed
+													</button> 
+													<!-- <t t-esc="message"/> -->
+												</div>
+												<div class="col-12 d-flex align-items-center justify-content-center">
+													<p class="italia" t-if="e.status == 'close' or message == 0">&amp;nbsp;Sesi tanya jawab belum dibuka</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</t>
+						</t>
+						<t t-else="">
+							<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12 d-flex align-items-center justify-content-center">
+											</div>
+											<div class="col-12">
+												<p> <center> Data tidak tersedia </center></p>
+											</div>
+											<div class="col-12 d-flex align-items-center justify-content-center">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</t>
+					</div>
+
+						<!-- <table class="table">
+								<thead>
+									<tr>
+										<th>Nama Kegiatan</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="erups" t-as="e">
+										<tr>
+											<td><t t-esc="e.name"/></td>
+											<td>
+												<a t-if="e.status == 'open'" t-attf-href="/formpertanyaan/#{(e.id)}">
+													<button type="button" class="btn btn-success">
+													open
+													</button>
+												</a>
+												<button t-if="e.status == 'close'" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
+													close
+												</button> 
+											</td>
+										</tr>
+									</t>
+								</tbody>
+							</table> -->
+						<div class="modal-footer">
+							<h1 class="font-weight-bold">  </h1>
+							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;					
+						</div>
+				</div>
+			</t>
+		</template>
+	  
 
 	</data>
 </odoo>

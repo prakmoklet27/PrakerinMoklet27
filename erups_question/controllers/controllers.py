@@ -7,7 +7,6 @@ import locale
 import random
 import smtplib
 import string
-
 from pusher import Pusher
 
 # configure pusher object
@@ -59,10 +58,6 @@ class Erups(http.Controller):
     @http.route('''/login''',type='http',auth='public', website=True)
     def login(self, **params):
         return request.render("erups_question.login", {})
-
-    @http.route('''/resetpassword''',type='http',auth='public', website=True)
-    def resetpassword(self, **params):
-        return request.render("erups_question.resetpassword", {})
     
     @http.route('''/user''',type='http',auth='public', website=True)
     def user(self, **params):
@@ -72,9 +67,15 @@ class Erups(http.Controller):
     def pemegangsaham(self, **params):
         return request.render("erups_question.pemegangsaham", {})
 
+    @http.route('''/resetpassword''',type='http',auth='public', website=True)
+    def resetpassword(self, **params):
+        return request.render("erups_question.resetpassword", {})
+
+
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self, **params):
         return request.render("erups_question.thanks", {})
+
 
     @http.route('''/thanks_langsung''',type='http', auth='public', website=True)
     def thanks_langsung(self, **params):
@@ -200,6 +201,52 @@ class Erups(http.Controller):
                 }
                 return http.request.render('erups_question.messagepage',values)
 
+    @http.route(['''/perwakilanForm''', '''/perwakilanForm/<int:erups_id>'''], auth='public', website=True)
+    def index2(self, erups_id=None, **params):
+        
+        sql2 = "SELECT * FROM erups_question eq LEFT JOIN erups_agenda ea ON ea.id = eq.agenda_id WHERE ea.status = 'open';"
+        request.env[self._model_erups_question].sudo()._cr.execute(sql2)
+        questioncheck = request.cr.fetchall()
+        
+        sql3 = "SELECT * FROM erups_agenda WHERE status = 'open';"
+        request.env[self._model_erups_question].sudo()._cr.execute(sql3)
+        agendacheck = request.cr.fetchall()
+        
+        if erups_id == None:
+            erups = http.request.env[self._model_erups].sudo().search([])
+            values = {
+                "erups": erups,
+                "message": len(agendacheck),
+            }
+            print(erups)
+            return http.request.render('erups_question.Evoting', values)
+        else:
+            sql1 = "SELECT * FROM erups WHERE id = '%s';" % (erups_id)
+            request.env[self._model_erups_question].sudo()._cr.execute(sql1)
+            res = request.cr.fetchall()
+            if len(res) > 0:
+                erups = http.request.env[self._model_erups].sudo().search(
+                    [('id', '=', erups_id)])
+                agenda = http.request.env[self._model_erups_agenda].sudo().search(
+                    [('erups_id', '=', erups_id),('status', '=', 'open')],order='id asc')
+                
+                if erups.status == 'close':
+                    url = '/formpertanyaan/'
+                    return http.request.redirect(url)
+                else:
+                    values = {
+                        "erups": erups,
+                        "agenda": agenda,
+                        "message": len(questioncheck),
+                    }
+                    print(erups)
+                    return http.request.render('erups_question.form_question', values)
+            else:
+                values = {
+                    "message":  'Kegiatan tidak ditemukan',
+                }
+                return http.request.render('erups_question.pagenotfound',values)
+
     @http.route('/thankyou', auth='public', methods=['GET'], website=True)
     def thankyou(self, **params):
 
@@ -220,6 +267,10 @@ class Erups(http.Controller):
 
     @http.route('''/perwakilanForm''',type='http', auth='public', website=True)
     def perwakilan(self, **params):
+        return request.render("erups_question.perwakilanForm", {})
+
+    @http.route('''/perwakilan''',type='http', auth='public', website=True)
+    def perwakilan_kuasa(self, **params):
         return request.render("erups_question.perwakilanForm", {})
 
     @http.route('''/login_check''',type='http',auth='public',mothods=['POST'], website=True)
