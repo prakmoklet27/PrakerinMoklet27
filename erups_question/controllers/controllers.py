@@ -445,7 +445,7 @@ class Erups(http.Controller):
                             return http.request.redirect(url)
                         else:
                             request.env['erups_registrasi'].sudo().create(data)
-                            url='/Evoting'
+                            url='/evoting'
                             return http.request.redirect(url)
                             
 
