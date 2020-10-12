@@ -7,7 +7,7 @@ import locale
 import random
 import smtplib
 import string
-# import bcrypt
+import bcrypt
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pusher import Pusher
