@@ -432,6 +432,13 @@
         <field name="context">{'search_default_status_speaker': True}</field>
     </record>
 
+    <record id="erups_evoting_action" model="ir.actions.act_window">
+        <field name="name">Evoting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups_evoting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <record id="erups_registrasi_action" model="ir.actions.act_window">
         <field name="name">Registrasi</field>
         <field name="type">ir.actions.act_window</field>
@@ -535,6 +542,17 @@
         <field name="context">{'search_default_status_speaker': True}</field>
     </record>
 
+    <record id="evoting_view_tree" model="ir.ui.view">
+            <field name="name">Evoting</field>
+            <field name="model">erups_evoting</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Evoting">
+                    <field name="agenda_num_name" string="Agenda"/>
+                    <field name="pilihan_suara" string="Pilihan Suara"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="register_view_tree" model="ir.ui.view">
             <field name="name">Registrasi</field>
             <field name="model">erups_registrasi</field>
@@ -544,7 +562,6 @@
                     <field name="name" string="Pemegang Saham"/>
                     <field name="email" string="Email"/>
                     <field name="kehadiran" string="Kehadiran"/>
-                    <!-- <field name="pilihan_suara" string="Pilihan Suara"/> -->
                     <field name="nomor_registrasi" string="Nomor Registrasi"/>
                     <field name="password" string="Password"/>
                     <field name="pemegang_saham" string="Pemegang Saham"/>
@@ -578,6 +595,9 @@
 
     <menuitem id="erups_registrasi_menu" name="Registrasi" parent="erups_root" action="erups_registrasi_action" sequence="50"
         groups="base.group_system,erups_question.group_erups_admin"/>
+     <menuitem id="erups_evoting_menu" name="Evoting" parent="erups_root" action="erups_evoting_action" sequence="50"
+        groups="base.group_system,erups_question.group_erups_admin"/>
+
 
   </data>
 </odoo>

@@ -141,6 +141,7 @@ body.modal-open {
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 7rem;
 	padding: 0 2rem;
+	margin-bottom: -120px;
 }
 
 .container_reset {
@@ -162,6 +163,9 @@ body.modal-open {
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 7rem;
 	padding: 0 2rem;
+	margin-bottom: -70px;
+	margin-top: -50px;
+
 }
 
 .imgBG {
@@ -175,6 +179,8 @@ body.modal-open {
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
+	margin-top: -250px;
+	margin-left: 150px;
 }
 
 .reset-content {
@@ -189,8 +195,7 @@ body.modal-open {
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
-	margin-left: 660px;
-	margin-bottom: auto;
+	margin-left: 880px;
 }
 
 .imgBG img {

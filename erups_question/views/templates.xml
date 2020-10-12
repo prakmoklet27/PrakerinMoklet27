@@ -117,7 +117,7 @@
 													<p><span class="fa fa-map-marker"></span>&amp;nbsp; AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
-													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/perwakilanForm/#{(e.id)}">
+													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/formpertanyaan/#{(e.id)}">
 													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
 														<button type="button" class="btn btn-success">
 															Open
@@ -892,7 +892,7 @@
   			         		</div>
 							<div style="margin-top:0px;" class="input-div saham">
  			          		   <div class="div">
-  			         		   		<h5>Nama Pemegang Saham</h5>
+  			         		   		<h5 >Nama Pemegang Saham</h5>
  			          		   		<input type="text" class="form-control" name="name" required=""/>
   			         		   </div>
   			         		</div>   
@@ -915,29 +915,17 @@
   			         		</div> 
 							<div id="ifYes" style="display: none;margin-top:0px;" class="input-div kehadiran">
 								<div class="div">
-    								<h5 for="car">Nama Pemberi Kuasa</h5>
+    								<h5 for="car">Nama Penerima Kuasa</h5>
 								 	<input type="text" name="pemegang_saham" class="form-control"/><br />
 								</div>
-								<div class="div">
-									<label for="myfile" >Upload File:</label>
-  									<input style="margin-top:20px;" type="file" id="myfile" name="myfile"/><br></br>
+								<div style="margin-bottom:-30px;margin-top:10px;">
+  									<a href="/erups_question/static/src/img/SuratKuasa.docx" download="Form-Kuasa" style="margin-right:180px;width:400px;"><button type="button" class="btn btn-outline-dark" style="margin-left: 30px; text-align: center; margin-right: 200px;margin-top: 10px;width:200px;height:50px;">Download Form</button></a>
 								</div>
-								<div class="div">
-  									<a href="/erups_question/static/src/img/artikel.svg" download="My-logo" style="margin-right:180px;">Download Form</a>
+								<div class="div" style="margin-bottom:30px;margin-top:50px;">
+									<label for="myfile" >Upload Form:</label>
+  									<input style="margin-top:20px;" type="file" id="myfile" name="myfile" accept=".docx,.pdf"/><br></br>
 								</div>
 							</div>
-							<!-- <div style="margin-top:0px;" class="input-div suara">
- 			          		   <div class="div">
-								  <h5>Pilihan Suara</h5>
- 			          		   		<select class="form-control" name="pilihan_suara" required="" style="width:100% !important">
-										<option style="width:100% !important" class="text-body" value="0">...</option>
-										<option style="width:100% !important" class="text-body" value="setuju">Setuju</option>
-										<option style="width:100% !important" class="text-body" value="tidak_setuju">Tidak Setuju</option>	
-										<option style="width:100% !important" class="text-body" value="abstain">Abstain Per-Agenda</option>
-										<option style="width:100% !important" class="text-body" value="rapat">Mata Scara Rapat</option>
-									</select>
-  			         		   </div>
-  			         		</div> -->
   			          		<div style="margin-top:0px;" class="modal-footer">
 								<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
 								<a href="/login" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
@@ -1041,15 +1029,19 @@
 				  <div class="row d-flex align-items-center justify-content-center mt-4">
 					  <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
 						  <div class="jumbotron text-center">
-							  <h4 class="text-center">Anda sudah terdaftar</h4>
+							  <h4 class="text-center">Registrasi Berhasil</h4>
 							  <hr />
-							  <h4 class="text-center">Nomor Registrasi anda adalah : <t t-esc='message'></t></h4>
-							  <hr />
+							  <br/>
+							  <h5 class="text-center">Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda</h5>
+							  
+							  <h5 class="text-center">Password akun Anda telah dikirimkan melalui Email</h5>
+							  <br/>
+							  <br/>
+							  <!-- Nomor Registrasi anda adalah : <t t-esc='message'></t> -->
 							  <div class="figure">
 								  <p class="lead">
 									  <a class="btn btn-primary btn-lg" href="/login" role="button"> Login </a>
 								  </p>
-								  <hr />
 							  </div>
 						  </div>
 					  </div>
@@ -1059,27 +1051,31 @@
 	  </template>
 
 	<template id="thanks_online" name="Terima Kasih">
-		<t t-call="website.layout">
-		  <div class="container">
-			  <div class="row d-flex align-items-center justify-content-center mt-4">
-				  <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
-					  <div class="jumbotron text-center">
-						  <h4 class="text-center">Terima Kasih</h4>
-						  <hr />
-						  <h4 class="text-center">Anda sudah terdaftar</h4>
-						  <hr />
-						  <div class="figure">
-							  <p class="lead">
-								  <a class="btn btn-primary btn-lg" href="/login" role="button"> Login </a>
-							  </p>
+			<t t-call="website.layout">
+			  <div class="container">
+				  <div class="row d-flex align-items-center justify-content-center mt-4">
+					  <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
+						  <div class="jumbotron text-center">
+							  <h4 class="text-center">Registrasi Berhasil</h4>
 							  <hr />
+							  <br/>
+							  <h5 class="text-center">Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda</h5>
+							  
+							  <h5 class="text-center">Nomor registrasi dan Password akun Anda telah dikirimkan melalui Email</h5>
+							  <br/>
+							  <br/>
+							  <!-- Nomor Registrasi anda adalah : <t t-esc='message'></t> -->
+							  <div class="figure">
+								  <p class="lead">
+									  <a class="btn btn-primary btn-lg" href="/login" role="button"> Login </a>
+								  </p>
+							  </div>
 						  </div>
 					  </div>
 				  </div>
 			  </div>
-		  </div>
-		</t>
-  	</template>
+			</t>
+	  </template>
 	  
 	  <!-- <template id="perwakilanForm" name="Form Perwakilan">
 		<t t-call="website.layout">
@@ -1115,11 +1111,11 @@
                     		</p>
                     		<a href="/login" class="btn btn-link float-right" role="button">Back to Login</a>
                 		</div>
-						<form class="oe_reset_password_form" role="form" method="post" t-if="not message">
+						<form class="oe_reset_password_form" role="form" method="post" t-if="not message" action="/reset_password">
                   				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         	<div class="form-group field-login">
-                       	     <label for="login" class="col-form-label">Email Anda</label>
-                        	    <input type="text" name="login" t-att-value="login" id="login" class="form-control" autofocus="autofocus" required="required" autocapitalize="off"/>
+                       	     <label class="col-form-label">Email Anda</label>
+                        	    <input type="text" name="email" id="email" class="form-control" autofocus="autofocus" required="required" autocapitalize="off"/>
                         	</div>
                     			<input type="hidden" name="redirect" t-att-value="redirect"/>
                     			<input type="hidden" name="token" t-att-value="token"/>
@@ -1138,7 +1134,7 @@
 			</t>
 		</template>
 		
-		<template id="Evoting" name="E-voting">
+		<template id="evoting" name="E-Voting">
 			<t t-call="website.layout">
 				<div class="container">
 
@@ -1150,8 +1146,8 @@
 					</div>
 						
 					<div class="row">
-						<t t-if="Evoting">
-							<t t-foreach="Evoting" t-as="e">
+						<t t-if="evoting">
+							<t t-foreach="evoting" t-as="e">
 								<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
 									<div class="card">
 										<div class="card-body">
@@ -1160,15 +1156,15 @@
 													<p><t t-esc="e.name"/></p>
 													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;Jum'at, 19 Juni 2020</p> -->
 													<p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p>
-													<p><span class="fa fa-map-marker"></span>&amp;nbsp; AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
+													<p><span class="fa fa-map-marker"></span>&amp;nbsp;AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
-													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/perwakilanForm/#{(e.id)}">
+													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/evoting/#{(e.id)}">
 													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
 														<button type="button" class="btn btn-success">
 															Open
 														</button>
-													</a>
+													</a> 
 													<button t-if="e.status == 'close' or message == 0" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
 														Closed
 													</button> 
@@ -1231,6 +1227,93 @@
 							<h1 class="font-weight-bold">  </h1>
 							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;					
 						</div>
+				</div>
+			</t>
+		</template>
+
+		<template id="formevoting" name="E-voting">
+			<t t-call="website.layout">
+				<div class="container">
+					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
+							<h2 class="font-weight-bold">E-Voting</h2>
+						</div>
+					</div>
+					<form id="evotingForm" action="/evoting/save" method="post">
+						<input type="hidden" name="voting_id" t-att-value="evoting.id" />
+						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+						<div class="row mx-1 d-flex align-items-center justify-content-center">
+							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+											<p class="font-weight-bold"><span class="float-left">Emiten</span> <span class="float-right rmd">:</span></p>
+										</div>
+										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+											<p><t t-esc="evoting.emitten"/></p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+											<p class="font-weight-bold"><span class="float-left">Kegiatan</span> <span class="float-right rmd">:</span></p>
+										</div>
+										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+											<p><t t-esc="evoting.name"/></p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+											<p class="font-weight-bold"><span class="float-left">Tanggal Pelaksanaan</span> <span class="float-right rmd">:</span></p>
+										</div>
+										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+											<p><t t-esc="evoting.event_date.strftime('%A, %d %B %Y')"/></p>
+											<!-- <p> Jum'at, 19 Juni 2020 </p> -->
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+											<p class="font-weight-bold"><span class="float-left">Tempat</span> <span class="float-right rmd">:</span></p>
+										</div>
+										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+											<!-- <p><t t-esc="erups.location"/></p> -->
+											<p> AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
+										</div>
+									</div>
+								</div>
+								<table class="table table-striped">
+								<thead>
+									<tr>
+									<th scope="col">No.</th>
+									<th scope="col">Mata Acara/Agenda Rapat</th>
+									<th scope="col">Setuju</th>
+									<th scope="col">Tidak Setuju</th>
+									<th scope="col">Abstain</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+									<th scope="row">1</th>
+									<td><t t-esc="agenda"/></td>
+									<td>Otto</td>
+									<td>@mdo</td>
+									</tr>
+									<tr>
+									<th scope="row">2</th>
+									<td>Jacob</td>
+									<td>Thornton</td>
+									<td>@fat</td>
+									</tr>
+									<tr>
+									<th scope="row">3</th>
+									<td>Larry</td>
+									<td>the Bird</td>
+									<td>@twitter</td>
+									</tr>
+								</tbody>
+								</table>
+							</div>
+						</div>
+					</form>
 				</div>
 			</t>
 		</template>
