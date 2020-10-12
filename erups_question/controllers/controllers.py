@@ -310,9 +310,21 @@ class Erups(http.Controller):
 
         sender_email = "prakmoklet27@gmail.com"
         password = "moklet12345"
-        subject = "Reset Password"
-        msg = "Ini password anda untuk login " + v
-        message = "Subject:{}\n\n{}".format(subject, msg)
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = post['email']
+        msg['Subject'] = "E-RUPS"
+        # message = "Terima kasih telah melakukan registrasi.\nPassword : "+z
+
+        body = "Password akun Anda telah diubah\n\nBerikut Password baru akun yang dapat Anda gunakan pada acara : \nRAPAT UMUM PEMEGANG SAHAM TAHUNAN BUKU 2020 PT TELEKOMUNIKASI INDONESIA TBK \n\nPassword : "+v+"\n\nSekian, Terima kasih"
+        msg.attach(MIMEText(body, 'plain'))
+        
+
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.ehlo()
+        server.starttls()
+        server.login(sender_email, password)
+        text = msg.as_string()
 
         hashed = bcrypt.hashpw(v.encode('utf-8'), bcrypt.gensalt())
 
@@ -320,10 +332,6 @@ class Erups(http.Controller):
             "email" : post['email'],
             "password" : v
         }
-
-        server = smtplib.SMTP('smtp.gmail.com',587)
-        server.starttls()
-        server.login(sender_email, password)
 
         sql7 = "SELECT * FROM erups_registrasi WHERE email = '%s' ;"  % (data['email'])
         request.env[self._model_erups_registrasi].sudo()._cr.execute(sql7)
@@ -333,7 +341,7 @@ class Erups(http.Controller):
             sql6 = "UPDATE erups_registrasi SET password = '%s' WHERE email = '%s' ;" % (data['password'], data['email'])
             request.env[self._model_erups_registrasi].sudo()._cr.execute(sql6)
             if sql6 :
-                server.sendmail(sender_email, post['email'], message)
+                server.sendmail(sender_email, post['email'], text)
                 url = '/login'
                 return http.request.redirect(url)
             else :
