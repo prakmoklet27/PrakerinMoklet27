@@ -547,7 +547,7 @@
             <field name="model">erups_evoting</field>
             <field name="arch" type="xml">
                 <tree string="Daftar Evoting">
-                    <field name="agenda_num_name" string="Agenda"/>
+                    <field name="agenda_id" string="Agenda"/>
                     <field name="pilihan_suara" string="Pilihan Suara"/>
                 </tree>
             </field>

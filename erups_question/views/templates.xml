@@ -11,7 +11,7 @@
 			<xpath expr="//div[@id='wrapwrap']/footer" position="replace">
 				<footer class="page-footer text-center text-md-left pt-0">
 					<div class="footer-copyright text-center py-3">
-						<div class="container-fluid">
+						<div class="container-fluid" style="margin-top: 50px">
 							© 2020 <a href="https://www.telkomsigma.co.id/" target="_blank">telkomsigma.</a> Hak Cipta Dilindungi Undang-Undang.
 						</div>
 					</div>
@@ -1283,8 +1283,8 @@
 								<table class="table table-striped">
 								<thead>
 									<tr>
-									<th scope="col">No.</th>
-									<th scope="col">Mata Acara/Agenda Rapat</th>
+									<th scope="col">No</th>
+									<th scope="col">Agenda</th>
 									<th scope="col">Setuju</th>
 									<th scope="col">Tidak Setuju</th>
 									<th scope="col">Abstain</th>
@@ -1293,9 +1293,10 @@
 								<tbody>
 									<tr>
 									<th scope="row">1</th>
-									<td><t t-esc="agenda"/></td>
-									<td>Otto</td>
-									<td>@mdo</td>
+									<td><t t-esc="agenda_id"/></td>
+									<td><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/></td>
+									<td><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/></td>
+									<td><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"/></td>
 									</tr>
 									<tr>
 									<th scope="row">2</th>

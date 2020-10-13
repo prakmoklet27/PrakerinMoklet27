@@ -22,7 +22,7 @@ ssl=True)
 
 class Erups(http.Controller):
 
-    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8'   )
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8')
     
     def __init__(self):
         self._model_erups = "erups"
@@ -95,6 +95,8 @@ class Erups(http.Controller):
     @http.route(['''/formpertanyaan''', '''/formpertanyaan/<int:erups_id>'''], auth='public', website=True)
     def index(self, erups_id=None, **params):
         
+        
+
         sql2 = "SELECT * FROM erups_question eq LEFT JOIN erups_agenda ea ON ea.id = eq.agenda_id WHERE ea.status = 'open';"
         request.env[self._model_erups_question].sudo()._cr.execute(sql2)
         questioncheck = request.cr.fetchall()
@@ -206,6 +208,8 @@ class Erups(http.Controller):
     @http.route(['''/evoting''', '''/evoting/<int:evoting_id>'''], auth='public', website=True)
     def index2(self, evoting_id=None, **params):
         
+        sql1 = "INSERT INTO evoting (agenda_rapat, pemilihan_suara) VALUES (%s, %s, %s)"
+
         sql2 = "SELECT * FROM erups_evoting eq LEFT JOIN erups_agenda ea ON ea.id = eq.agenda_id WHERE ea.status = 'open';"
         request.env[self._model_erups_evoting].sudo()._cr.execute(sql2)
         questioncheck = request.cr.fetchall()
@@ -306,7 +310,7 @@ class Erups(http.Controller):
             passs.append(alpha)
             passs.append(numbers)
 
-        v=("").join(str(x)for x in passs)
+        v="".join(str(x)for x in passs)
 
         sender_email = "prakmoklet27@gmail.com"
         password = "moklet12345"
@@ -314,11 +318,9 @@ class Erups(http.Controller):
         msg['From'] = sender_email
         msg['To'] = post['email']
         msg['Subject'] = "E-RUPS"
-        # message = "Terima kasih telah melakukan registrasi.\nPassword : "+z
 
         body = "Password akun Anda telah diubah\n\nBerikut Password baru akun yang dapat Anda gunakan pada acara : \nRAPAT UMUM PEMEGANG SAHAM TAHUNAN BUKU 2020 PT TELEKOMUNIKASI INDONESIA TBK \n\nPassword : "+v+"\n\nSekian, Terima kasih"
-        msg.attach(MIMEText(body, 'plain'))
-        
+        msg.attach(MIMEText(body, 'plain')) 
 
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.ehlo()
@@ -328,16 +330,17 @@ class Erups(http.Controller):
 
         hashed = bcrypt.hashpw(v.encode('utf-8'), bcrypt.gensalt())
 
+
         data = {
             "email" : post['email'],
-            "password" : v
+            "password" : hashed.decode()
         }
 
         sql7 = "SELECT * FROM erups_registrasi WHERE email = '%s' ;"  % (data['email'])
         request.env[self._model_erups_registrasi].sudo()._cr.execute(sql7)
         user = request.cr.fetchall()
 
-        if len(data) > 0 :
+        if len(user) > 0 :
             sql6 = "UPDATE erups_registrasi SET password = '%s' WHERE email = '%s' ;" % (data['password'], data['email'])
             request.env[self._model_erups_registrasi].sudo()._cr.execute(sql6)
             if sql6 :
@@ -374,6 +377,8 @@ class Erups(http.Controller):
 
         z="".join(str(x)for x in passs)
 
+        hashed = bcrypt.hashpw(z.encode('utf-8'), bcrypt.gensalt())
+
         data = {
             "no_sid" : post['no_sid'],
             "name" : post['name'],
@@ -381,7 +386,7 @@ class Erups(http.Controller):
             "kehadiran" : post['kehadiran'],
             "pemegang_saham" : post['pemegang_saham'],
             "nomor_registrasi" : y,
-            "password" : z
+            "password" : hashed
         }
 
         sender_email = "prakmoklet27@gmail.com"

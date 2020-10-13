@@ -366,12 +366,8 @@ class Question(models.Model):
 
 class Evoting(models.Model):
     _name = "erups_evoting"
-    
+
     agenda_id = fields.Many2one('erups_agenda', ondelete='cascade', required=True)
-    erups = fields.Char(related='agenda_id.erups_id.name')
-    agenda_full_name = fields.Char(related='agenda_id.complete_name')
-    agenda_num_name = fields.Char(related='agenda_id.num_name')
-    agenda_rapat = fields.Char(string='Mata Acara/Agenda Rapat', required=True)
     pilihan_suara = fields.Selection([('0','...'),('setuju','Setuju'),
                                 ('tidak_setuju','Tidak Setuju'),('abstain','Abstain Per-Agenda'),
                                 ('rapat','Mata Acara Rapat')],string='Kehadiran', required=True) 
@@ -382,9 +378,9 @@ class Registrasi(models.Model):
     no_sid = fields.Char(string='NO.SID',required=True)
     name = fields.Char(string='Nama Pemegang Saham', required=True)
     email = fields.Char(string='Email', required=True)
-    kehadiran = fields.Selection([('0','...'),('langsung','Secara Langsung'),
-                                ('online','Online'),('perwakilan','Perwakilan')],
-                                string='Kehadiran', required=True) 
+    kehadiran = fields.Selection([('0','...'),('langsung','1'),
+                                ('online','2'),('perwakilan','3')],
+                                string='Kehadiran', required=True)
     pemegang_saham = fields.Char()
     nomor_registrasi = fields.Char() 
     password = fields.Char()
