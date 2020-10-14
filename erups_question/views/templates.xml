@@ -12,12 +12,13 @@
 				<footer class="page-footer text-center text-md-left pt-0">
 					<div class="footer-copyright text-center py-3">
 						<div class="container-fluid" style="margin-top: 50px">
-							© 2020 <a href="https://www.telkomsigma.co.id/" target="_blank">telkomsigma.</a> Hak Cipta Dilindungi Undang-Undang.
+							© 2020 <a href="https://www.telkomsigma.co.id/" target="_blank" style="margin-right: 595px">telkomsigma.co.id</a> Hak Cipta Dilindungi Undang-Undang.
 						</div>
 					</div>
 				</footer>
 			</xpath>
 		</template>
+		
 
 		<template id="terimakasih">
       		<t t-call="website.layout">
@@ -32,6 +33,30 @@
 								<div class="figure">
 									<p class="lead">
 										<a class="btn btn-primary btn-lg" href="/formpertanyaan" role="button"> Kembali </a>
+									</p>
+									<hr />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+      		</t>
+		</template>
+
+		<template id="thank">
+      		<t t-call="website.layout">
+			  <img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+				<div class="container">
+					<div class="row d-flex align-items-center justify-content-center mt-4">
+						<div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
+							<div class="jumbotron text-center">
+								<h1 class="text-center">Terimakasih</h1>
+								<hr />
+								<h4 class="text-center">Pemilihan suara sudah berhasil dikirim</h4>
+								<hr />
+								<div class="figure">
+									<p class="lead">
+										<a class="btn btn-primary btn-lg" href="/evoting" role="button"> Kembali </a>
 									</p>
 									<hr />
 								</div>
@@ -94,13 +119,16 @@
 		
 		<template id="erups" name="Kegiatan RUPS">
 			<t t-call="website.layout">
+			<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
 				<div class="container">
 
 					<div class="row my-4">
-						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
-							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
-						</div> -->
-						
+						<div class="col-sm-2">
+							<h2 class="font-weight-bold">E-RUPS</h2>
+						</div>
+						<div class="col-sm-10 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
+							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;
+						</div>
 					</div>
 						
 					<div class="row">
@@ -181,60 +209,78 @@
 									</t>
 								</tbody>
 							</table> -->
-						<div class="modal-footer">
-							<h1 class="font-weight-bold">  </h1>
-							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;					
-						</div>
 				</div>
 			</t>
 		</template>
 
-		<template name="Reset password" t-name="auth_signup.reset_password">
-            <t t-call="web.login_layout">
-                <div t-if="message">
-                    <p class="alert alert-success" t-if="message" role="status">
-                        <t t-esc="message"/>
-                    </p>
-                    <a href="/login" class="btn btn-link float-right" role="button">Back to Login</a>
-                </div>
-
-                <form class="oe_reset_password_form" role="form" method="post" t-if="not message">
-                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-
-                    <t t-if="token and not invalid_token">
-                        <t t-call="auth_signup.fields">
-                            <t t-set="only_passwords" t-value="1"/>
-                        </t>
-                    </t>
-
-                    <t t-if="not token">
-                        <div class="form-group field-login">
-                            <label for="login" class="col-form-label">Your Email</label>
-                            <input type="text" name="login" t-att-value="login" id="login" class="form-control" autofocus="autofocus" required="required" autocapitalize="off"/>
-                        </div>
-                    </t>
-
-                    <p class="alert alert-danger" t-if="error" role="alert">
-                        <t t-esc="error"/>
-                    </p>
-                    <input type="hidden" name="redirect" t-att-value="redirect"/>
-                    <input type="hidden" name="token" t-att-value="token"/>
-                    <div class="clearfix oe_login_buttons">
-                        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-                        <div class="d-flex justify-content-between align-items-center small mt-2">
-                            <a t-if="not token" t-attf-href="/login{{ keep_query() }}">Back to Login</a>
-                            <a t-if="invalid_token" href="/login">Back to Login</a>
-                        </div>
-                        <div class="o_login_auth"/>
-                    </div>
-
-                </form>
-
-            </t>
-        </template>
+		<template id="evoting" name="E-Voting">
+			<t t-call="website.layout">
+			<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+				<div class="container">
+						<div class="row my-4">
+						<div class="col-sm-2">
+							<h2 class="font-weight-bold">E-RUPS</h2>
+						</div>
+					</div>
+						<div class="row">
+						<t t-if="evoting">
+							<t t-foreach="evoting" t-as="e">
+								<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-8">
+													<p><t t-esc="e.name"/></p>
+													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;Jum'at, 19 Juni 2020</p> -->
+													<p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p>
+													<p><span class="fa fa-map-marker"></span>&amp;nbsp;AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
+												</div>
+												<div class="col-4 d-flex align-items-center justify-content-center">
+													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/evoting/#{(e.id)}">
+													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
+													<button type="button" class="btn btn-success">
+														Open
+													</button>
+													</a> 
+													<button t-if="e.status == 'close' or message == 0" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
+														Closed
+													</button> 
+													<!-- <t t-esc="message"/> -->
+												</div>
+												<div class="col-12 d-flex align-items-center justify-content-center">
+													<p class="italia" t-if="e.status == 'close' or message == 0">&amp;nbsp;Sesi tanya jawab belum dibuka</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</t>
+						</t>
+						<t t-else="">
+							<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12 d-flex align-items-center justify-content-center">
+											</div>
+											<div class="col-12">
+												<p> <center> Data tidak tersedia </center></p>
+											</div>
+											<div class="col-12 d-flex align-items-center justify-content-center">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</t>
+					</div>
+				</div>
+			</t>
+		</template>
 
 		<template id="form_question" name="Form Tanya Jawab">
 			<t t-call="website.layout">
+				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
 				<!-- <t t-set="head">
                     <script src="/erups_question/static/src/js/timer.js"/>
 				</t> -->
@@ -693,219 +739,36 @@
 			</t>
 		</template>
 
-		<!-- <record id="menu_register">
-			<field name="name">Register</field>
-			<field name="url">/register</field>
-			<field name="parent_id" ref="website.main_menu"/>
-			<field name="sequence">55</field>
-		</record> -->
-
-		<!-- <template id="register" name="Registrasi">
-			<t t-call="website.layout">
-				<div class="container">
-					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
-						<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
-							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
-						</div>
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<h2 class="font-weight-bold">Menu Registrasi</h2>
-						</div>
-					</div>	
-					<div class="row mx-1 d-flex align-items-center justify-content-center">
-							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-								<div class="card-body">
-									<form action="/thanks" role="form" method="POST">
-										<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-										<div class="form-gorup">
-											<label for="no_sid" class="control-label">NO.SID</label>
-											<input type="number" name="no_sid" t-att-value="no_sid" id="no_sid"
-												   class="form-control" placeholder="Enter No.SID" required="required" />
-										</div>
-										<div class="form-gorup">
-											<label for="name" class="control-label">Nama Pemegang Saham</label>
-											<input type="text" name="name" t-att-value="name" id="name"
-												   class="form-control" placeholder="Enter Name" required="required" />
-										</div>
-										<div class="form-gorup">
-											<label for="email" class="control-label">Email</label>
-											<input type="text" name="email" t-att-value="email" id="email"
-												   class="form-control" placeholder="Enter Email" required="required" />
-										</div>
-										<div class="form-gorup">
-											<label for="kehadiran" class="control-label">Kehadiran</label>
-											<select class="form-control" name="" required="" style="width:100% !important">
-												<option style="width:100% !important" class="text-body">...</option>
-												<option style="width:100% !important" class="text-body">Secara Langsung</option>
-												<option style="width:100% !important" class="text-body">Online</option>	
-												<option style="width:100% !important" class="text-body">Perwakilan</option>	
-											</select>
-										</div>
-										<div class="clearfix oe_login_buttons">
-											<button type="submit" class="btn btn-primary">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-					</div>
-				</div>
-			</t>
-		</template> -->
-
-		<!-- <template id="register" name="Form Register">
-			<t t-call="website.layout">
-				<div class="container">
-					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<h2 class="font-weight-bold">Form Registrasi</h2>
-						</div>
-					</div>
-
-					<form id="registrasiForm" action="/register/save" method="post">
-						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-				
-					<div class="row mx-1 d-flex align-items-center justify-content-center">	
-							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">No. SID</span> <span class="float-right"></span></p>
-										</div>
-									</div>
-									<div class="row">	
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="form-group">
-												<input type="number" class="form-control" name="no_sid" required=""/>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-
-						<div class="row mx-1 d-flex align-items-center justify-content-center">	
-							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Nama Pemegang Saham</span> <span class="float-right"></span></p>
-										</div>
-									</div>
-									<div class="row">	
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="form-group">
-												<input type="text" class="form-control" name="name" required=""/>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row mx-1 d-flex align-items-center justify-content-center">	
-							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Email</span> <span class="float-right"></span></p>
-										</div>
-									</div>
-									<div class="row">	
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="form-group">
-												<input type="email" class="form-control" name="email" required=""/>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row mx-1 d-flex align-items-center justify-content-center">	
-								<div class="card mt-2 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-									<div class="card-body">
-										<div class="row">
-											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-												<p class="font-weight-bold"><span class="float-left">Kehadiran</span> <span class="float-right"></span></p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-												<div class="form-group">
-												<select class="form-control link-style" name="kehadiran" required="" style="width:100% !important">
-													<option style="width:100% !important" class="text-body" value="0">...</option>
-													<option style="width:100% !important" class="text-body" value="langsung">Secara Langsung</option>
-													<option style="width:100% !important" class="text-body" value="online">Online</option>	
-													<option style="width:100% !important" class="text-body" value="perwakilan">Perwakilan</option>
-												</select>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-						</div>
-
-							<div class="row mx-1 d-flex align-items-center justify-content-center">	
-								<div class="card mt-2 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-									<div class="card-body">
-										<div class="row">
-											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-												<p class="font-weight-bold"><span class="float-left">Pilihan Suara</span> <span class="float-right"></span></p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-												<div class="form-group">
-												<select class="form-control" name="pilihan_suara" required="" style="width:100% !important">
-												<option style="width:100% !important" class="text-body" value="0">...</option>
-												<option style="width:100% !important" class="text-body" value="setuju">Setuju</option>
-												<option style="width:100% !important" class="text-body" value="tidak setuju">Tidak Setuju</option>	
-												<option style="width:100% !important" class="text-body" value="abstain">Abstain Per-Agenda</option>
-												<option style="width:100% !important" class="text-body" value="rapat">Mata Scara Rapat</option>
-												</select>
-												</div>
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
-											<a href="/login" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
-										</div>
-									</div>
-								</div>
-							</div>
-					</form>
-				</div>
-				</t>
-		</template> -->
-
 		<template id="register" name="Form Register">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWave.gif"/>
+				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
 				<div class="container_register">
 					<div class="register-content">
-						<form class="oe_register_form"  id="registrasiForm" action="/register/save" method="post">
+						<form class="oe_register_form" id="registrasiForm" action="" method="post">
 							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-							<h2 class="title" >Register</h2>
+							<h2 class="font-weight-bold" >REGISTER</h2>
  			          			<div style="margin-top:0px;" class="input-div sid">
  			          		   <div class="div">
   			         		   		<h5>No.SID</h5>
- 			          		   		<input type="text" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
+ 			          		   		<input id="sid" type="text" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
   			         		   </div>
   			         		</div>
 							<div style="margin-top:0px;" class="input-div saham">
  			          		   <div class="div">
   			         		   		<h5 >Nama Pemegang Saham</h5>
- 			          		   		<input type="text" class="form-control" name="name" required=""/>
+ 			          		   		<input id="nama" type="text" class="form-control" name="name" required=""/>
   			         		   </div>
   			         		</div>   
 							<div style="margin-top:0px;" class="input-div email">
  			          		   <div class="div">
   			         		   		<h5>Email</h5>
- 			          		 		<input type="email" class="form-control" name="email" required=""/>
+ 			          		 		<input id="email" type="email" class="form-control" name="email" required=""/>
   			         		   </div>
 							</div>
 							<div style="margin-top:0px;" class="input-div kehadiran">
 								<div class="div">
 									<h5>Kehadiran</h5>
- 			          		   		<select class="form-control link-style" name="kehadiran" required="" style="width:100% !important" onchange="yesnoCheck(this);">
+ 			          		   		<select class="form-control link-style" name="kehadiran" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
 										<option style="width:100% !important" class="text-body" value="0">...</option>
 										<option style="width:100% !important" class="text-body" value="langsung">Secara Langsung</option>
 										<option style="width:100% !important" class="text-body" value="online">Online</option>	
@@ -916,32 +779,72 @@
 							<div id="ifYes" style="display: none;margin-top:0px;" class="input-div kehadiran">
 								<div class="div">
     								<h5 for="car">Nama Penerima Kuasa</h5>
-								 	<input type="text" name="pemegang_saham" class="form-control"/><br />
+								 	<input id="penerima" type="text" name="penerima_kuasa" class="form-control"/><br />
 								</div>
-								<div style="margin-bottom:-30px;margin-top:10px;">
-  									<a href="/erups_question/static/src/img/SuratKuasa.docx" download="Form-Kuasa" style="margin-right:180px;width:400px;"><button type="button" class="btn btn-outline-dark" style="margin-left: 30px; text-align: center; margin-right: 200px;margin-top: 10px;width:200px;height:50px;">Download Form</button></a>
+								<div style="margin-bottom:-30px;margin-top:5px;">
+									<label style="margin-top:7px;">Download Form:</label>
+  									<a href="/erups_question/static/src/img/SuratKuasa.docx" download="Form-Kuasa" style="margin-top:-3px;"><button type="button" class="btn btn-primary" style="margin-left: 75px; text-align: center; margin-right: 250px;margin-top: 10px;width:200px;height:50px;">Download</button></a>
 								</div>
 								<div class="div" style="margin-bottom:30px;margin-top:50px;">
-									<label for="myfile" >Upload Form:</label>
-  									<input style="margin-top:20px;" type="file" id="myfile" name="myfile" accept=".docx,.pdf"/><br></br>
+									<label style="margin-top:40px;" for="myfile" >Upload Form:</label>
+  									<input style="margin-top:65px;" type="file" id="myfile" name="myfile" accept=".docx,.pdf" /><br></br>
 								</div>
 							</div>
-  			          		<div style="margin-top:0px;" class="modal-footer">
-								<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
-								<a href="/login" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
+  			          		<div style="margin-top:60px;" class="modal-footer">
+								<button type="submit" class="btn btn-primary btn-block" style="margin-left:20px;">Register</button>&amp;nbsp;&amp;nbsp;
+								<a href="/login" type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px;">Login</a>&amp;nbsp;&amp;nbsp;
 							</div>
   			          </form>
+						<script>
+							<![CDATA[
+					$("#registrasiForm").submit(function(event) {
+						console.log("Tes")
+						event.preventDefault();
+						var data    = $('#registrasiForm').serialize();                
+						$.ajax({
+							type: "POST",
+							data: data,
+							url: "/register/save",
+							success: function(toni) {
+								console.log(toni)
+								if (toni.info.status == 0) {            
+								Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)                    
+							}else if (toni.info.status == 3) {
+								Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
+								.then((beres) => {
+								window.location.assign("/evoting"); 
+								});                
+							}   
+							else {            
+								Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
+								.then((beres) => {
+								window.location.assign("/login"); 
+								});                
+							}
+							}
+						});
+					});
+				]]>
+						</script>
   			      </div>
  			   </div>
   			  <script type="text/javascript" src="/erups_question/static/src/js/login.js"></script>
 			</t>
 		</template>
 
-
+<!-- if (toni.info.status == 0) {            
+								swal(toni.info.intro,toni.info.pesan,toni.info.type)                    
+							}        
+							else {            
+								swal(toni.info.intro,toni.info.pesan,toni.info.type)
+								.then((beres) => {
+								window.location.assign("/"); 
+								});                
+							} -->
 
 		<template id="login" name="login_page">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWave.gif"/>
+				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
 				<div class="container_login">
 					<div class="imgBG">
 						<img src="/erups_question/static/src/img/artikel.svg"/>
@@ -976,7 +879,7 @@
   			          	</div>
   			          	<a href="/resetpassword">Forgot Password?</a>
 						<a href="/register">Register</a>
-  			          	<input type="submit" class="btnSubmit" value="Login"/>
+  			          	<button style="background:blue; color:white" type="submit" class="btn btn-block" value="Login">LOGIN</button>
   			          </form>
   			      </div>
  			   </div>
@@ -1102,7 +1005,7 @@
 
 	  <template id="resetpassword" name="reset_password">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWave.gif"/>
+				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
 				<div class="container_reset">
 					<div class="reset-content">
 						<div t-if="message">
@@ -1111,7 +1014,7 @@
                     		</p>
                     		<a href="/login" class="btn btn-link float-right" role="button">Back to Login</a>
                 		</div>
-						<form class="oe_reset_password_form" role="form" method="post" t-if="not message" action="/reset_password">
+						<form class="oe_reset_password_form" role="form" method="post" t-if="not message" id="reset">
                   				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         	<div class="form-group field-login">
                        	     <label class="col-form-label">Email Anda</label>
@@ -1134,187 +1037,102 @@
 			</t>
 		</template>
 		
-		<template id="evoting" name="E-Voting">
-			<t t-call="website.layout">
-				<div class="container">
-
-					<div class="row my-4">
-						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
-							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
-						</div> -->
-						
-					</div>
-						
-					<div class="row">
-						<t t-if="evoting">
-							<t t-foreach="evoting" t-as="e">
-								<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
-									<div class="card">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-8">
-													<p><t t-esc="e.name"/></p>
-													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;Jum'at, 19 Juni 2020</p> -->
-													<p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p>
-													<p><span class="fa fa-map-marker"></span>&amp;nbsp;AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
-												</div>
-												<div class="col-4 d-flex align-items-center justify-content-center">
-													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/evoting/#{(e.id)}">
-													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
-														<button type="button" class="btn btn-success">
-															Open
-														</button>
-													</a> 
-													<button t-if="e.status == 'close' or message == 0" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
-														Closed
-													</button> 
-													<!-- <t t-esc="message"/> -->
-												</div>
-												<div class="col-12 d-flex align-items-center justify-content-center">
-													<p class="italia" t-if="e.status == 'close' or message == 0">&amp;nbsp;Sesi tanya jawab belum dibuka</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</t>
-						</t>
-						<t t-else="">
-							<div class="col-xl-12 col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
-								<div class="card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col-12 d-flex align-items-center justify-content-center">
-											</div>
-											<div class="col-12">
-												<p> <center> Data tidak tersedia </center></p>
-											</div>
-											<div class="col-12 d-flex align-items-center justify-content-center">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</t>
-					</div>
-
-						<!-- <table class="table">
-								<thead>
-									<tr>
-										<th>Nama Kegiatan</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<t t-foreach="erups" t-as="e">
-										<tr>
-											<td><t t-esc="e.name"/></td>
-											<td>
-												<a t-if="e.status == 'open'" t-attf-href="/formpertanyaan/#{(e.id)}">
-													<button type="button" class="btn btn-success">
-													open
-													</button>
-												</a>
-												<button t-if="e.status == 'close'" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
-													close
-												</button> 
-											</td>
-										</tr>
-									</t>
-								</tbody>
-							</table> -->
-						<div class="modal-footer">
-							<h1 class="font-weight-bold">  </h1>
-							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;					
-						</div>
-				</div>
-			</t>
-		</template>
-
 		<template id="formevoting" name="E-voting">
 			<t t-call="website.layout">
+			<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
 				<div class="container">
-					<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<h2 class="font-weight-bold">E-Voting</h2>
+						<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
 						</div>
-					</div>
-					<form id="evotingForm" action="/evoting/save" method="post">
-						<input type="hidden" name="voting_id" t-att-value="evoting.id" />
-						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-						<div class="row mx-1 d-flex align-items-center justify-content-center">
-							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Emiten</span> <span class="float-right rmd">:</span></p>
+						<form id="evotingForm" action="/evoting/save" method="post">
+							<input type="hidden" name="voting_id" t-att-value="evoting.id" />
+							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+							<div class="row mx-1 d-flex align-items-center justify-content-center">
+								<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+												<p class="font-weight-bold"><span class="float-left">Emiten</span> <span class="float-right rmd">:</span></p>
+											</div>
+											<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+												<p><t t-esc="evoting.emitten"/></p>
+											</div>
 										</div>
-										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-											<p><t t-esc="evoting.emitten"/></p>
+										<div class="row">
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+												<p class="font-weight-bold"><span class="float-left">Kegiatan</span> <span class="float-right rmd">:</span></p>
+											</div>
+											<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+												<p><t t-esc="evoting.name"/></p>
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Kegiatan</span> <span class="float-right rmd">:</span></p>
+										<div class="row">
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+												<p class="font-weight-bold"><span class="float-left">Tanggal Pelaksanaan</span> <span class="float-right rmd">:</span></p>
+											</div>
+											<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+												<p><t t-esc="evoting.event_date.strftime('%A, %d %B %Y')"/></p>
+											</div>
 										</div>
-										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-											<p><t t-esc="evoting.name"/></p>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Tanggal Pelaksanaan</span> <span class="float-right rmd">:</span></p>
-										</div>
-										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-											<p><t t-esc="evoting.event_date.strftime('%A, %d %B %Y')"/></p>
-											<!-- <p> Jum'at, 19 Juni 2020 </p> -->
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-											<p class="font-weight-bold"><span class="float-left">Tempat</span> <span class="float-right rmd">:</span></p>
-										</div>
-										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-											<!-- <p><t t-esc="erups.location"/></p> -->
-											<p> AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
+										<div class="row">
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+												<p class="font-weight-bold"><span class="float-left">Tempat</span> <span class="float-right rmd">:</span></p>
+											</div>
+											<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+												<!-- <p><t t-esc="erups.location"/></p> -->
+												<p> AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
+											</div>
 										</div>
 									</div>
 								</div>
-								<table class="table table-striped">
-								<thead>
-									<tr>
-									<th scope="col">No</th>
-									<th scope="col">Agenda</th>
-									<th scope="col">Setuju</th>
-									<th scope="col">Tidak Setuju</th>
-									<th scope="col">Abstain</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-									<th scope="row">1</th>
-									<td><t t-esc="agenda_id"/></td>
-									<td><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/></td>
-									<td><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/></td>
-									<td><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"/></td>
-									</tr>
-									<tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-									</tr>
-									<tr>
-									<th scope="row">3</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-									</tr>
-								</tbody>
-								</table>
 							</div>
-						</div>
-					</form>
+
+										<div class="row mx-1 d-flex align-items-center justify-content-center">	
+											<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
+												<div class="card-body">
+												<br/>
+													<div class="row">
+														<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+															<p class="font-weight-bold"><span class="float-left">Pilihan Suara</span> <span class="float-right"></span></p>
+														</div>
+													</div>
+													<br/><br/>
+													<div class="row">
+													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+														<table class="table table-bordered table-striped" width="100%">
+															<thead>
+															<tr>
+															<th width="6%">No</th>
+															<th width="35%">Agenda</th>
+															<th width="10%">Setuju</th>
+															<th width="15%">Tidak Setuju</th>
+															<th width="10%">Abstain</th>
+															</tr>
+															</thead>
+															<tbody>
+															<t t-foreach="agenda" t-as="a">
+															<tr>
+															<td><t t-esc="a.agenda_num"/></td>
+															<td><t t-esc="a.name"/></td>
+															<form action="evoting/save">
+															<input class="form-check-input" type="hidden" id="agenda_id" name="agenda_id" t-att-value="a.name"/>
+															<td><input class="form-check-input" type="radio" id="setuju" name="pilihan_suara" value="setuju" style="margin-left:23px;" /></td>
+															<td><input class="form-check-input" type="radio" id="tidak_setuju" name="pilihan_suara" value="tidak_setuju" style="margin-left:45px;" /></td>
+															<td><input class="form-check-input" type="radio" id="abstain" name="pilihan_suara" value="abstain" style="margin-left:24px;" /></td>
+															</form>
+															</tr>
+															</t>
+															</tbody>
+															</table>
+															<div style="margin-top:0px;" class="modal-footer">
+																<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
+																<a href="/register" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
+															</div>
+														</div>
+												</div>
+											</div>
+										</div>
+									</div>
+						</form>
 				</div>
 			</t>
 		</template>

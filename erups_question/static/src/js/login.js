@@ -1,6 +1,4 @@
 const inputs = document.querySelectorAll(".form-control");
-
-
 function addcl(){
 	let parent = this.parentNode.parentNode;
 	parent.classList.add("focus");
@@ -26,3 +24,57 @@ function yesnoCheck(that) {
 		document.getElementById("ifYes").style.display = "none";
 	}
 }
+
+// const submit = document.querySelector('#submit');
+// submit.addEventListener('click',function() {
+// 	Swal.fire({
+//   icon: 'success',
+//   title: 'Registrasi Berhasil',
+//   text: 'Terima kasih telah melakukan pendaftaran dan mengkonfirmasikan kehadiran Anda Password akun Anda telah dikirimkan melalui Email',
+// });
+// });
+
+// $("#registrasiForm").submit(function(event) {
+// 	console.log("Tes")
+// 	event.preventDefault();
+// 	var data    = $('#registrasiForm').serialize();                
+// 	$.ajax({
+// 		type: "POST",
+// 		data: data,
+// 		url: "/register/save",
+// 		success: function(toni) {
+// 		  if (toni.info.status == 0) {            
+// 			swal(toni.info.intro,toni.info.pesan,toni.info.type)                    
+// 		  }        
+// 		  else {            
+// 			swal(toni.info.intro,toni.info.pesan,toni.info.type)
+// 			.then((beres) => {
+// 			  window.location.assign("/"); 
+// 			});                
+// 		  }
+// 		}
+// 	});
+//   });
+
+$("#reset").submit(function(event) {
+	console.log("Tes")
+	event.preventDefault();
+	var data = $('#reset').serialize();                
+	$.ajax({
+		type: "POST",
+		data: data,
+		url: "/reset_password",
+		success: function(toni) {
+			console.log(toni)
+			if (toni.info.status == 0) {            
+			Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)                    
+		}  
+		else {            
+			Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
+			.then((beres) => {
+			window.location.assign("/login"); 
+			});                
+		}
+		}
+	});
+});

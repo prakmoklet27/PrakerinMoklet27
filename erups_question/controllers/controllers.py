@@ -11,6 +11,7 @@ import bcrypt
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pusher import Pusher
+from odoo.http import Response
 
 # configure pusher object
 pusher = Pusher(
@@ -22,7 +23,7 @@ ssl=True)
 
 class Erups(http.Controller):
 
-    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8'   )
     
     def __init__(self):
         self._model_erups = "erups"
@@ -78,6 +79,10 @@ class Erups(http.Controller):
     @http.route('''/thanks''',type='http', auth='public', website=True)
     def thanks(self, **params):
         return request.render("erups_question.thanks", {})
+
+    @http.route('''/thank''',type='http', auth='public', website=True)
+    def thank(self, **params):
+        return request.render("erups_question.thank", {})
 
     @http.route('''/thanks_langsung''',type='http', auth='public', website=True)
     def thanks_langsung(self, **params):
@@ -208,8 +213,6 @@ class Erups(http.Controller):
     @http.route(['''/evoting''', '''/evoting/<int:evoting_id>'''], auth='public', website=True)
     def index2(self, evoting_id=None, **params):
         
-        sql1 = "INSERT INTO evoting (agenda_rapat, pemilihan_suara) VALUES (%s, %s, %s)"
-
         sql2 = "SELECT * FROM erups_evoting eq LEFT JOIN erups_agenda ea ON ea.id = eq.agenda_id WHERE ea.status = 'open';"
         request.env[self._model_erups_evoting].sudo()._cr.execute(sql2)
         questioncheck = request.cr.fetchall()
@@ -253,6 +256,19 @@ class Erups(http.Controller):
                 }
                 return http.request.render('erups_evoting.pagenotfound',values)
 
+    @http.route(['/evoting/save'], type='http', auth="public", methods=["GET","POST"], website=True, csrf=True)
+    def evoting_save(self, **post):
+
+        voting_id = post['voting_id']
+
+        data = {
+            "pilihan_suara": post['pilihan_suara'],
+        }
+
+        request.env['erups_evoting'].sudo().create(data)
+        url = '/thank'
+        return http.request.redirect(url)
+
     @http.route('/thankyou', auth='public', methods=['GET'], website=True)
     def thankyou(self, **params):
 
@@ -270,6 +286,14 @@ class Erups(http.Controller):
             'base_url': 'terimakasih telah mengisi pertanyaan',
         }
         return http.request.render('erups_question.terimakasih', values)
+
+    @http.route('/thank', auth='public', methods=['GET'], website=True)
+    def thanks(self, **params):
+
+        values = {
+            'base_url': 'terimakasih telah mengisi pilihan suara',
+        }
+        return http.request.render('erups_evoting.thank', values)
 
     @http.route('''/login_check''',type='http',auth='public',mothods=['POST'], website=True)
     def login_check(self, **post):
@@ -310,7 +334,7 @@ class Erups(http.Controller):
             passs.append(alpha)
             passs.append(numbers)
 
-        v="".join(str(x)for x in passs)
+        v=("").join(str(x)for x in passs)
 
         sender_email = "prakmoklet27@gmail.com"
         password = "moklet12345"
@@ -318,9 +342,11 @@ class Erups(http.Controller):
         msg['From'] = sender_email
         msg['To'] = post['email']
         msg['Subject'] = "E-RUPS"
+        # message = "Terima kasih telah melakukan registrasi.\nPassword : "+z
 
         body = "Password akun Anda telah diubah\n\nBerikut Password baru akun yang dapat Anda gunakan pada acara : \nRAPAT UMUM PEMEGANG SAHAM TAHUNAN BUKU 2020 PT TELEKOMUNIKASI INDONESIA TBK \n\nPassword : "+v+"\n\nSekian, Terima kasih"
-        msg.attach(MIMEText(body, 'plain')) 
+        msg.attach(MIMEText(body, 'plain'))
+        
 
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.ehlo()
@@ -330,10 +356,9 @@ class Erups(http.Controller):
 
         hashed = bcrypt.hashpw(v.encode('utf-8'), bcrypt.gensalt())
 
-
         data = {
             "email" : post['email'],
-            "password" : hashed.decode()
+            "password" : v
         }
 
         sql7 = "SELECT * FROM erups_registrasi WHERE email = '%s' ;"  % (data['email'])
@@ -345,18 +370,17 @@ class Erups(http.Controller):
             request.env[self._model_erups_registrasi].sudo()._cr.execute(sql6)
             if sql6 :
                 server.sendmail(sender_email, post['email'], text)
-                url = '/login'
-                return http.request.redirect(url)
+                return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "Terima kasih telah melakukan Reset Password akun Anda,Password baru telah dikirimkan melalui Email" , 'type' : "success" , 'intro' : "Reset Password Berhasil"}}),content_type='application/json;charset=utf-8')
             else :
                 values = {
                         "message":  'Maaf, Gagal Menyimpan Data'
                     }
-                return http.request.render('erups_question.warningpage',values)
+                return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Gagal menyimpan data" , 'type' : "warning" , 'intro' : "Reset Password Gagal"}}),content_type='application/json;charset=utf-8')
         else : 
             values = {
                         "message":  'Email tidak tersedia, harap registrasi terlebih dahulu'
                     }
-            return http.request.render('erups_question.warningpage',values)
+            return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Email tidak tersedia, harap registrasi terlebih dahulu" , 'type' : "warning" , 'intro' : "Reset Password Gagal"}}),content_type='application/json;charset=utf-8')
 
     @http.route('''/register/save''',type='http', auth='public',mothods=['POST'], website=True)
     def reg_save(self, **post):
@@ -384,7 +408,7 @@ class Erups(http.Controller):
             "name" : post['name'],
             "email" : post['email'],
             "kehadiran" : post['kehadiran'],
-            "pemegang_saham" : post['pemegang_saham'],
+            "penerima_kuasa" : post['penerima_kuasa'],
             "nomor_registrasi" : y,
             "password" : hashed
         }
@@ -421,13 +445,13 @@ class Erups(http.Controller):
             values = {
                 'message' : 'Anda sudah mendaftar menggunakan email ini'
             }
-            return request.render("erups_question.messagepage", values)
+            return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Anda sudah mendaftar menggunakan email ini" , 'type' : "warning" , 'intro' : "Registrasi Gagal"}}),content_type='application/json;charset=utf-8')
         else :
             if post['kehadiran'] == '0':
                 values = {
-                    'message' : 'Pilih Kehadiran Anda'
+                    'message' : 'Error'
                 }
-                return request.render("erups_question.messagepage", values)
+                return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Kehadiran wajib di isi" , 'type' : "warning" , 'intro' : "Registrasi Gagal"}}),content_type='application/json;charset=utf-8')
             else:
                 # if post['pilihan_suara'] == '0':
                 #     values = {
@@ -441,17 +465,15 @@ class Erups(http.Controller):
                         }
                         request.env['erups_registrasi'].sudo().create(data)
                         server.sendmail(sender_email, post['email'], text)
-                        return request.render("erups_question.thanks_langsung", values)
+                        return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda Password akun Anda telah dikirimkan melalui Email" , 'type' : "success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
                     else:
                         if post['kehadiran'] == 'online':
                             request.env['erups_registrasi'].sudo().create(data)
                             server.sendmail(sender_email, post['email'], text1)
-                            url='/thanks_online'
-                            return http.request.redirect(url)
+                            return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda Password akun Anda telah dikirimkan melalui Email" , 'type' : "success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
                         else:
                             request.env['erups_registrasi'].sudo().create(data)
-                            url='/evoting'
-                            return http.request.redirect(url)
+                            return Response(json.dumps({'info':{'status' : 3 , 'pesan' : "Terdaftar sebagai perwakilan" , 'type' : "Success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
                             
 
     # @http.route('''/thanks''',type='http', auth='public', website=True)

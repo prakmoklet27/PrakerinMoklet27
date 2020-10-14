@@ -368,9 +368,9 @@ class Evoting(models.Model):
     _name = "erups_evoting"
 
     agenda_id = fields.Many2one('erups_agenda', ondelete='cascade', required=True)
-    pilihan_suara = fields.Selection([('0','...'),('setuju','Setuju'),
-                                ('tidak_setuju','Tidak Setuju'),('abstain','Abstain Per-Agenda'),
-                                ('rapat','Mata Acara Rapat')],string='Kehadiran', required=True) 
+    pilihan_suara = fields.Selection([('0','...'),('setuju','1'),
+                                ('tidak_setuju','2'),('abstain','3')
+                                ],string='Pilihan Suara', required=True) 
 
 class Registrasi(models.Model):
     _name = "erups_registrasi"
@@ -381,7 +381,8 @@ class Registrasi(models.Model):
     kehadiran = fields.Selection([('0','...'),('langsung','1'),
                                 ('online','2'),('perwakilan','3')],
                                 string='Kehadiran', required=True)
-    pemegang_saham = fields.Char()
+    penerima_kuasa = fields.Char()
+    myfile = fields.Char()
     nomor_registrasi = fields.Char() 
     password = fields.Char()
     # role = fields.Selection([('user','User'),('admin','Admin')],string='Role', required=True)
