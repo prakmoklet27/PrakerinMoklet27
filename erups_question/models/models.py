@@ -4,22 +4,67 @@ from odoo import models, fields, api
 import random
 import string
 
+class Emitten(models.Model):
+    _name = "erups_emitten"
+
+    name = fields.Char(string='Emitten', required=True)
+    agenda_ids = fields.One2many('erups_agenda', 'erups_id')
+    # kegiatan_ids = fields.One2many('erups', 'erups_id')
+
+    total_kegiatan = fields.Integer('Jumlah Kegiatan', compute='_compute_total_kegiatan')
+    total_agenda = fields.Integer('Jumlah Agenda', compute='_compute_total_agenda')
+
+    # @api.depends('kegiatan_ids')
+    # def _compute_total_kegiatan(self):
+    #     for r in self:
+    #         if r.agenda_ids:
+    #             r.total_kegiatan = len(r.agenda_ids)
+    #         else:
+    #             r.total_kegiatan = 0
+
+    @api.depends('agenda_ids')
+    def _compute_total_agenda(self):
+        for r in self:
+            if r.agenda_ids:
+                r.total_agenda = len(r.agenda_ids)
+            else:
+                r.total_agenda = 0
+
 class Erups(models.Model):
     _name = 'erups'
 
-    name = fields.Char(string='Nama Kegiatan', required=True)
-    emitten = fields.Char()
+    emitten_id = fields.Many2one('erups_emitten', ondelete='cascade', required=True)
+    name = fields.Char(string='Kegiatan',required=True)
+    kegiatan_num = fields.Integer(string='No Urut')
     event_date = fields.Date(string='Tanggal Event')
     location = fields.Text(string='Lokasi Event')
     agenda_ids = fields.One2many('erups_agenda', 'erups_id')
     description = fields.Text()
     status = fields.Selection([('open', 'Open'), ('close', 'Closed')], required=True, default="open")
 
+    total_kegiatan = fields.Integer('Jumlah Kegiatan', compute='_compute_total_kegiatan')
     total_agenda = fields.Integer('Jumlah Agenda', compute='_compute_total_agenda')
     total_question = fields.Integer('Jumlah Pertanyaan', compute='_compute_total_question')
     total_question_valid = fields.Integer('Jumlah Pertanyaan Valid', compute='_compute_total_valid')
     total_question_relevan = fields.Integer('Jumlah Pertanyaan Relevan', compute='_compute_total_relevan')
     total_question_verified = fields.Integer('Jumlah Pertanyaan Dipilih', compute='_compute_total_verified')
+
+    total_consultant_relevan = fields.Integer('Jumlah Pertanyaan Konsultan Relevan', compute='_compute_total_consultant_relevan')
+    total_consultant_not_relevan = fields.Integer('Jumlah Pertanyaan Konsultan Not Relevan',
+                                           compute='_compute_total_consultant_not_relevan')
+
+    # total_question_relevan = fields.Integer('Jumlah Pertanyaan Valid dan Relevan', compute='_compute_total_relevan')
+    # total_question_verified = fields.Integer('Jumlah Pertanyaan Dipilih', compute='_compute_total_verified')
+
+    # complete_name = fields.Char("Agenda Full Name", compute='_compute_complete_name', store=True)
+    num_name = fields.Char("Kegiatan Name", compute='_compute_num_name', store=True)
+
+    relevan_question_ids = fields.One2many('erups_question', 'agenda_id', domain=[('status', 'in', ['consultant', 'speaker'])])
+    speaker_question_ids = fields.One2many('erups_question', 'agenda_id', domain=[('status', 'in', ['speaker'])])
+
+    active_agenda = fields.Integer(compute='_compute_active_agenda')
+
+    agenda_num_text = fields.Char(compute='_compute_num_to_text')
 
     @api.depends('agenda_ids')
     def _compute_total_agenda(self):
@@ -267,6 +312,11 @@ class Agenda(models.Model):
 
         return True
 
+class Shareholders(models.Model):
+    _name = "erups_shareholders"
+
+    name = fields.Char(string='Shareholders', required=True)
+
 class Question(models.Model):
     _name = 'erups_question'
 
@@ -368,17 +418,28 @@ class Evoting(models.Model):
     _name = "erups_evoting"
 
     agenda_id = fields.Many2one('erups_agenda', ondelete='cascade', required=True)
-    pilihan_suara = fields.Selection([('0','...'),('setuju','1'),
+    pilihan_suara = fields.Selection([('setuju','1'),
                                 ('tidak_setuju','2'),('abstain','3')
                                 ],string='Pilihan Suara', required=True) 
+                                
 
 class Registrasi(models.Model):
     _name = "erups_registrasi"
 
+    # kegiatan_id = fields.Char(string='Nama Kegiatan', required=True)
+    # emitten_id = fields.Many2one('erups_emitten', ondelete='cascade', required=True)
+    # erups_id = fields.Many2one('erups', ondelete='cascade', required=True)
+    tipe_registrasi = fields.Selection([('perorangan','1'),
+                                ('individu','2')],
+                                string='Tipe Registrasi', required=True)
     no_sid = fields.Char(string='NO.SID',required=True)
+    no_ktp = fields.Char(string='NO.KTP', required=True)
     name = fields.Char(string='Nama Pemegang Saham', required=True)
+    alamat = fields.Char(string='Alamat', required=True)
+    jumlah_saham = fields.Char(string='Jumlah Saham', required=True)
+    no_mobile = fields.Char(string='NO.Mobile', required=True)
     email = fields.Char(string='Email', required=True)
-    kehadiran = fields.Selection([('0','...'),('langsung','1'),
+    kehadiran = fields.Selection([('0',''),('langsung','1'),
                                 ('online','2'),('perwakilan','3')],
                                 string='Kehadiran', required=True)
     penerima_kuasa = fields.Char()

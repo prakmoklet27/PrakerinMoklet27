@@ -20,8 +20,12 @@ inputs.forEach(input => {
 function yesnoCheck(that) {
 	if (that.value == "perwakilan") {
 		document.getElementById("ifYes").style.display = "block";
+		document.getElementById("penerima_kuasa").required = true;
+		document.getElementById("myfile").required = true;
 	} else {
 		document.getElementById("ifYes").style.display = "none";
+		document.getElementById("penerima_kuasa").required = false;
+		document.getElementById("myfile").required = false;
 	}
 }
 
@@ -73,7 +77,7 @@ $("#reset").submit(function(event) {
 			Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
 			.then((beres) => {
 			window.location.assign("/login"); 
-			});                
+			});              
 		}
 		}
 	});

@@ -8,10 +8,14 @@ import random
 import smtplib
 import string
 import bcrypt
+import logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pusher import Pusher
 from odoo.http import Response
+
+_logger = logging.getLogger(__name__)
+
 
 # configure pusher object
 pusher = Pusher(
@@ -23,14 +27,17 @@ ssl=True)
 
 class Erups(http.Controller):
 
-    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8'   )
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8')
     
     def __init__(self):
+        self._model_erups_emitten = "erups_emitten"
         self._model_erups = "erups"
         self._model_erups_agenda = "erups_agenda"
+        self._model_erups_shareholders = "erups_shareholders"
         self._model_erups_question = "erups_question"
-        self._model_erups_registrasi = "erups_registrasi"
         self._model_erups_evoting = "erups_evoting"
+        self._model_erups_registrasi = "erups_registrasi"
+        
         
     # @http.route('/message',type='http', auth='public', methods=['GET'])
     # def message(self, **params):
@@ -50,6 +57,11 @@ class Erups(http.Controller):
     def home(self, **params):
         url = '/formpertanyaan'
         return http.request.redirect(url)
+
+    # @http.route('''/login_check''',type='http', auth='public', website=True)
+    # def log(self, **params):
+    #     url = '/formpertanyaan'
+    #     return http.request.redirect(url)
         
     # @http.route('''/admin''',type='http', auth='public', website=True)
     # def admin(self, **params):
@@ -58,7 +70,16 @@ class Erups(http.Controller):
 
     @http.route('''/register''',type='http', auth='public', website=True)
     def register(self, **params):
-        return request.render("erups_question.register", {})
+
+        emitten = http.request.env[self._model_erups_emitten].sudo().search([])
+        erups = http.request.env[self._model_erups].sudo().search([])
+        values = {
+                    "emitten": emitten,
+                    "erups": erups,
+                 }
+        
+        _logger.error(values)
+        return request.render("erups_question.register", values)
 
     @http.route('''/login''',type='http',auth='public', website=True)
     def login(self, **params):
@@ -97,10 +118,18 @@ class Erups(http.Controller):
         url = '/formpertanyaan'
         return http.request.redirect(url)
 
+    # @http.route(['''/user'''], auth='public', website=True)
+    # def user(self, erups_id=None, **params):
+        
+    #     session = request.session
+        
+        # user = request.cr.fetchall()
+        
+
+       
+
     @http.route(['''/formpertanyaan''', '''/formpertanyaan/<int:erups_id>'''], auth='public', website=True)
     def index(self, erups_id=None, **params):
-        
-        
 
         sql2 = "SELECT * FROM erups_question eq LEFT JOIN erups_agenda ea ON ea.id = eq.agenda_id WHERE ea.status = 'open';"
         request.env[self._model_erups_question].sudo()._cr.execute(sql2)
@@ -109,41 +138,56 @@ class Erups(http.Controller):
         sql3 = "SELECT * FROM erups_agenda WHERE status = 'open';"
         request.env[self._model_erups_question].sudo()._cr.execute(sql3)
         agendacheck = request.cr.fetchall()
-        
-        if erups_id == None:
-            erups = http.request.env[self._model_erups].sudo().search([])
-            values = {
-                "erups": erups,
-                "message": len(agendacheck),
-            }
-            print(erups)
-            return http.request.render('erups_question.erups', values)
-        else:
-            sql1 = "SELECT * FROM erups WHERE id = '%s';" % (erups_id)
-            request.env[self._model_erups_question].sudo()._cr.execute(sql1)
-            res = request.cr.fetchall()
-            if len(res) > 0:
-                erups = http.request.env[self._model_erups].sudo().search(
-                    [('id', '=', erups_id)])
-                agenda = http.request.env[self._model_erups_agenda].sudo().search(
-                    [('erups_id', '=', erups_id),('status', '=', 'open')],order='id asc')
+
+        session = request.session
+        user = ""
+
+        if "user" in session:
+            user = request.session["user"]
+            if erups_id == None:
+                erups = http.request.env[self._model_erups].sudo().search([])
+                emitten = http.request.env[self._model_erups_emitten].sudo().search([])
+                values = {
+                    "user": user,
+                    "erups": erups,
+                    "emitten": emitten,
+                    "message": len(agendacheck),
+                }
+                return http.request.render('erups_question.erups', values)
                 
-                if erups.status == 'close':
-                    url = '/formpertanyaan/'
-                    return http.request.redirect(url)
+            else:
+                sql1 = "SELECT * FROM erups WHERE id = '%s';" % (erups_id)
+                request.env[self._model_erups_question].sudo()._cr.execute(sql1)
+                res = request.cr.fetchall()
+
+                if len(res) > 0:
+                    erups = http.request.env[self._model_erups].sudo().search(
+                        [('id', '=', erups_id)])
+                    emitten = http.request.env[self._model_erups_emitten].sudo().search(
+                        [('id', '=', erups_id)])                        
+                    agenda = http.request.env[self._model_erups_agenda].sudo().search(
+                        [('erups_id', '=', erups_id),('status', '=', 'open')],order='id asc')
+                            
+                    if erups.status == 'close':
+                        url = '/formpertanyaan/'
+                        return http.request.redirect(url)
+                    else:
+                        values = {
+                            "erups": erups,
+                            "agenda": agenda,
+                            "message": len(questioncheck),
+                        }
+                        print(erups)
+                        return http.request.render('erups_question.form_question', values)
                 else:
                     values = {
-                        "erups": erups,
-                        "agenda": agenda,
-                        "message": len(questioncheck),
+                        "message":  'Kegiatan tidak ditemukan',
                     }
-                    print(erups)
-                    return http.request.render('erups_question.form_question', values)
-            else:
-                values = {
-                    "message":  'Kegiatan tidak ditemukan',
-                }
-                return http.request.render('erups_question.pagenotfound',values)
+                    return http.request.render('erups_question.pagenotfound',values)
+        else:
+            url = '/login'
+            return http.request.redirect(url)
+        
 
     @http.route(['/formpertanyaan/save'], type='http', auth="public", methods=['POST'], website=True, csrf=True)
     def rups_save(self, **post):
@@ -220,6 +264,12 @@ class Erups(http.Controller):
         sql3 = "SELECT * FROM erups_agenda WHERE status = 'open';"
         request.env[self._model_erups_evoting].sudo()._cr.execute(sql3)
         agendacheck = request.cr.fetchall()
+
+        # session = request.session
+        # user = ""
+
+        # if "user" in session:
+        #     user = request.session["user"]
         
         if evoting_id == None:
             evoting = http.request.env[self._model_erups].sudo().search([])
@@ -256,18 +306,24 @@ class Erups(http.Controller):
                 }
                 return http.request.render('erups_evoting.pagenotfound',values)
 
-    @http.route(['/evoting/save'], type='http', auth="public", methods=["GET","POST"], website=True, csrf=True)
+    @http.route(['/evoting/save'], type='http', auth="public", methods=["POST"], website=True, csrf=True)
     def evoting_save(self, **post):
 
         voting_id = post['voting_id']
 
-        data = {
-            "pilihan_suara": post['pilihan_suara'],
-        }
+        perhitungan_array = int((len(post)-1) / 2)
+        # _logger.error(perhitungan_array)
 
-        request.env['erups_evoting'].sudo().create(data)
-        url = '/thank'
-        return http.request.redirect(url)
+        for x in range(perhitungan_array):
+            data = {
+            "agenda_id": post['agenda_id['+str(x)+']'],
+            "pilihan_suara": post['pilihan_suara['+str(x)+']'],
+            }
+            # _logger.error(data)
+            # print(x)
+            request.env['erups_evoting'].sudo().create(data)
+            
+        return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "Terimakasih telah mengirimkan pilihan suara" , 'type' : "success" , 'intro' : "Pilihan Suara Berhasil Dikirim"}}),content_type='application/json;charset=utf-8')
 
     @http.route('/thankyou', auth='public', methods=['GET'], website=True)
     def thankyou(self, **params):
@@ -303,26 +359,32 @@ class Erups(http.Controller):
             "password" : post['password']
         }
 
-        hashed = bcrypt.hashpw(post['password'].encode('utf-8'), bcrypt.gensalt())
+        pase=data['password'].encode('utf-8')
 
         sql5 = "SELECT * FROM erups_registrasi WHERE email = '%s' ;"  % (data['email'])
         request.env[self._model_erups_registrasi].sudo()._cr.execute(sql5)
         user = request.cr.fetchall()
-        
+
         if len(user) > 0 :
-            if bcrypt.checkpw(post['password'].encode('utf-8'), hashed):
-                url = '/formpertanyaan'
-                return http.request.redirect(url)
+            sql6 = "SELECT password FROM erups_registrasi WHERE email = '%s' ;" % (data['email'])
+            request.env[self._model_erups_registrasi].sudo()._cr.execute(sql6)
+            cek = request.cr.fetchone()
+            cuek ="".join(str(x)for x in cek).encode('utf-8')
+            if bcrypt.checkpw(pase, cuek):
+                request.session["user"] = user
+                return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "" , 'type' : "success" , 'intro' : "Login Berhasil"}}),content_type='application/json;charset=utf-8')
             else:
-                values = {
-                    "message" : 'Password salah'
-                }
-                return request.render("erups_question.messagepage", values)
+                return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Password anda salah" , 'type' : "warning" , 'intro' : "Login Gagal"}}),content_type='application/json;charset=utf-8')
         else:
-            values = {
-                    "message" : 'Anda belum mendaftar'
-                }
-            return request.render("erups_question.messagepage", values)
+            return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Anda belum mendaftar,silahkan melakukan registrasi terlebih dahulu" , 'type' : "warning" , 'intro' : "Login Gagal"}}),content_type='application/json;charset=utf-8')
+
+
+    @http.route('''/logout''',type='http',auth='public',mothods=['POST'], website=True)
+    def logout(self, **post):
+        
+        request.session.pop("user", None)
+        url = '/login/'
+        return http.request.redirect(url)
 
     @http.route('''/reset_password''',type='http', auth='public',mothods=['POST','GET'], website=True)
     def reset_password(self, **post):
@@ -358,7 +420,7 @@ class Erups(http.Controller):
 
         data = {
             "email" : post['email'],
-            "password" : v
+            "password" : hashed.decode()
         }
 
         sql7 = "SELECT * FROM erups_registrasi WHERE email = '%s' ;"  % (data['email'])
@@ -384,13 +446,15 @@ class Erups(http.Controller):
 
     @http.route('''/register/save''',type='http', auth='public',mothods=['POST'], website=True)
     def reg_save(self, **post):
-
-        noreg=[]
-        for i in range(5):
-            numbers=random.choice(string.digits)    
-            noreg.append(numbers)
-
-        y="".join(str(x)for x in noreg)
+        query = "SELECT * FROM erups_registrasi WHERE kehadiran = 'langsung' ;"
+        request.env[self._model_erups_registrasi].sudo()._cr.execute(query)
+        total = request.cr.fetchall()
+        
+        y="".join(str(len(total)+1))
+        if len(total) == 200:
+            query = "DELETE FROM erups_registrasi"
+            request.env[self._model_erups_registrasi].sudo()._cr.execute(query)
+            y=''.join(str(1))  
 
         passs=[]
         for i in range(3):
@@ -404,13 +468,26 @@ class Erups(http.Controller):
         hashed = bcrypt.hashpw(z.encode('utf-8'), bcrypt.gensalt())
 
         data = {
+            # "emitten_id": post['emitten_id'],
+            # "erups_id": post['erups_id'],
+            "tipe_registrasi": post['tipe_registrasi'],
             "no_sid" : post['no_sid'],
+            "no_ktp" : post['no_ktp'],
             "name" : post['name'],
+            "alamat" : post['alamat'],
+            "jumlah_saham" : post['jumlah_saham'],
+            "no_mobile" : post['no_mobile'],
             "email" : post['email'],
             "kehadiran" : post['kehadiran'],
-            "penerima_kuasa" : post['penerima_kuasa'],
-            "nomor_registrasi" : y,
             "password" : hashed
+        }
+
+        noreg = {
+            "nomor_registrasi" : y
+        }
+
+        pesam = {
+            "penerima_kuasa" : post['penerima_kuasa']
         }
 
         sender_email = "prakmoklet27@gmail.com"
@@ -441,13 +518,20 @@ class Erups(http.Controller):
         request.env[self._model_erups_registrasi].sudo()._cr.execute(sql7)
         user = request.cr.fetchall()
 
+        sql8 = "SELECT * FROM erups_registrasi WHERE no_sid = '%s' ;"  % (data['no_sid'])
+        request.env[self._model_erups_registrasi].sudo()._cr.execute(sql8)
+        nosid = request.cr.fetchall()
+
+        if len(nosid) > 0 :
+            return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Anda sudah mendaftar menggunakan NO SID ini ini" , 'type' : "warning" , 'intro' : "Registrasi Gagal"}}),content_type='application/json;charset=utf-8')
+
         if len(user) > 0:
             values = {
                 'message' : 'Anda sudah mendaftar menggunakan email ini'
             }
             return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Anda sudah mendaftar menggunakan email ini" , 'type' : "warning" , 'intro' : "Registrasi Gagal"}}),content_type='application/json;charset=utf-8')
         else :
-            if post['kehadiran'] == '0':
+            if post['kehadiran'] == '':
                 values = {
                     'message' : 'Error'
                 }
@@ -460,21 +544,31 @@ class Erups(http.Controller):
                 #     return request.render("erups_question.register", values)
                 # else:
                     if post['kehadiran'] == 'langsung':
-                        values = {
-                            'message' : y
-                        }
-                        request.env['erups_registrasi'].sudo().create(data)
+                        buat = request.env['erups_registrasi'].sudo().create(data)
                         server.sendmail(sender_email, post['email'], text)
-                        return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda Password akun Anda telah dikirimkan melalui Email" , 'type' : "success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
+                        if buat :
+                            sql9 = "UPDATE erups_registrasi SET nomor_registrasi = '%s' WHERE email = '%s' ;" % (y,data['email'])
+                            request.env[self._model_erups_registrasi].sudo()._cr.execute(sql9)
+                            return Response(json.dumps({
+                                'info':{'status' : 1 , 
+                                'pesan' : "Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda Password akun Anda telah dikirimkan melalui Email" , 
+                                'type' : "success" , 
+                                'intro' : "Registrasi Berhasil",
+                                }}),content_type='application/json;charset=utf-8')
                     else:
                         if post['kehadiran'] == 'online':
                             request.env['erups_registrasi'].sudo().create(data)
                             server.sendmail(sender_email, post['email'], text1)
                             return Response(json.dumps({'info':{'status' : 1 , 'pesan' : "Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda Password akun Anda telah dikirimkan melalui Email" , 'type' : "success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
                         else:
-                            request.env['erups_registrasi'].sudo().create(data)
-                            return Response(json.dumps({'info':{'status' : 3 , 'pesan' : "Terdaftar sebagai perwakilan" , 'type' : "Success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
+                            buat = request.env['erups_registrasi'].sudo().create(data)
+                            if buat :
+                                sql9 = "UPDATE erups_registrasi SET penerima_kuasa = '%s' WHERE email = '%s' ;" % (pesam['penerima_kuasa'],data['email'])
+                                request.env[self._model_erups_registrasi].sudo()._cr.execute(sql9)
+                                return Response(json.dumps({'info':{'status' : 3 , 'pesan' : "Terdaftar sebagai perwakilan" , 'type' : "Success" , 'intro' : "Registrasi Berhasil"}}),content_type='application/json;charset=utf-8')
                             
+    
+
 
     # @http.route('''/thanks''',type='http', auth='public', website=True)
     # def thanks(self,erups_id=None,**params):

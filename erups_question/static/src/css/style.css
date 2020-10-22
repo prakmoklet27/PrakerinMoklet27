@@ -1,6 +1,7 @@
 body {
 	font-family: 'Allerta', sans-serif;
 	background-color: #f1f2f2;
+	height: 100%;
 }
 
 .jumbotron {
@@ -158,13 +159,13 @@ body.modal-open {
 
 .container_register {
 	width: 100vw;
-	height: 100vh;
+	height: 225vh;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 7rem;
 	padding: 0 2rem;
 	margin-bottom: -70px;
-	margin-top: -50px;
+	margin-top: -70px;
 
 }
 
@@ -180,7 +181,7 @@ body.modal-open {
 	align-items: center;
 	text-align: center;
 	margin-top: -250px;
-	margin-left: 150px;
+	margin-left: 120px;
 }
 
 .reset-content {
@@ -195,7 +196,7 @@ body.modal-open {
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
-	margin-left: 880px;
+	margin-left: 120px;
 }
 
 .imgBG img {
@@ -235,6 +236,15 @@ body.modal-open {
 }
 
 .login-content .input-div {
+	position: relative;
+	display: grid;
+	grid-template-columns: 7% 93%;
+	margin: 25px 0;
+	padding: 5px 0;
+	border-bottom: 2px solid #d9d9d9;
+}
+
+.register-content .input-div {
 	position: relative;
 	display: grid;
 	grid-template-columns: 7% 93%;

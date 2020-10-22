@@ -12,7 +12,7 @@
 				<footer class="page-footer text-center text-md-left pt-0">
 					<div class="footer-copyright text-center py-3">
 						<div class="container-fluid" style="margin-top: 50px">
-							© 2020 <a href="https://www.telkomsigma.co.id/" target="_blank" style="margin-right: 595px">telkomsigma.co.id</a> Hak Cipta Dilindungi Undang-Undang.
+							© 2020<a href="https://www.telkomsigma.co.id/" target="_blank" style="color:white; text-align:center;">telkomsigma.co.id</a>Hak Cipta Dilindungi Undang-Undang.
 						</div>
 					</div>
 				</footer>
@@ -22,6 +22,7 @@
 
 		<template id="terimakasih">
       		<t t-call="website.layout">
+			  <img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 				<div class="container">
 					<div class="row d-flex align-items-center justify-content-center mt-4">
 						<div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
@@ -45,7 +46,7 @@
 
 		<template id="thank">
       		<t t-call="website.layout">
-			  <img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+			  <img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 				<div class="container">
 					<div class="row d-flex align-items-center justify-content-center mt-4">
 						<div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
@@ -69,6 +70,7 @@
 
 		<template id="warningpage" name="Telkom Indonesia">
       		<t t-call="website.layout">
+			  <img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 			  <div class="container">
 					<div class="row d-flex align-items-center justify-content-center mt-4">
 						<div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
@@ -94,6 +96,7 @@
 
 		<template id="messagepage" name="Telkom Indonesia">
       		<t t-call="website.layout">
+			  <img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 			  <div class="container">
 					<div class="row d-flex align-items-center justify-content-center mt-4">
 						<div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
@@ -119,16 +122,23 @@
 		
 		<template id="erups" name="Kegiatan RUPS">
 			<t t-call="website.layout">
-			<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+			<img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backxl1.gif"/>
 				<div class="container">
 
 					<div class="row my-4">
 						<div class="col-sm-2">
-							<h2 class="font-weight-bold">E-RUPS</h2>
+							<h2 style="color:white; font-family: Montserrat;">e-RUPS</h2>
 						</div>
+					<t t-if="user">
+						<div class="col-sm-10 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
+							<a href="/logout" type="button" class="btn btn-secondary">Logout</a>&amp;nbsp;&amp;nbsp;
+						</div>
+					</t>
+					<t t-else="">
 						<div class="col-sm-10 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
 							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;
 						</div>
+					</t>
 					</div>
 						
 					<div class="row">
@@ -145,12 +155,18 @@
 													<p><span class="fa fa-map-marker"></span>&amp;nbsp; AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
+													<t t-if="user">
 													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/formpertanyaan/#{(e.id)}">
-													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
-														<button type="button" class="btn btn-success">
+													<button type="button" class="btn btn-success">
 															Open
-														</button>
+													</button>
 													</a>
+													</t>
+													<t t-else="">
+													<button type="button"  class="btn btn-success" disabled="true">
+															Open
+													</button>
+													</t>
 													<button t-if="e.status == 'close' or message == 0" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
 														Closed
 													</button> 
@@ -215,11 +231,11 @@
 
 		<template id="evoting" name="E-Voting">
 			<t t-call="website.layout">
-			<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+			<img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backxl1.gif"/>
 				<div class="container">
 						<div class="row my-4">
 						<div class="col-sm-2">
-							<h2 class="font-weight-bold">E-RUPS</h2>
+							<h2 style="color:white; font-family: Montserrat;">e-RUPS</h2>
 						</div>
 					</div>
 						<div class="row">
@@ -236,19 +252,22 @@
 													<p><span class="fa fa-map-marker"></span>&amp;nbsp;AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
+													<!-- <t t-if="user"> -->
 													<a t-if="e.status == 'open' and message != 0 " t-attf-href="/evoting/#{(e.id)}">
-													<!-- <a t-if="message > 0" t-attf-href="/formpertanyaan/#{(e.id)}"> -->
 													<button type="button" class="btn btn-success">
-														Open
+															Open
 													</button>
-													</a> 
-													<button t-if="e.status == 'close' or message == 0" data-toggle="tooltip" title="form Tanya Jawab belum dibuka" disabled="true" type="button" class="btn btn-danger">
+													</a>
+													<!-- </t> -->
+													<!-- <t t-else="">
+													<button type="button"  class="btn btn-success" disabled="true">
+															Open
+													</button>
+													</t> -->
+													<button t-if="e.status == 'close' " disabled="true" type="button" class="btn btn-danger">
 														Closed
 													</button> 
 													<!-- <t t-esc="message"/> -->
-												</div>
-												<div class="col-12 d-flex align-items-center justify-content-center">
-													<p class="italia" t-if="e.status == 'close' or message == 0">&amp;nbsp;Sesi tanya jawab belum dibuka</p>
 												</div>
 											</div>
 										</div>
@@ -280,7 +299,7 @@
 
 		<template id="form_question" name="Form Tanya Jawab">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+				<img class="wave" style="position:absolute; z-index:-1; filter: blur(5px)" src="/erups_question/static/src/img/backxl1.gif"/>
 				<!-- <t t-set="head">
                     <script src="/erups_question/static/src/js/timer.js"/>
 				</t> -->
@@ -290,8 +309,8 @@
 						<!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
 							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
 						</div> -->
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<h2 class="font-weight-bold">FORM PERTANYAAN</h2>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0" style="margin-right: 150px;">
+							<h2 style="color:black;font-weight:bold; font-family: Montserrat;">Form Pertanyaan</h2>
 						</div>
 					</div>
 					
@@ -354,14 +373,14 @@
 						<div class="row mx-1 d-flex align-items-center justify-content-center">
 							<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
 								<div class="card-body">
-									<div class="row">
+									<!-- <div class="row">
 										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 											<p class="font-weight-bold"><span class="float-left">Emiten</span> <span class="float-right rmd">:</span></p>
 										</div>
 										<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-											<p><t t-esc="erups.emitten"/></p>
+											<p><t t-esc="emitten.name"/></p>
 										</div>
-									</div>
+									</div> -->
 									<div class="row">
 										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 											<p class="font-weight-bold"><span class="float-left">Kegiatan</span> <span class="float-right rmd">:</span></p>
@@ -724,6 +743,7 @@
 
 		<template id="pagenotfound" name="Halaman Tidak ditemukan">
 			<t t-call="website.layout">
+				<img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 				<div class="container">
 					<div class="row text-center mt-5 mx-1">
 						<div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12 p-3 error-main">
@@ -741,60 +761,114 @@
 
 		<template id="register" name="Form Register">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+				<img class="wave" style="max-width:100%;height:100%;position:absolute;" src="/erups_question/static/src/img/backxl.gif"/>
 				<div class="container_register">
+					<div class="imgBG">
+					</div>
 					<div class="register-content">
-						<form class="oe_register_form" id="registrasiForm" action="" method="post">
+						<form class="oe_register_form" role="form" id="registrasiForm" action="" method="post">
 							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-							<h2 class="font-weight-bold" >REGISTER</h2>
- 			          			<div style="margin-top:0px;" class="input-div sid">
- 			          		   <div class="div">
-  			         		   		<h5>No.SID</h5>
- 			          		   		<input id="sid" type="text" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
+							<img style="border-radius:50%; border-image: blue; width:100px" src="/erups_question/static/src/img/user.png"/>
+							<!-- <div class="card" style="margin-right:500px; width: 37rem;"> -->
+							<!-- <div class="card-header"> -->
+								<br></br>
+								<h2 style="font-family: Montserrat; margin-bottom:50px;" >REGISTER</h2>
+							<!-- </div> -->
+							<!-- <div class="card-body"> -->
+								<!-- <div class="form-group">
+								<label style="float:left;color:black;font-family: Montserrat;">Emitten</label>
+								<select class="form-control" id="emittenselect" name="emitten_id" required="" style="width:100% !important">
+									<t t-foreach="emitten" t-as="e">
+									<option style="width:100% !important" class="text-body" t-attf-value="e.id"><t t-esc="e.name"/></option>
+									</t>
+								</select>
+								</div>
+								<div class="form-group">
+								<label style="float:left;color:black;font-family: Montserrat;">Kegiatan</label>
+								<select class="form-control" id="erups" name="name" required="" style="width:100% !important">
+									<t t-foreach="erups" t-as="e">
+									<option style="width:100% !important" class="text-body" t-attf-value="e.id"><t t-esc="e.name"/></option>
+									</t>
+								</select>
+								</div> -->
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Tipe Registrasi</label>
+ 			          		   		<select class="form-control link-style" name="tipe_registrasi" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
+										<option style="width:100% !important" class="text-body" value="">Perorangan/Individu</option>
+										<option style="width:100% !important" class="text-body" value="perorangan">Perorangan</option>
+										<option style="width:100% !important" class="text-body" value="individu">Individu</option>	
+									</select>
+								</div>
+ 			          		   <div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">No.SID</label>
+ 			          		   		<input type="text" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
   			         		   </div>
-  			         		</div>
-							<div style="margin-top:0px;" class="input-div saham">
- 			          		   <div class="div">
-  			         		   		<h5 >Nama Pemegang Saham</h5>
- 			          		   		<input id="nama" type="text" class="form-control" name="name" required=""/>
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">NO. KTP</label>
+ 			          		   		<input type="text" class="form-control" name="no_ktp" required=""/>
   			         		   </div>
-  			         		</div>   
-							<div style="margin-top:0px;" class="input-div email">
- 			          		   <div class="div">
-  			         		   		<h5>Email</h5>
- 			          		 		<input id="email" type="email" class="form-control" name="email" required=""/>
+ 			          		   <div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Nama Pemegang Saham</label>
+ 			          		   		<input type="text" class="form-control" name="name" required=""/>
   			         		   </div>
-							</div>
-							<div style="margin-top:0px;" class="input-div kehadiran">
-								<div class="div">
-									<h5>Kehadiran</h5>
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Alamat</label>
+ 			          		   		<input type="text" class="form-control" name="alamat" required=""/>
+  			         		   </div>
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Jumlah Saham</label>
+ 			          		   		<input type="text" class="form-control" name="jumlah_saham" required=""/>
+  			         		   </div>
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">NO. Mobile</label>
+ 			          		   		<input type="text" class="form-control" name="no_mobile" required=""/>
+  			         		   </div>
+ 			          		   <div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Email</label>
+ 			          		 		<input type="email" class="form-control" name="email" required=""/>
+  			         		   </div>
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Kehadiran</label>
  			          		   		<select class="form-control link-style" name="kehadiran" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
-										<option style="width:100% !important" class="text-body" value="0">...</option>
+										<option style="width:100% !important" class="text-body" value="">Pilihan Suara</option>
 										<option style="width:100% !important" class="text-body" value="langsung">Secara Langsung</option>
 										<option style="width:100% !important" class="text-body" value="online">Online</option>	
 										<option style="width:100% !important" class="text-body" value="perwakilan">Perwakilan</option>
 									</select>
-							</div>
-  			         		</div> 
-							<div id="ifYes" style="display: none;margin-top:0px;" class="input-div kehadiran">
-								<div class="div">
-    								<h5 for="car">Nama Penerima Kuasa</h5>
-								 	<input id="penerima" type="text" name="penerima_kuasa" class="form-control"/><br />
+								</div>
+							<div id="ifYes" style="display: none;margin-top:10px;" class="input-div kehadiran">
+								<div class="form-group">
+									<label style="float:left;color:black;font-family: Montserrat;">Penerima Kuasa</label>
+								 	<input id="penerima_kuasa" type="text" class="form-control" name="penerima_kuasa" style="margin-top:20px;"/><br />
 								</div>
 								<div style="margin-bottom:-30px;margin-top:5px;">
-									<label style="margin-top:7px;">Download Form:</label>
-  									<a href="/erups_question/static/src/img/SuratKuasa.docx" download="Form-Kuasa" style="margin-top:-3px;"><button type="button" class="btn btn-primary" style="margin-left: 75px; text-align: center; margin-right: 250px;margin-top: 10px;width:200px;height:50px;">Download</button></a>
+									<label style="margin-top:15px;font-family: Montserrat;">Download Form:</label>
+  									<a href="/erups_question/static/src/img/SuratKuasa.docx" download="Form-Kuasa" style="margin-top:-3px;">
+										<button type="button" class="btn btn-block" style="margin-left: 85px; text-align: center; margin-right: 250px;margin-top: 7px;width:200px;height:40px; background:#080DA9; color:white; border-radius:15px">Download</button>
+									</a>
 								</div>
-								<div class="div" style="margin-bottom:30px;margin-top:50px;">
-									<label style="margin-top:40px;" for="myfile" >Upload Form:</label>
-  									<input style="margin-top:65px;" type="file" id="myfile" name="myfile" accept=".docx,.pdf" /><br></br>
+								<div class="div" style="margin-bottom:30px;margin-top:50px; height:0px;">
+								<br/>
+									<label style="margin-top:15px;font-family: Montserrat;">Upload Form:</label>
+									<div class="file-field">
+										<div class="btn btn-block btn-md float-left">
+											<input type="file" id="myfile" name="myfile" accept=".docx,.pdf" style="width:295px;"/>
+										</div>
+									</div>
 								</div>
 							</div>
-  			          		<div style="margin-top:60px;" class="modal-footer">
-								<button type="submit" class="btn btn-primary btn-block" style="margin-left:20px;">Register</button>&amp;nbsp;&amp;nbsp;
-								<a href="/login" type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px;">Login</a>&amp;nbsp;&amp;nbsp;
+  			          		<div class="modal-footer" style="margin-top:100px;">
+								<button type="submit" class="btn btn-block" style="margin-left:20px; background:#3226FE; color:white; border-radius:30px">Register</button>&amp;nbsp;&amp;nbsp;
+								<a href="/login" type="button" class="btn btn-block" style="margin-bottom:10px; background:#99DCFC; color:black; border-radius:30px">Batal</a>&amp;nbsp;&amp;nbsp;
 							</div>
+							<!-- </div>
+							</div> -->
   			          </form>
+						<!-- <script>
+						var result = '<t t-esc="emitten"/>';
+						console.log(result);
+						</script>
+						<script> -->
 						<script>
 							<![CDATA[
 					$("#registrasiForm").submit(function(event) {
@@ -844,48 +918,64 @@
 
 		<template id="login" name="login_page">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+				<img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 				<div class="container_login">
 					<div class="imgBG">
-						<img src="/erups_question/static/src/img/artikel.svg"/>
 					</div>
-					<div class="login-content">
-						<form class="oe_login_form" role="form" method="post" onsubmit="this.action = this.action + location.hash" action="/login_check">
-							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>	
-							<img src="/erups_question/static/src/img/profil.svg"/>
-							<h2 class="title">Welcome</h2>
- 			          		<div class="input-div one">
-			           		   <div class="i">
- 			          		   		<i class="fas fa-user"></i>
- 			          		   </div>
- 			          		   <div class="div">
-  			         		   		<h5>Username</h5>
- 			          		   		<input type="text" class="form-control" name="email"/>
-  			         		   </div>
-  			         		</div>
-  			         		<div class="input-div pass">
-  			         		   <div class="i"> 
-  			         		    	<i class="fas fa-lock"></i>
-  			         		   </div>
-  			         		   <div class="div">
-  			         		    	<h5>Password</h5>
-  			         		    	<input type="password" name="password" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
-                					<div class="input-group-append">
-                   						 <button class="btn btn-2 btn-primary" type="button">
-                       					 <i class="fa fa-eye"></i>
-                    					</button>
-              						</div>
-  			          	   </div>
-  			          	</div>
-  			          	<a href="/resetpassword">Forgot Password?</a>
-						<a href="/register">Register</a>
-  			          	<button style="background:blue; color:white" type="submit" class="btn btn-block" value="Login">LOGIN</button>
-  			          </form>
-  			      </div>
+							<div style="margin-top:-300px;" class="login-content">
+								<form class="oe_login_form" role="form" id="loginForm" method="post" onsubmit="this.action = this.action + location.hash" action="/login_check">
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>	
+									<img style="border-radius:50%; border-image: blue" src="/erups_question/static/src/img/orang.png"/>
+									<h2 style="font-family: Montserrat;" class="title">Welcome</h2><br />
+									<div class="form-group">
+										<label style="float:left;font-family: Montserrat;">Email</label>
+										<input type="email" class="form-control" id="email" name="email"/>
+									</div>
+  			         		   			<div class="form-group">
+  			         		    			<label style="float:left;font-family: Montserrat;">Password</label>
+  			         		    			<input type="password" name="password" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
+											<div class="input-group-append">
+                   						 		<button class="btn btn-2 btn-link" type="button" style="margin-top:-40px;margin-left: 258px;">
+                       					 			<i class="fa fa-eye" style="color:black;"></i>
+                    							</button>
+              								</div>
+  			          	   				</div>
+									<a href="/resetpassword">Forgot Password?</a>
+									<a href="/register">Register</a><br />
+									<button style="background:#3226FE; color:white; border-radius:30px" type="submit" class="btn btn-block" value="Login">LOGIN</button>
+								</form>
+								<script>
+								<![CDATA[
+											$("#loginForm").submit(function(event) {
+												console.log("Tes")
+												event.preventDefault();
+												var data    = $('#loginForm').serialize();                
+												$.ajax({
+													type: "POST",
+													data: data,
+													url: "/login_check",
+													success: function(toni) {
+														console.log(toni)
+														if (toni.info.status == 0) {            
+														Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)                    
+													}   
+													else {            
+														Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
+														.then((beres) => {
+														window.location.assign("/formpertanyaan"); 
+														});                
+													}
+													}
+												});
+											});
+										]]>
+								</script>
+							</div>
  			   </div>
   			  <script type="text/javascript" src="/erups_question/static/src/js/login.js"></script>
 			</t>
 		</template>
+		
 
 		<template id="user" name="user">
 			<t t-call="website.layout">
@@ -936,14 +1026,12 @@
 							  <hr />
 							  <br/>
 							  <h5 class="text-center">Terima kasih telah melakukan pendaftaran dan menginformasikan kehadiran Anda</h5>
-							  
-							  <h5 class="text-center">Password akun Anda telah dikirimkan melalui Email</h5>
 							  <br/>
 							  <br/>
-							  <!-- Nomor Registrasi anda adalah : <t t-esc='message'></t> -->
 							  <div class="figure">
 								  <p class="lead">
-									  <a class="btn btn-primary btn-lg" href="/login" role="button"> Login </a>
+									  <a class="btn btn-primary btn-lg" href="/evoting" role="button"> e-Voting </a>
+									  <a class="btn btn-primary btn-lg" href="/evoting" role="button"> e-Voting </a>
 								  </p>
 							  </div>
 						  </div>
@@ -1005,7 +1093,7 @@
 
 	  <template id="resetpassword" name="reset_password">
 			<t t-call="website.layout">
-				<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+				<img style="max-width:100%;height:auto;position:absolute; z-index:-1; filter: blur(5px)" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 				<div class="container_reset">
 					<div class="reset-content">
 						<div t-if="message">
@@ -1016,6 +1104,8 @@
                 		</div>
 						<form class="oe_reset_password_form" role="form" method="post" t-if="not message" id="reset">
                   				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+							<div class="card" style="margin-left:-60px; width: 25rem; border-radius: 30px">
+							<div class="card-body">
                         	<div class="form-group field-login">
                        	     <label class="col-form-label">Email Anda</label>
                         	    <input type="text" name="email" id="email" class="form-control" autofocus="autofocus" required="required" autocapitalize="off"/>
@@ -1023,14 +1113,43 @@
                     			<input type="hidden" name="redirect" t-att-value="redirect"/>
                     			<input type="hidden" name="token" t-att-value="token"/>
                     		<div class="clearfix oe_login_buttons">
-                        		<button type="submit" class="btn btn-primary btn-block">Konfirmasi</button>
+                        		<button style="background:#3226FE; color:white; border-radius:30px" type="submit" class="btn btn-block">Konfirmasi</button>
                         		<div class="d-flex justify-content-between align-items-center small mt-2">
                         	    	<a t-if="not token" t-attf-href="/login{{ keep_query() }}">Kembali Ke Login</a>
                         	    	<a t-if="invalid_token" href="/login">Kembali Ke Login</a>
                         		</div>
                         		<div class="o_login_auth"/>
+								</div>
+							</div>
 							</div>
                 		</form>
+						<script>
+						<![CDATA[
+							$("#reset").submit(function(event) {
+							console.log("Tes")
+							event.preventDefault();
+							var data = $('#reset').serialize();                
+							$.ajax({
+								type: "POST",
+								data: data,
+								url: "/reset_password",
+								success: function(toni) {
+									console.log(toni)
+									if (toni.info.status == 0) {            
+									Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)  
+									window.location.assign("/resetpassword");                   
+								}  
+								else {            
+									Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
+									.then((beres) => {
+									window.location.assign("/login"); 
+									});                
+								}
+								}
+							});
+						});
+					]]>
+					</script>
   			      </div>
  			   </div>
   			  <script type="text/javascript" src="/erups_question/static/src/js/login.js"></script>
@@ -1039,24 +1158,24 @@
 		
 		<template id="formevoting" name="E-voting">
 			<t t-call="website.layout">
-			<img class="wave" src="/erups_question/static/src/img/bgWaveg.gif"/>
+			<img style="position:absolute;max-width:100%;height:auto;" class="wave" src="/erups_question/static/src/img/backmd.gif"/>
 				<div class="container">
 						<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
 						</div>
-						<form id="evotingForm" action="/evoting/save" method="post">
+						<form id="evotingForm" action="" method="post">
 							<input type="hidden" name="voting_id" t-att-value="evoting.id" />
 							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 							<div class="row mx-1 d-flex align-items-center justify-content-center">
 								<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
 									<div class="card-body">
-										<div class="row">
+										<!-- <div class="row">
 											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 												<p class="font-weight-bold"><span class="float-left">Emiten</span> <span class="float-right rmd">:</span></p>
 											</div>
 											<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-												<p><t t-esc="evoting.emitten"/></p>
+												<p><t t-esc="emitten.name"/></p>
 											</div>
-										</div>
+										</div> -->
 										<div class="row">
 											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 												<p class="font-weight-bold"><span class="float-left">Kegiatan</span> <span class="float-right rmd">:</span></p>
@@ -1092,7 +1211,7 @@
 												<br/>
 													<div class="row">
 														<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-															<p class="font-weight-bold"><span class="float-left">Pilihan Suara</span> <span class="float-right"></span></p>
+															<h2 style="font-family: Montserrat; margin-top: -20px; margin-bottom: 20px;" >Pilihan Suara</h2>
 														</div>
 													</div>
 													<br/><br/>
@@ -1113,19 +1232,19 @@
 															<tr>
 															<td><t t-esc="a.agenda_num"/></td>
 															<td><t t-esc="a.name"/></td>
-															<form action="evoting/save">
-															<input class="form-check-input" type="hidden" id="agenda_id" name="agenda_id" t-att-value="a.name"/>
-															<td><input class="form-check-input" type="radio" id="setuju" name="pilihan_suara" value="setuju" style="margin-left:23px;" /></td>
-															<td><input class="form-check-input" type="radio" id="tidak_setuju" name="pilihan_suara" value="tidak_setuju" style="margin-left:45px;" /></td>
-															<td><input class="form-check-input" type="radio" id="abstain" name="pilihan_suara" value="abstain" style="margin-left:24px;" /></td>
-															</form>
+															<!-- <form action="evoting/save"> -->
+															<input class="form-check-input" type="hidden" id="agenda_id" t-attf-name="agenda_id[{{a_index}}]" t-att-value="a.id"/>
+															<td><input class="form-check-input" type="radio" id="setuju" t-attf-name="pilihan_suara[{{a_index}}]" value="setuju" style="margin-left:23px;" /></td>
+															<td><input class="form-check-input" type="radio" id="tidak_setuju" t-attf-name="pilihan_suara[{{a_index}}]" value="tidak_setuju" style="margin-left:45px;" /></td>
+															<td><input class="form-check-input" type="radio" id="abstain" t-attf-name="pilihan_suara[{{a_index}}]" value="abstain" style="margin-left:24px;" /></td>
+															<!-- </form> -->
 															</tr>
 															</t>
 															</tbody>
 															</table>
 															<div style="margin-top:0px;" class="modal-footer">
-																<button type="submit" class="btn btn-primary">Kirim</button>&amp;nbsp;&amp;nbsp;
-																<a href="/register" type="button" class="btn btn-secondary">Batal</a>&amp;nbsp;&amp;nbsp;
+																<button type="submit" class="btn btn-block" style="margin-left:20px; background:#3226FE; color:white; border-radius:30px; width: 120px;">Kirim</button>&amp;nbsp;&amp;nbsp;
+																<a href="/register" type="button" class="btn btn-block" style="margin-bottom:10px; background:#99DCFC; color:black; border-radius:30px; margin-right: -20px; width: 120px;">Batal</a>&amp;nbsp;&amp;nbsp;
 															</div>
 														</div>
 												</div>
@@ -1133,6 +1252,32 @@
 										</div>
 									</div>
 						</form>
+						<script>
+								<![CDATA[
+											$("#evotingForm").submit(function(event) {
+												console.log("Tes")
+												event.preventDefault();
+												var data = $('#evotingForm').serialize();                
+												$.ajax({
+													type: "POST",
+													data: data,
+													url: "/evoting/save",
+													success: function(toni) {
+														console.log(toni)
+														if (toni.info.status == 0) {            
+														Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)                    
+													}   
+													else {            
+														Swal.fire(toni.info.intro,toni.info.pesan,toni.info.type)
+														.then((beres) => {
+														window.location.assign("/login"); 
+														});                
+													}
+													}
+												});
+											});
+										]]>
+								</script>
 				</div>
 			</t>
 		</template>

@@ -45,7 +45,7 @@ $(document).on("click", "#delete", function () {
 $(document).ready(function() {
     $('.login-content').each(function(ev) {
         var elements = this;
-        $(elements).on('click', 'div.input-group-append button.btn.btn-primary', function() {
+        $(elements).on('click', 'div.input-group-append button.btn.btn-link', function() {
             var icon = $(this).find('i.fa.fa-eye').length
             if (icon == 1) {
                 $(this).find('i.fa.fa-eye').removeClass('fa-eye').addClass('fa-eye-slash');
