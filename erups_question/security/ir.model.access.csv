@@ -1,47 +1,48 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_erups_root,erups-question.erups,model_erups,base.group_system,1,1,1,1
-access_erups_admin,erups-question.erups,model_erups,erups_question.group_erups_admin,1,1,1,1
-access_erups_bae,erups-question.erups,model_erups,erups_question.group_erups_bae,1,1,1,1
-access_erups_consultant,erups-question.erups,model_erups,erups_question.group_erups_consultant,1,0,0,0
-access_erups_speaker,erups-question.erups,model_erups,erups_question.group_erups_speaker,1,0,0,0
-access_erups_notaris,erups-question.erups,model_erups,erups_question.group_erups_notaris,1,0,0,0
 
-access_erups_emitten_root,erups-question.erups_emitten,model_erups_emitten,base.group_system,1,1,1,1
+access_erups_emitten_root,erups-question.erups_emitten,model_erups_emitten,base.group_system,0,0,0,0
 access_erups_emitten_admin,erups-question.erups_emitten,model_erups_emitten,erups_question.group_erups_admin,1,1,1,1
 access_erups_emitten_bae,erups-question.erups_emitten,model_erups_emitten,erups_question.group_erups_bae,1,1,1,1
 access_erups_emitten_consultant,erups-question.erups_emitten,model_erups_emitten,erups_question.group_erups_consultant,1,0,0,0
 access_erups_emitten_speaker,erups-question.erups_emitten,model_erups_emitten,erups_question.group_erups_speaker,1,0,0,0
 access_erups_emitten_notaris,erups-question.erups_emitten,model_erups_emitten,erups_question.group_erups_notaris,1,0,0,0
 
-access_erups_agenda_root,erups-question.erups_agenda,model_erups_agenda,base.group_system,1,1,1,1
+access_erups_root,erups-question.erups,model_erups,base.group_system,0,0,0,0
+access_erups_admin,erups-question.erups,model_erups,erups_question.group_erups_admin,1,1,1,1
+access_erups_bae,erups-question.erups,model_erups,erups_question.group_erups_bae,1,1,1,1
+access_erups_consultant,erups-question.erups,model_erups,erups_question.group_erups_consultant,1,0,0,0
+access_erups_speaker,erups-question.erups,model_erups,erups_question.group_erups_speaker,1,0,0,0
+access_erups_notaris,erups-question.erups,model_erups,erups_question.group_erups_notaris,1,0,0,0
+
+access_erups_agenda_root,erups-question.erups_agenda,model_erups_agenda,base.group_system,0,0,0,0
 access_erups_agenda_admin,erups-question.erups_agenda,model_erups_agenda,erups_question.group_erups_admin,1,1,1,1
 access_erups_agenda_bae,erups-question.erups_agenda,model_erups_agenda,erups_question.group_erups_bae,1,1,1,1
 access_erups_agenda_consultant,erups-question.erups_agenda,model_erups_agenda,erups_question.group_erups_consultant,1,0,0,0
 access_erups_agenda_speaker,erups-question.erups_agenda,model_erups_agenda,erups_question.group_erups_speaker,1,0,0,0
 access_erups_agenda_notaris,erups-question.erups_agenda,model_erups_agenda,erups_question.group_erups_notaris,1,0,0,0
 
-
-
+access_erups_shareholders_root,erups-question.erups_shareholders,model_erups_shareholders,base.group_system,0,0,0,0
+access_erups_shareholders_admin,erups-question.erups_shareholders,model_erups_shareholders,erups_question.group_erups_admin,1,1,1,1
 access_erups_shareholders_bae,erups-question.erups_shareholders,model_erups_shareholders,erups_question.group_erups_bae,1,1,1,1
 access_erups_shareholders_consultant,erups-question.erups_shareholders,model_erups_shareholders,erups_question.group_erups_consultant,1,0,0,0
 access_erups_shareholders_speaker,erups-question.erups_shareholders,model_erups_shareholders,erups_question.group_erups_speaker,1,0,0,0
 access_erups_shareholders_notaris,erups-question.erups_shareholders,model_erups_shareholders,erups_question.group_erups_notaris,1,0,0,0
 
-access_erups_question_root,erups-question.erups_question,model_erups_question,base.group_system,1,1,1,1
+access_erups_question_root,erups-question.erups_question,model_erups_question,base.group_system,1,0,0,0
 access_erups_question_admin,erups-question.erups_question,model_erups_question,erups_question.group_erups_admin,1,1,1,1
 access_erups_question_bae,erups-question.erups_question,model_erups_question,erups_question.group_erups_bae,1,1,1,1
 access_erups_question_consultant,erups-question.erups_question,model_erups_question,erups_question.group_erups_consultant,1,0,0,0
 access_erups_question_speaker,erups-question.erups_question,model_erups_question,erups_question.group_erups_speaker,1,0,0,0
 access_erups_question_notaris,erups-question.erups_question,model_erups_question,erups_question.group_erups_notaris,1,0,0,0
 
-access_erups_evoting_root,erups-question.erups_evoting,model_erups_evoting,base.group_system,1,1,1,1
+access_erups_evoting_root,erups-question.erups_evoting,model_erups_evoting,base.group_system,1,0,0,0
 access_erups_evoting_admin,erups-question.erups_evoting,model_erups_evoting,erups_question.group_erups_admin,1,1,1,1
 access_erups_evoting_bae,erups-question.erups_evoting,model_erups_evoting,erups_question.group_erups_bae,1,1,1,1
-access_erups_evoting_consultant,erups-question.erups_evoting,model_erups_evoting,erups_question.group_erups_consultant,1,0,0,0
+access_erups_evoting_consultant,erups-question.erups_evoting,model_erups_evoting,erups_question.group_erups_consultant,0,0,0,0
 access_erups_evoting_speaker,erups-question.erups_evoting,model_erups_evoting,erups_question.group_erups_speaker,1,0,0,0
 access_erups_evoting_notaris,erups-question.erups_evoting,model_erups_evoting,erups_question.group_erups_notaris,1,0,0,0
 
-access_erups_registrasi_root,erups-question.erups_registrasi,model_erups_registrasi,base.group_system,1,1,1,1
+access_erups_registrasi_root,erups-question.erups_registrasi,model_erups_registrasi,base.group_system,1,0,0,0
 access_erups_registrasi_admin,erups-question.erups_registrasi,model_erups_registrasi,erups_question.group_erups_admin,1,1,1,1
 access_erups_registrasi_bae,erups-question.erups_registrasi,model_erups_registrasi,erups_question.group_erups_bae,1,1,1,1
 access_erups_registrasi_consultant,erups-question.erups_registrasi,model_erups_registrasi,erups_question.group_erups_consultant,1,0,0,0

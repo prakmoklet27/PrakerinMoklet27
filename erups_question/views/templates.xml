@@ -6,13 +6,16 @@
 				<header class="row mx-1 d-flex align-items-left justify-content-left my-4">
 					<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
 				</header>
+				<!-- <nav class="navbar fixed-top navbar-light bg-light" style="height:170px">
+  					<img class="img-fluid" style="margin-top: 40px;width: 100px;" src="/erups_question/static/src/img/logo.png"/>
+				</nav> -->
 			</xpath>
 
 			<xpath expr="//div[@id='wrapwrap']/footer" position="replace">
 				<footer class="page-footer text-center text-md-left pt-0">
 					<div class="footer-copyright text-center py-3">
 						<div class="container-fluid" style="margin-top: 50px">
-							© 2020<a href="https://www.telkomsigma.co.id/" target="_blank" style="color:white; text-align:center;">telkomsigma.co.id</a>Hak Cipta Dilindungi Undang-Undang.
+							© 2020<a href="https://www.telkomsigma.co.id/" target="_blank" style="color:grey; text-align:center;">telkomsigma.co.id</a>Hak Cipta Dilindungi Undang-Undang.
 						</div>
 					</div>
 				</footer>
@@ -131,12 +134,12 @@
 						</div>
 					<t t-if="user">
 						<div class="col-sm-10 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<a href="/logout" type="button" class="btn btn-secondary">Logout</a>&amp;nbsp;&amp;nbsp;
+							<a href="/logout" type="button" class="btn btn-secondary" >Logout</a>&amp;nbsp;&amp;nbsp;
 						</div>
 					</t>
 					<t t-else="">
 						<div class="col-sm-10 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0">
-							<a href="/login" type="button" class="btn btn-secondary">Login</a>&amp;nbsp;&amp;nbsp;
+							<a href="/login" type="button" class="btn btn-secondary" >Login</a>&amp;nbsp;&amp;nbsp;
 						</div>
 					</t>
 					</div>
@@ -151,7 +154,7 @@
 												<div class="col-8">
 													<p><t t-esc="e.name"/></p>
 													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;Jum'at, 19 Juni 2020</p> -->
-													<p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p>
+													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p> -->
 													<p><span class="fa fa-map-marker"></span>&amp;nbsp; AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
@@ -248,7 +251,7 @@
 												<div class="col-8">
 													<p><t t-esc="e.name"/></p>
 													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;Jum'at, 19 Juni 2020</p> -->
-													<p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p>
+													<!-- <p><span class="fa fa-calendar"></span>&amp;nbsp;<t t-esc="e.event_date.strftime('%A, %d %B %Y')"/></p> -->
 													<p><span class="fa fa-map-marker"></span>&amp;nbsp;AUDITORIUM TELKOM LANDMARK TOWER &lt;br&gt; JL. JENDERAL GATOT SUBROTO KAV.52, JAKARTA </p>
 												</div>
 												<div class="col-4 d-flex align-items-center justify-content-center">
@@ -310,7 +313,7 @@
 							<img class="img-fluid" src="/erups_question/static/src/img/logo.png"/>
 						</div> -->
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 d-flex align-items-center border border-bottom-0 border-right-0 border-top-0" style="margin-right: 150px;">
-							<h2 style="color:black;font-weight:bold; font-family: Montserrat;">Form Pertanyaan</h2>
+							<h2 style="color:black;font-weight:bold; font-family: Montserrat; ">Form Pertanyaan</h2>
 						</div>
 					</div>
 					
@@ -761,39 +764,36 @@
 
 		<template id="register" name="Form Register">
 			<t t-call="website.layout">
-				<img class="wave" style="max-width:100%;height:100%;position:absolute;" src="/erups_question/static/src/img/backxl.gif"/>
+				<img class="wave" style="max-width:100%;height:100%;position:absolute;" src="/erups_question/static/src/img/backxxl.gif"/>
 				<div class="container_register">
 					<div class="imgBG">
 					</div>
 					<div class="register-content">
 						<form class="oe_register_form" role="form" id="registrasiForm" action="" method="post">
 							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-							<img style="border-radius:50%; border-image: blue; width:100px" src="/erups_question/static/src/img/user.png"/>
+							<img style="border-radius:50%; border-image: blue; width:70px; " src="/erups_question/static/src/img/user.png"/>
 							<!-- <div class="card" style="margin-right:500px; width: 37rem;"> -->
 							<!-- <div class="card-header"> -->
 								<br></br>
-								<h2 style="font-family: Montserrat; margin-bottom:50px;" >REGISTER</h2>
+								<h2 style="font-family: Montserrat; margin-bottom:50px; font-size:35px;" >REGISTER</h2>
 							<!-- </div> -->
 							<!-- <div class="card-body"> -->
-								<!-- <div class="form-group">
+
+								<div class="form-group" style="margin-top: -30px;">
 								<label style="float:left;color:black;font-family: Montserrat;">Emitten</label>
-								<select class="form-control" id="emittenselect" name="emitten_id" required="" style="width:100% !important">
-									<t t-foreach="emitten" t-as="e">
-									<option style="width:100% !important" class="text-body" t-attf-value="e.id"><t t-esc="e.name"/></option>
-									</t>
+								<select class="form-control" onchange="tambahemit(event)" id="emitten_id" name="emitten_id" required="" style="width:100% !important">
 								</select>
 								</div>
+
 								<div class="form-group">
 								<label style="float:left;color:black;font-family: Montserrat;">Kegiatan</label>
-								<select class="form-control" id="erups" name="name" required="" style="width:100% !important">
-									<t t-foreach="erups" t-as="e">
-									<option style="width:100% !important" class="text-body" t-attf-value="e.id"><t t-esc="e.name"/></option>
-									</t>
+								<select class="form-control" id="erups_id" name="erups_id" required="" style="width:100% !important">
 								</select>
-								</div> -->
+								</div>
+
 								<div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">Tipe Registrasi</label>
- 			          		   		<select class="form-control link-style" name="tipe_registrasi" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
+ 			          		   		<select class="form-control link-style" id="tipe_registrasi" name="tipe_registrasi" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
 										<option style="width:100% !important" class="text-body" value="">Perorangan/Individu</option>
 										<option style="width:100% !important" class="text-body" value="perorangan">Perorangan</option>
 										<option style="width:100% !important" class="text-body" value="individu">Individu</option>	
@@ -801,35 +801,35 @@
 								</div>
  			          		   <div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">No.SID</label>
- 			          		   		<input type="text" class="form-control" name="no_sid" required="" minlength="13" maxlength="13"/>
+ 			          		   		<input type="text" class="form-control" id="no_sid" name="no_sid" required="" minlength="13" maxlength="13"/>
   			         		   </div>
 								<div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">NO. KTP</label>
- 			          		   		<input type="text" class="form-control" name="no_ktp" required=""/>
+ 			          		   		<input type="text" class="form-control" id="no_ktp" name="no_ktp" required=""/>
   			         		   </div>
  			          		   <div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">Nama Pemegang Saham</label>
- 			          		   		<input type="text" class="form-control" name="name" required=""/>
+ 			          		   		<input type="text" class="form-control" id="name" name="name" required=""/>
   			         		   </div>
 								<div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">Alamat</label>
- 			          		   		<input type="text" class="form-control" name="alamat" required=""/>
+ 			          		   		<input type="text" class="form-control" id="alamat" name="alamat" required=""/>
   			         		   </div>
 								<div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">Jumlah Saham</label>
- 			          		   		<input type="text" class="form-control" name="jumlah_saham" required=""/>
+ 			          		   		<input type="text" class="form-control" id="jumlah_saham" name="jumlah_saham" required=""/>
   			         		   </div>
 								<div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">NO. Mobile</label>
- 			          		   		<input type="text" class="form-control" name="no_mobile" required=""/>
+ 			          		   		<input type="text" class="form-control" id="no_mobile" name="no_mobile" required=""/>
   			         		   </div>
  			          		   <div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">Email</label>
- 			          		 		<input type="email" class="form-control" name="email" required=""/>
+ 			          		 		<input type="email" class="form-control" id="email" name="email" required=""/>
   			         		   </div>
 								<div class="form-group">
 									<label style="float:left;color:black;font-family: Montserrat;">Kehadiran</label>
- 			          		   		<select class="form-control link-style" name="kehadiran" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
+ 			          		   		<select class="form-control link-style" id="kehadiran" name="kehadiran" required="" style="margin-top:40px; width:100% !important" onchange="yesnoCheck(this);">
 										<option style="width:100% !important" class="text-body" value="">Pilihan Suara</option>
 										<option style="width:100% !important" class="text-body" value="langsung">Secara Langsung</option>
 										<option style="width:100% !important" class="text-body" value="online">Online</option>	
@@ -838,8 +838,16 @@
 								</div>
 							<div id="ifYes" style="display: none;margin-top:10px;" class="input-div kehadiran">
 								<div class="form-group">
-									<label style="float:left;color:black;font-family: Montserrat;">Penerima Kuasa</label>
+									<label style="float:left;color:black;font-family: Montserrat;">Nama Penerima Kuasa</label>
 								 	<input id="penerima_kuasa" type="text" class="form-control" name="penerima_kuasa" style="margin-top:20px;"/><br />
+								</div>
+								<div class="form-group" style="margin-top:30px">
+									<label style="float:left;color:black;font-family: Montserrat;">No. KTP</label>
+								 	<input id="noktp" type="text" class="form-control" name="noktp" style="margin-top:20px;"/><br />
+								</div>
+								<div class="form-group" style="margin-top:30px">
+									<label style="float:left;color:black;font-family: Montserrat;">No. Mobile</label>
+								 	<input id="nomobel" type="text" class="form-control" name="nomobel" style="margin-top:20px;"/><br />
 								</div>
 								<div style="margin-bottom:-30px;margin-top:5px;">
 									<label style="margin-top:15px;font-family: Montserrat;">Download Form:</label>
@@ -858,26 +866,35 @@
 								</div>
 							</div>
   			          		<div class="modal-footer" style="margin-top:100px;">
-								<button type="submit" class="btn btn-block" style="margin-left:20px; background:#3226FE; color:white; border-radius:30px">Register</button>&amp;nbsp;&amp;nbsp;
-								<a href="/login" type="button" class="btn btn-block" style="margin-bottom:10px; background:#99DCFC; color:black; border-radius:30px">Batal</a>&amp;nbsp;&amp;nbsp;
+								<button type="submit" class="btn btn-block" style="margin-left:-70px; background:#3226FE; color:white; border-radius:30px; width:150px;" id="submit">Register</button>&amp;nbsp;&amp;nbsp;
+								<a href="/login" type="button" class="btn btn-block" style="margin-bottom:10px; background:#99DCFC; color:black; border-radius:30px; width:150px;">Batal</a>&amp;nbsp;&amp;nbsp;
 							</div>
-							<!-- </div>
-							</div> -->
+							<!-- <script>
+							var tekmit = <t t-foreach="emitten" t-as="e"> <t t-esc="e.id"/>-<t t-esc="e.name"/>,</t>
+							console.log(tekmit)
+							</script> -->
   			          </form>
-						<!-- <script>
-						var result = '<t t-esc="emitten"/>';
-						console.log(result);
-						</script>
-						<script> -->
-						<script>
-							<![CDATA[
-					$("#registrasiForm").submit(function(event) {
-						console.log("Tes")
-						event.preventDefault();
-						var data    = $('#registrasiForm').serialize();                
+					<div class="modal fade" id="pesanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi Data</h5>
+							</div>
+							<div class="modal-body">
+							</div>
+							<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+							<button type="button" class="btn btn-primary" id="submit2">Daftar</button>
+							</div>
+						</div>
+						</div>
+					</div>
+					<script>
+					<![CDATA[
+					function send(){      
 						$.ajax({
 							type: "POST",
-							data: data,
+							data: $('#registrasiForm').serialize(),
 							url: "/register/save",
 							success: function(toni) {
 								console.log(toni)
@@ -897,7 +914,62 @@
 							}
 							}
 						});
+					}
+					$('#submit2').on('click', function(e){
+						send()
+					}); 
+							$('#submit').on('click', function(e){
+								e.preventDefault();
+								const   emitten_id = $('#emitten_id').text(),
+										erups_id = $('#erups_id').text(),
+										tipe_registrasi = $('#tipe_registrasi').val(),
+										no_sid = $('#no_sid').val(),
+										no_ktp = $('#no_ktp').val(),
+										name = $('#name').val(),
+										alamat = $('#alamat').val(),
+										jumlah_saham = $('#jumlah_saham').val(),
+										no_mobile = $('#no_mobile').val(),
+										email = $('#email').val(),
+										kehadiran = $('#kehadiran').val()
+								$("#pesanModal .modal-body" ).html('<p>Emitten : '+emitten_id+' </p><br><p>Kegiatan : '+erups_id+' </p><br><p>Tipe Registrasi : '+tipe_registrasi+' </p><br><p>No. SID : '+no_sid+' </p><br><p>No. KTP : '+no_ktp+' </p><br><p>Nama Pemegang Saham : '+name+' </p><br><p>Alamat : '+alamat+' </p><br><p>Jumlah Saham : '+jumlah_saham+' </p><br><p>No. Mobile : '+no_mobile+' </p><br><p>Email : '+email+' </p><br><p>Kehadiran : '+kehadiran+' </p><br>');
+								$('#pesanModal').modal('show');
+							});
+					$.ajax({ 
+						type: 'GET', 
+						url: 'http://localhost:8069/getemit',
+						dataType: 'json',
+						success: function (data) { 
+							var dataEmit = data.array
+							var options = "";
+
+							for(var ex = 0 ; ex < data.array.length; ex++){
+								options += "<option style='width:100% !important' class='text-body' value='"+dataEmit[ex].id[0]+"'>"+ dataEmit[ex].nama[0] +"</option>";
+
+							}
+							document.getElementById("emitten_id").innerHTML = options;
+						}
 					});
+					function tambahemit(a){
+					var datakegs = a.target.value
+					$.ajax({ 
+						type: 'GET', 
+						url: 'http://localhost:8069/getkeg',
+						dataType: 'json',
+						success: function (data) { 
+							var dataKeg = data.array
+							var options = "";
+							for(var ex = 0 ; ex < data.array.length; ex++){
+								
+								if(datakegs == dataKeg[ex].idemit[0]){
+									options += "<option style='width:100% !important' class='text-body' value='"+dataKeg[ex].id_k[0]+"'>"+ dataKeg[ex].name[0] +"</option>";	
+								}
+							}
+							document.getElementById("erups_id").innerHTML = options;
+						}
+					});
+					console.log(a.target.value)
+					}
+					
 				]]>
 						</script>
   			      </div>
@@ -922,11 +994,11 @@
 				<div class="container_login">
 					<div class="imgBG">
 					</div>
-							<div style="margin-top:-300px;" class="login-content">
+							<div style="margin-top:-200px;" class="login-content">
 								<form class="oe_login_form" role="form" id="loginForm" method="post" onsubmit="this.action = this.action + location.hash" action="/login_check">
 									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>	
-									<img style="border-radius:50%; border-image: blue" src="/erups_question/static/src/img/orang.png"/>
-									<h2 style="font-family: Montserrat;" class="title">Welcome</h2><br />
+									<img style="border-radius:50%; border-image: blue; width:120px; height:80px;" src="/erups_question/static/src/img/orang.png"/>
+									<h2 style="font-family: Montserrat;font-size:35px;" class="title">Welcome</h2><br />
 									<div class="form-group">
 										<label style="float:left;font-family: Montserrat;">Email</label>
 										<input type="email" class="form-control" id="email" name="email"/>
@@ -1104,7 +1176,7 @@
                 		</div>
 						<form class="oe_reset_password_form" role="form" method="post" t-if="not message" id="reset">
                   				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-							<div class="card" style="margin-left:-60px; width: 25rem; border-radius: 30px">
+							<div class="card" style="margin-left:100px; width: 25rem; border-radius: 30px;">
 							<div class="card-body">
                         	<div class="form-group field-login">
                        	     <label class="col-form-label">Email Anda</label>
@@ -1162,11 +1234,11 @@
 				<div class="container">
 						<div class="row mx-1 d-flex align-items-center justify-content-center my-4">
 						</div>
-						<form id="evotingForm" action="" method="post">
+						<form id="evotingForm" action="" method="post" >
 							<input type="hidden" name="voting_id" t-att-value="evoting.id" />
 							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 							<div class="row mx-1 d-flex align-items-center justify-content-center">
-								<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
+								<div class="card mt-4 col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12" >
 									<div class="card-body">
 										<!-- <div class="row">
 											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -1217,7 +1289,7 @@
 													<br/><br/>
 													<div class="row">
 													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-														<table class="table table-bordered table-striped" width="100%">
+														<table class="table table-bordered table-striped" width="100%" style="margin-top:-40px;">
 															<thead>
 															<tr>
 															<th width="6%">No</th>

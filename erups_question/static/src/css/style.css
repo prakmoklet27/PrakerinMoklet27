@@ -146,20 +146,20 @@ body.modal-open {
 }
 
 .container_reset {
-	width: 100vw;
-	height: 100vh;
+	width: 10vw;
+	height: 85vh;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 7rem;
 	padding: 0 2rem;
 	margin-left: 350px;
 	margin-top: -140px;
-	margin-bottom: -100px;
+	/* hehe */
 }
 
 .container_register {
 	width: 100vw;
-	height: 225vh;
+	height: 235vh;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 7rem;

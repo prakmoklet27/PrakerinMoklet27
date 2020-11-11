@@ -92,7 +92,18 @@
         </field>
     </record>
 
-    <record id="erups_emitten_action" model="ir.actions.act_window">
+    <!-- <record id="erups_emitten_action" model="ir.actions.act_window">
+        <field name="name">Emitten</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups_emitten</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('emitten_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('emitten_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('emitten_view_form')})]"/>
+    </record> -->
+
+    <record id="erups_emitten_admin_action" model="ir.actions.act_window">
         <field name="name">Emitten</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">erups_emitten</field>
@@ -123,67 +134,16 @@
             <kanban default_order='emitten_id desc, kegiatan_num asc'>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_card oe_kanban_global_click">
-                            <div class="o_kanban_record_top mb16">
-                                <div class="o_kanban_record_headings mt4">
-                                    <strong class="o_kanban_record_title"><span><field name="name"/></span></strong>
-                                </div>  
-                                <!-- <strong><field name="total_question"/> pertanyaan</strong> -->
-                            </div>
-                            <div>
-                                <strong>BAE</strong>
-                            </div>
-                            <div class="o_kanban_record_top" style="margin-bottom:-2px;">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title"><span>Pertanyaan Valid</span></strong>
-                                </div>
-                                <!-- <span><field name="total_question_valid"/> pertanyaan</span> -->
-                            </div>
-                            <div class="o_kanban_record_top" style="margin-bottom:-2px;">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title"><span>Pertanyaan Tidak Valid</span></strong>
-                                </div>
-                                <!-- <span><field name="total_question_not_valid"/> pertanyaan</span> -->
-                            </div>
-
-<!--                            <div class="mt4">-->
-<!--                                <strong>Notaris</strong>-->
-<!--                            </div>-->
-<!--                            <div class="o_kanban_record_top" style="margin-bottom:-2px;">-->
-<!--                                <div class="o_kanban_record_headings">-->
-<!--                                    <strong class="o_kanban_record_title"><span>Pertanyaan Relevan</span></strong>-->
-<!--                                </div>-->
-<!--                                <span><field name="total_notaris_relevan"/> pertanyaan</span>-->
-<!--                            </div>-->
-<!--                            <div class="o_kanban_record_top" style="margin-bottom:-2px;">-->
-<!--                                <div class="o_kanban_record_headings">-->
-<!--                                    <strong class="o_kanban_record_title"><span>Pertanyaan Tidak Relevan</span></strong>-->
-<!--                                </div>-->
-<!--                                <span><field name="total_consultant_not_relevan"/> pertanyaan</span>-->
-<!--                            </div>-->
-
-                            <div class="mt4">
-                                <strong>Konsultan Hukum</strong>
-                            </div>
-                            <div class="o_kanban_record_top" style="margin-bottom:-2px;">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title"><span>Pertanyaan Relevan</span></strong>
-                                </div>
-                                <!-- <span><field name="total_consultant_relevan"/> pertanyaan</span> -->
-                            </div>
-                            <div class="o_kanban_record_top" style="margin-bottom:-2px;">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title"><span>Pertanyaan Tidak Relevan</span></strong>
-                                </div>
-                                <!-- <span><field name="total_consultant_not_relevan"/> pertanyaan</span> -->
-                            </div>
-
-                            <div class="o_kanban_record_top mt16" style="margin-bottom:-2px;">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title"><span>Pertanyaan Valid dan Relevan</span></strong>
-                                </div>
-                                <!-- <strong><field name="total_question_relevan"/> pertanyaan</strong> -->
-                            </div>
+                        <div class="oe_kanban_global_click">
+                            <strong class="o_kanban_record_title">
+                                <field name="name"/>
+                            </strong>
+                            <!-- <div>Jumlah Kegiatan: <field name="total_kegiatan"/></div> -->
+                            <!-- <div>Jumlah Agenda: <field name="total_agenda"/></div> -->
+                            <!-- <div>Jumlah Pertanyaan: <field name="total_question"/></div>
+                            <div>Jumlah Pertanyaan Valid: <field name="total_question_valid"/></div>
+                            <div>Jumlah Pertanyaan Valid dan Relevan: <field name="total_question_relevan"/></div> -->
+<!--                            <div>Jumlah Pertanyaan Dipilih: <field name="total_question_verified"/></div>-->
                         </div>
                     </t>
                 </templates>
@@ -259,64 +219,34 @@
                             </tree>
                         </field>
                     </group>
-                    <!-- <group>
-                        <field name="total_question"/>
-                        <field name="total_question_relevan"/>
-                    </group>
-                    <notebook>
-                        <page name="speaker_question" string="Daftar Pertanyaan Terpilih">
-                            <field name="speaker_question_ids">
-                                <kanban default_order="status desc">
-                                    <templates>
-                                        <t t-name="kanban-box">
-                                            <div style="white-space: pre-line;">
-                                                <field name="status" widget="label_selection" options="{'classes': {'speaker': 'success'}}"/>
-                                                <strong>Nama Penanya:</strong> <field name="name"/>
-                                                <strong>Pertanyaan:</strong> <br/><field name="question"/>
-                                            </div>
-                                        </t>
-                                    </templates>
-                                </kanban>
-
-                            </field>
-                        </page>
-                        <page name="relevan_question" string="Daftar Pertanyaan Relevan">
-                            <field name="relevan_question_ids">
-                                <kanban default_order="status desc">
-                                    <templates>
-                                        <t t-name="kanban-box">
-                                            <div style="white-space: pre-line;">
-                                                <field name="status" widget="label_selection" options="{'classes': {'speaker': 'success'}}"/>
-                                                <strong>Nama Penanya:</strong> <field name="name"/>
-                                                <strong>Pertanyaan:</strong> <br/><field name="question"/>
-                                            </div>
-                                        </t>
-                                    </templates>
-                                </kanban>
-
-                            </field>
-                        </page>
-                        <page name="all_question" string="Daftar Semua Pertanyaan">
-                            <field name="question_ids">
-                                <tree string="Daftar Pertanyaan">
-                                    <field name="registration_number"></field>
-                                    <field name="name"></field>
-                                    <field name="authority_holder"></field>
-                                    <field name="share_count"></field>
-                                    <field name="question"></field>
-                                    <field name="status" widget="label_selection"
-                                           options="{'classes': {'bae': 'info', 'consultant': 'primary', 'speaker': 'success',
-                                                    'consultant_reject': 'danger', 'bae_reject': 'danger'}}"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook> -->
                 </sheet>
             </form>
         </field>
     </record>
 
-    <record id="erups_action" model="ir.actions.act_window">
+    <!-- <record id="erups_action" model="ir.actions.act_window">
+        <field name="name">Daftar Kegiatan RUPS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('erups_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('erups_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('erups_view_form')})]"/>
+    </record> -->
+
+    <record id="erups_admin_action" model="ir.actions.act_window">
+        <field name="name">Daftar Kegiatan RUPS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('erups_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('erups_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('erups_view_form')})]"/>
+    </record>
+
+    <record id="erups_bae_action" model="ir.actions.act_window">
         <field name="name">Daftar Kegiatan RUPS</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">erups</field>
@@ -505,7 +435,29 @@
         </field>
     </record>
 
-    <record id="erups_agenda_action" model="ir.actions.act_window">
+    <!-- <record id="erups_agenda_action" model="ir.actions.act_window">
+        <field name="name">Agenda</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups_agenda</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('agenda_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('erups_agenda_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('agenda_view_form')})]"/>
+    </record> -->
+
+    <record id="erups_agenda_admin_action" model="ir.actions.act_window">
+        <field name="name">Agenda</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups_agenda</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('agenda_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('erups_agenda_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('agenda_view_form')})]"/>
+    </record>
+
+    <record id="erups_agenda_bae_action" model="ir.actions.act_window">
         <field name="name">Agenda</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">erups_agenda</field>
@@ -579,6 +531,7 @@
     </record>
 
     <!-- PEMEGANGSAHAM -->
+
     <record id="shareholders_view_kanban" model="ir.ui.view">
         <field name="name">Statistic Shareholders</field>
         <field name="model">erups_shareholders</field>
@@ -590,6 +543,8 @@
                         <div class="oe_kanban_global_click">
                             <strong class="o_kanban_record_title">
                                 <field name="name"/>
+                                <field name="alamat"/>
+                                <field name="saham"/>
                             </strong>
                         </div>
                     </t>
@@ -604,6 +559,8 @@
         <field name="arch" type="xml">
             <tree string="Shareholders">
                 <field name="name"/>
+                <field name="alamat"/>
+                <field name="saham"/>
             </tree>
         </field>
     </record>
@@ -615,7 +572,9 @@
             <form string="Shareholders">
                 <sheet>
                     <group>
-                        <field name="name" string="Shareholders"/>
+                        <field name="name" string="Nama"/>
+                        <field name="alamat" string="Alamat"/>
+                        <field name="saham" string="Jumlah Saham"/>
                     </group>
                 </sheet>
             </form>
@@ -632,6 +591,17 @@
             (0, 0, {'view_mode': 'kanban', 'view_id': ref('shareholders_view_kanban')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('shareholders_view_form')})]"/>
     </record> -->
+
+    <record id="erups_shareholders_admin_action" model="ir.actions.act_window">
+        <field name="name">Shareholders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups_shareholders</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('shareholders_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('shareholders_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('shareholders_view_form')})]"/>
+    </record>
 
     <record id="erups_shareholders_bae_action" model="ir.actions.act_window">
         <field name="name">Shareholders</field>
@@ -873,8 +843,8 @@
             <field name="model">erups_registrasi</field>
             <field name="arch" type="xml">
                 <tree string="Daftar Registrasi">
-                    <!-- <field name="emitten_id" string="Emitten"/>
-                    <field name="kegiatan_id" string="Kegiatan"/> -->
+                    <field name="emitten_id" string="Emitten"/>
+                    <field name="erups_id" string="Kegiatan"/>
                     <field name="tipe_registrasi" string="Tipe Registrasi"/>
                     <field name="no_sid" string="NO.SID"/>
                     <field name="no_ktp" string="NO.KTP"/>
@@ -887,6 +857,8 @@
                     <field name="nomor_registrasi" string="Nomor Registrasi"/>
                     <field name="password" string="Password"/>
                     <field name="penerima_kuasa" string="Penerima Kuasa"/>
+                    <field name="noktp" string="No. KTP"/>
+                    <field name="nomobel" string="No. Mobile"/>
                     <field name="myfile" string="File"/>
                 </tree>
             </field>
@@ -898,26 +870,34 @@
         <field name="res_model">erups_registrasi</field>
         <field name="view_mode">tree,form,kanban</field>
     </record>
+    <record id="erups_registrasi_admin_action" model="ir.actions.act_window">
+        <field name="name">Registrasi</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">erups_registrasi</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
     
     <menuitem id="erups_root" name="RUPS" sequence="1"/>
-
-    <menuitem id="erups_emitten_menu" name="Emitten" parent="erups_root" action="erups_emitten_action" sequence="20"
+    
+    <menuitem id="erups_emitten_admin_menu" name="Emitten" parent="erups_root" action="erups_emitten_admin_action" sequence="20"
         groups="base.group_system,erups_question.group_erups_admin"/>
     <menuitem id="erups_emitten_bae_menu" name="Emitten" parent="erups_root" action="erups_emitten_bae_action" sequence="20"
         groups="base.group_system,erups_question.group_erups_bae"/>
 
-    <menuitem id="erups_erups_menu" name="Kegiatan RUPS" parent="erups_root" action="erups_action" sequence="10"
+    <menuitem id="erups_erups_admin_menu" name="Kegiatan RUPS" parent="erups_root" action="erups_admin_action" sequence="10"
         groups="base.group_system,erups_question.group_erups_admin"/>
-    <menuitem id="erups_erups_menu" name="Kegiatan RUPS" parent="erups_root" action="erups_action" sequence="10"
+    <menuitem id="erups_erups_bae_menu" name="Kegiatan RUPS" parent="erups_root" action="erups_bae_action" sequence="10"
         groups="base.group_system,erups_question.group_erups_bae"/>
 
-    <menuitem id="erups_agenda_menu" name="Agenda" parent="erups_root" action="erups_agenda_action" sequence="20"
+    <menuitem id="erups_agenda_admin_menu" name="Agenda" parent="erups_root" action="erups_agenda_admin_action" sequence="20"
         groups="base.group_system,erups_question.group_erups_admin"/>
-    <menuitem id="erups_agenda_menu" name="Agenda" parent="erups_root" action="erups_agenda_action" sequence="20"
+    <menuitem id="erups_agenda_bae_menu" name="Agenda" parent="erups_root" action="erups_agenda_bae_action" sequence="20"
         groups="base.group_system,erups_question.group_erups_bae"/>
     <menuitem id="erups_agenda_speaker_menu" name="Agenda" parent="erups_root" action="erups_agenda_speaker_action" sequence="20"
         groups="erups_question.group_erups_speaker"/>
 
+    <menuitem id="erups_shareholders_admin_menu" name="Pemegang Saham" parent="erups_root" action="erups_shareholders_admin_action" sequence="20"
+        groups="base.group_system,erups_question.group_erups_admin"/>
     <menuitem id="erups_shareholders_bae_menu" name="Pemegang Saham" parent="erups_root" action="erups_shareholders_bae_action" sequence="20"
         groups="base.group_system,erups_question.group_erups_bae"/>
 

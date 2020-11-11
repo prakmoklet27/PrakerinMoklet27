@@ -7,6 +7,7 @@ import string
 class Emitten(models.Model):
     _name = "erups_emitten"
 
+    id = fields.Many2one('erups_emitten', ondelete='cascade', required=True)
     name = fields.Char(string='Emitten', required=True)
     agenda_ids = fields.One2many('erups_agenda', 'erups_id')
     # kegiatan_ids = fields.One2many('erups', 'erups_id')
@@ -33,6 +34,7 @@ class Emitten(models.Model):
 class Erups(models.Model):
     _name = 'erups'
 
+    id_k = fields.Many2one('erups', ondelete='cascade', required=True)
     emitten_id = fields.Many2one('erups_emitten', ondelete='cascade', required=True)
     name = fields.Char(string='Kegiatan',required=True)
     kegiatan_num = fields.Integer(string='No Urut')
@@ -316,6 +318,8 @@ class Shareholders(models.Model):
     _name = "erups_shareholders"
 
     name = fields.Char(string='Shareholders', required=True)
+    alamat = fields.Char(string='Alamat', required=True)
+    saham = fields.Char(string='Jumlah Saham', required=True)
 
 class Question(models.Model):
     _name = 'erups_question'
@@ -426,9 +430,9 @@ class Evoting(models.Model):
 class Registrasi(models.Model):
     _name = "erups_registrasi"
 
-    # kegiatan_id = fields.Char(string='Nama Kegiatan', required=True)
-    # emitten_id = fields.Many2one('erups_emitten', ondelete='cascade', required=True)
-    # erups_id = fields.Many2one('erups', ondelete='cascade', required=True)
+    emitten_id = fields.Many2one('erups_emitten', ondelete='cascade', required=True)
+    erups_id = fields.Many2one('erups', ondelete='cascade', required=True)
+    
     tipe_registrasi = fields.Selection([('perorangan','1'),
                                 ('individu','2')],
                                 string='Tipe Registrasi', required=True)
@@ -443,6 +447,8 @@ class Registrasi(models.Model):
                                 ('online','2'),('perwakilan','3')],
                                 string='Kehadiran', required=True)
     penerima_kuasa = fields.Char()
+    noktp = fields.Char()
+    nomobel = fields.Char()
     myfile = fields.Char()
     nomor_registrasi = fields.Char() 
     password = fields.Char()

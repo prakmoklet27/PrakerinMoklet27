@@ -81,6 +81,59 @@ class Erups(http.Controller):
         _logger.error(values)
         return request.render("erups_question.register", values)
 
+    @http.route('''/getemit''',type='http', auth='public', website=True)
+    def getemit(self, **params):
+
+        sql2 = "SELECT id FROM erups_emitten"
+        request.env[self._model_erups_emitten].sudo()._cr.execute(sql2)
+        id = request.cr.fetchall()
+
+        sql3 = "SELECT name FROM erups_emitten"
+        request.env[self._model_erups_emitten].sudo()._cr.execute(sql3)
+        nama = request.cr.fetchall()
+         
+        array = []
+
+        for i in range(len(id)):
+            array.append( {"id" : id[i] ,"nama" :  nama[i]})
+
+        output = {
+                    "array" : array,
+                 }
+        return json.dumps(output)
+
+    @http.route('''/getkeg''',type='http',auth='public', website=True)
+    def getkeg(self, **params):
+
+        sql2 = "SELECT id FROM erups"
+        request.env[self._model_erups].sudo()._cr.execute(sql2)
+        id_k = request.cr.fetchall()
+
+        sql3 = "SELECT name FROM erups"
+        request.env[self._model_erups].sudo()._cr.execute(sql3)
+        name = request.cr.fetchall()
+
+        sql4 = "SELECT emitten_id FROM erups"
+        request.env[self._model_erups].sudo()._cr.execute(sql4)
+        nama = request.cr.fetchall()
+         
+        array = []
+
+        for i in range(len(id_k)):
+            array.append({"id_k" : id_k[i] , "name" : name[i] , "idemit" : nama[i]})
+
+        output = {
+                    "array" : array,
+                    # id : 2
+                 }
+        return json.dumps(output) 
+        
+        
+        
+        
+        # _logger.error(output)
+        # return Response(values)
+
     @http.route('''/login''',type='http',auth='public', website=True)
     def login(self, **params):
         return request.render("erups_question.login", {})
@@ -144,49 +197,49 @@ class Erups(http.Controller):
 
         if "user" in session:
             user = request.session["user"]
-            if erups_id == None:
-                erups = http.request.env[self._model_erups].sudo().search([])
-                emitten = http.request.env[self._model_erups_emitten].sudo().search([])
-                values = {
-                    "user": user,
-                    "erups": erups,
-                    "emitten": emitten,
-                    "message": len(agendacheck),
-                }
-                return http.request.render('erups_question.erups', values)
+        if erups_id == None:
+            erups = http.request.env[self._model_erups].sudo().search([])
+            emitten = http.request.env[self._model_erups_emitten].sudo().search([])
+            values = {
+                "user": user,
+                "erups": erups,
+                "emitten": emitten,
+                "message": len(agendacheck),
+            }
+            return http.request.render('erups_question.erups', values)
                 
-            else:
-                sql1 = "SELECT * FROM erups WHERE id = '%s';" % (erups_id)
-                request.env[self._model_erups_question].sudo()._cr.execute(sql1)
-                res = request.cr.fetchall()
+        else:
+            sql1 = "SELECT * FROM erups WHERE id = '%s';" % (erups_id)
+            request.env[self._model_erups_question].sudo()._cr.execute(sql1)
+            res = request.cr.fetchall()
 
-                if len(res) > 0:
-                    erups = http.request.env[self._model_erups].sudo().search(
-                        [('id', '=', erups_id)])
-                    emitten = http.request.env[self._model_erups_emitten].sudo().search(
-                        [('id', '=', erups_id)])                        
-                    agenda = http.request.env[self._model_erups_agenda].sudo().search(
-                        [('erups_id', '=', erups_id),('status', '=', 'open')],order='id asc')
+            if len(res) > 0:
+                erups = http.request.env[self._model_erups].sudo().search(
+                    [('id', '=', erups_id)])
+                emitten = http.request.env[self._model_erups_emitten].sudo().search(
+                    [('id', '=', erups_id)])                        
+                agenda = http.request.env[self._model_erups_agenda].sudo().search(
+                    [('erups_id', '=', erups_id),('status', '=', 'open')],order='id asc')
                             
-                    if erups.status == 'close':
-                        url = '/formpertanyaan/'
-                        return http.request.redirect(url)
-                    else:
-                        values = {
-                            "erups": erups,
-                            "agenda": agenda,
-                            "message": len(questioncheck),
-                        }
-                        print(erups)
-                        return http.request.render('erups_question.form_question', values)
+                if erups.status == 'close':
+                    url = '/formpertanyaan/'
+                    return http.request.redirect(url)
                 else:
                     values = {
-                        "message":  'Kegiatan tidak ditemukan',
+                        "erups": erups,
+                        "agenda": agenda,
+                        "message": len(questioncheck),
                     }
-                    return http.request.render('erups_question.pagenotfound',values)
-        else:
-            url = '/login'
-            return http.request.redirect(url)
+                    print(erups)
+                    return http.request.render('erups_question.form_question', values)
+            else:
+                values = {
+                    "message":  'Kegiatan tidak ditemukan',
+                }
+                return http.request.render('erups_question.pagenotfound',values)
+        # else:
+        #     url = '/login'
+        #     return http.request.redirect(url)
         
 
     @http.route(['/formpertanyaan/save'], type='http', auth="public", methods=['POST'], website=True, csrf=True)
@@ -468,11 +521,14 @@ class Erups(http.Controller):
         hashed = bcrypt.hashpw(z.encode('utf-8'), bcrypt.gensalt())
 
         data = {
-            # "emitten_id": post['emitten_id'],
-            # "erups_id": post['erups_id'],
+            
+            "emitten_id": post['emitten_id'],
+            "erups_id": post['erups_id'],
             "tipe_registrasi": post['tipe_registrasi'],
             "no_sid" : post['no_sid'],
             "no_ktp" : post['no_ktp'],
+            "name" : post['name'],
+            "alamat" : post['name'],
             "name" : post['name'],
             "alamat" : post['alamat'],
             "jumlah_saham" : post['jumlah_saham'],
@@ -521,6 +577,22 @@ class Erups(http.Controller):
         sql8 = "SELECT * FROM erups_registrasi WHERE no_sid = '%s' ;"  % (data['no_sid'])
         request.env[self._model_erups_registrasi].sudo()._cr.execute(sql8)
         nosid = request.cr.fetchall()
+
+        self._model_erups = "erups"
+        self._model_erups_emitten = "erups_emitten"
+        self._model_erups_kegiatan = "erups_kegiatan"
+        self._model_erups_agenda = "erups_agenda"
+        self._model_erups_question = "erups_question"
+        self._model_erups_evoting = "erups_evoting"
+        self._model_erups_registrasi = "erups_registrasi"
+        self._model_erups_shareholders = "erups_shareholders"
+        
+        sql9 = "SELECT * FROM erups_shareholders WHERE name = '%s' ;" % (data['name'])
+        request.env[self._model_erups_shareholders].sudo()._cr.execute(sql9)
+        namo = request.cr.fetchall()
+
+        if len(namo) == 0:
+            return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Nama Pemegang Saham Belum Terdaftar" , 'type' : "warning" , 'intro' : "Registrasi Gagal"}}),content_type='application/json;charset=utf-8')
 
         if len(nosid) > 0 :
             return Response(json.dumps({'info':{'status' : 0 , 'pesan' : "Anda sudah mendaftar menggunakan NO SID ini ini" , 'type' : "warning" , 'intro' : "Registrasi Gagal"}}),content_type='application/json;charset=utf-8')
